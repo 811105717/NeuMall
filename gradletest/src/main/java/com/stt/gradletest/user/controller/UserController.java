@@ -28,6 +28,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 //update
+
     @Value("${NAME}")
     private String name;
     @Value("${CONTENT}")
