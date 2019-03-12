@@ -10,5 +10,4 @@ public class GradletestApplication {
     public static void main(String[] args) {
         SpringApplication.run(GradletestApplication.class, args);
     }
-//
 }
