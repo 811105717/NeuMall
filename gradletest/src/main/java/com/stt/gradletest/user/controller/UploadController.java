@@ -29,9 +29,9 @@ public class UploadController {
 
     @RequestMapping(value = "/index" , method = RequestMethod.GET)
     public String getIndex(){
+
+        int asd = 12;
         return "uploadTest";
     }
 
-
-    int asd = 12;
 }
