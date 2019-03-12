@@ -2,9 +2,13 @@ test
 0635
 hello
 intersting
+<<<<<<< HEAD
 public class sb(){
    int a=3;
    int b=5;
+}
+private class sb(){
   print("ssss");
 }
 sssss
+over
