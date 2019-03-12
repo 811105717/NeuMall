@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import  java.*;
 @RestController
 public class UserController {
     @Autowired
@@ -64,6 +65,7 @@ public class UserController {
      * 描述：略
      * 作成者：盛婷婷
      * 作成时间：2019/3/4
+     * 44554
      */
     @RequestMapping("/userList")
     public Map<String,Object> getUserList() {
@@ -138,4 +140,6 @@ public class UserController {
             throw new Exception(this.getClass()+"updateApplyPass() Exception:"+e);
         }
     }
+
+
 }
