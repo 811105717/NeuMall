@@ -14,7 +14,4 @@ public class GradletestApplicationTests {
         //改动
         //1
     }
-
-
-
 }
