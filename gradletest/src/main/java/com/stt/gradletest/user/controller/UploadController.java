@@ -32,4 +32,6 @@ public class UploadController {
         return "uploadTest";
     }
 
+    short aShort = 1;
+
 }
