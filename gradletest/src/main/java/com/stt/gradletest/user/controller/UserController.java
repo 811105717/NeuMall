@@ -138,4 +138,5 @@ public class UserController {
             throw new Exception(this.getClass()+"updateApplyPass() Exception:"+e);
         }
     }
+
 }
