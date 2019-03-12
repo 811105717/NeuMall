@@ -1,0 +1,17 @@
+test
+0635
+hello
+intersting
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+public class sb(){
+   int a=3;
+   int b=5;
+}
+private class sb(){
+  print("ssss");
+}
+sssss
+over
+>>>>>>> cd528545cdb70ee5d2a0f721c14c724e9830fe12
