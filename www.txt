@@ -3,7 +3,8 @@ test
 hello
 intersting
 public class sb(){
-
+   int a=3;
+   int b=5;
   print("ssss");
 }
 sssss
