@@ -2,7 +2,7 @@ test
 0635
 hello
 intersting
-public class sb(){
+private class sb(){
 
   print("ssss");
 }
