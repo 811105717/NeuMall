@@ -21,7 +21,7 @@ import javax.validation.Valid;
  * @Date: 2019/4/1
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("backend/user")
 @Slf4j
 @Api("用户管理")
 public class UserController {
