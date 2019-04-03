@@ -21,7 +21,7 @@ import javax.validation.Valid;
  * @Date: 2019/4/1
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("backend/user")
 @Slf4j
 @Api("用户管理")
 public class UserController {
@@ -106,7 +106,7 @@ public class UserController {
      * @Param：userInfo
      * @Return：com.neusoft.common.response.AppResponse
      */
-    @PostMapping("updatePwd")
+    @PutMapping("updatePwd")
     public AppResponse updatePwd(UserInfo userInfo) throws Exception {
         try {
             //获取用户id   TODO  应该从session中获取,暂时写死
