@@ -1,7 +1,0 @@
-rootProject.name = 'neusoftMall'
-include 'neuMall-eureka'
-include 'neuMall-gateway'
-include 'neuMall-common'
-include 'neuMall-admin'
-include 'neuMall-mall'
-
