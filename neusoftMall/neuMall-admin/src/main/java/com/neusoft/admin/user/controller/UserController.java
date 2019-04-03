@@ -118,5 +118,47 @@ public class UserController {
             throw new Exception("修改密码失败，请重试");
         }
     }
+    /**
+     * @Dept：南京软件研发中心
+     * @Description：修改用户
+     * @Author：shengtt
+     * @Date: 2019/4/3
+     * @Param：userInfo
+     * @Return：com.neusoft.common.response.AppResponse
+     */
+    @PutMapping("updateUser")
+    public AppResponse updateUser(UserInfo userInfo) throws Exception {
+        try {
+            //获取用户id   TODO  应该从session中获取,暂时写死
+            String userId = "stt";
+            userInfo.setLastModifiedBy(userId);
+            return userService.updateUser(userInfo);
+        } catch (Exception e) {
+            log.error("修改用户信息错误", e);
+            throw new Exception("系统错误，请重试");
+        }
+    }
 
+    /**
+     * @Dept：南京软件研发中心
+     * @Description：根据userUuid查询用户信息
+     * @Author：shengtt
+     * @Date: 2019/4/3
+     * @Param：userUuid
+     * @Return：com.neusoft.common.response.AppResponse
+     */
+    @GetMapping(value = "getUserByUserUuid/{userUuid}")
+    public AppResponse getUserByUserCode(@PathVariable("userUuid") String userUuid) throws Exception {
+        UserInfo userInfo = null;
+        try {
+            userInfo = userService.getUserById(userUuid);
+        } catch (Exception e) {
+            log.error("用户查询错误", e);
+            throw new Exception("查询错误，请重试");
+        }
+        if (userInfo == null) {
+            return AppResponse.notFound("无查询结果");
+        }
+        return AppResponse.success("查询成功", userInfo);
+    }
 }

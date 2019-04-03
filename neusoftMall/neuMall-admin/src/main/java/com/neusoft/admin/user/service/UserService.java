@@ -15,4 +15,8 @@ public interface UserService {
     AppResponse deleteUser(UserBatchVO userInfo);
 
     AppResponse updatePwd(UserInfo userInfo) throws UnsupportedEncodingException;
+
+    AppResponse updateUser(UserInfo userInfo);
+
+    UserInfo getUserById(String userUuid);
 }

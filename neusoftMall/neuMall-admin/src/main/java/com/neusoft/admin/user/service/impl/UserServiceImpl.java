@@ -127,4 +127,38 @@ public class UserServiceImpl implements UserService {
         }
         return appResponse;
     }
+
+    /**
+     * @Dept：南京软件研发中心
+     * @Description：修改用户
+     * @Author：shengtt
+     * @Date: 2019/4/3
+     * @Param：userInfo
+     * @Return：com.neusoft.common.response.AppResponse
+     */
+    @Override
+    public AppResponse updateUser(UserInfo userInfo) {
+        AppResponse appResponse = AppResponse.success("修改成功");
+        // 修改用户信息
+        int count = userDao.updateUser(userInfo);
+        if (0 == count) {
+            appResponse = AppResponse.versionError("数据有变化，请刷新！");
+            return appResponse;
+        }
+        // 新增用部门
+        return appResponse;
+    }
+
+    /**
+     * @Dept：南京软件研发中心
+     * @Description：根据userUuid查询用户信息
+     * @Author：shengtt
+     * @Date: 2019/4/3
+     * @Param：userUuid
+     * @Return：com.neusoft.common.response.AppResponse
+     */
+    @Override
+    public UserInfo getUserById(String userUuid) {
+        return userDao.getUserById(userUuid);
+    }
 }

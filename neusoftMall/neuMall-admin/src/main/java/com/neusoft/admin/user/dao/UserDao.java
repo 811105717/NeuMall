@@ -66,5 +66,13 @@ public interface UserDao {
      * @Return：int
      */
     int updateUserPwd(UserInfo userInfo);
-
+    /**
+     * @Dept：南京软件研发中心
+     * @Description：修改用户
+     * @Author：shengtt
+     * @Date: 2019/4/3
+     * @Param：userInfo
+     * @Return：com.neusoft.common.response.AppResponse
+     */
+    int updateUser(UserInfo userInfo);
 }
