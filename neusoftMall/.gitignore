@@ -1,0 +1,18 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+### Maven template
+/target
+
+### for IDEA
+/.idea/
+/*.iml
+
+### for Eclipse
+/.settings
+/.classpath
+/.project
