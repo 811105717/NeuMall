@@ -31,3 +31,5 @@ dependencies {
             'io.springfox:springfox-swagger-ui:2.8.0'
 
 }
+
+jar.enabled=true
