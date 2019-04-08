@@ -1,10 +1,10 @@
-package com.neusoft.xiaobai;
+package com.neusoft.mall;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @Author: xiaobai
+ * @Author: mall
  * @Date: 2019/4/8 16:27
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
