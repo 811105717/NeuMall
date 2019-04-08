@@ -5,6 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
+/**
+ * @ClassName: NeuMallGatewayApplication
+ * @Description: 启动类
+ * @Author: xiaobai
+ * @Date: 2019/4/8
+ */
+
 @SpringBootApplication
 @EnableEurekaClient
 @EnableZuulProxy
