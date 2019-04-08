@@ -22,6 +22,8 @@ logging:
   level:
     com.neusoft.admin : debug   # 打印sql
 
+rootId: 0
+
 
 
 
