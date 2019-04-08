@@ -38,8 +38,8 @@ public class MenuController {
      * 部门：南京软件研发中心
      * 功能：获取菜单
      * 描述：略
-     * 作成者：朱庆锋
-     * 作成时间：2018/11/28
+     * 作成者：xywang
+     * 作成时间：2019/4/8
      */
     @RequestMapping(value = "listMenus")
     public AppResponse listMenus() throws Exception {
@@ -56,8 +56,8 @@ public class MenuController {
      * 部门：南京软件研发中心
      * 功能：删除菜单
      * 描述：略
-     * 作成者：朱庆锋
-     * 作成时间：2018/8/30
+     * 作成者：xywang
+     * 作成时间：2019/4/8
      */
     @RequestMapping(value = "deleteMenu")
     public AppResponse deleteMenu(@Valid MenuVO menuVO) {
@@ -80,8 +80,8 @@ public class MenuController {
      * 部门：南京软件研发中心
      * 功能：新增菜单
      * 描述：略
-     * 作成者：朱庆锋
-     * 作成时间：2018/11/28
+     * 作成者：xywang
+     * 作成时间：2019/4/8
      */
     @RequestMapping(value = "insertMenu")
     public AppResponse insertMenu(@Valid MenuVO menuVO) {
@@ -103,8 +103,8 @@ public class MenuController {
      * 部门：南京软件研发中心
      * 功能：修改菜单
      * 描述：略
-     * 作成者：朱庆锋
-     * 作成时间：2018/11/28
+     * 作成者：xywang
+     * 作成时间：2019/4/8
      */
     @RequestMapping(value = "updateMenu")
     public AppResponse updateMenu(@Valid MenuVO menuVO) {
