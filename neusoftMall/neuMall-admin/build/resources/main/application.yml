@@ -21,8 +21,6 @@ mybatis:
 logging:
   level:
     com.neusoft.admin : debug   # 打印sql
-fdfs:
-  racker_server: http://192.168.128.128/
 
 
 
