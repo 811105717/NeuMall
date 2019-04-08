@@ -1,6 +1,7 @@
-package com.neusoft.mall.orderCenter.controller;
+package com.neusoft.mall.index.controller;
 
-import com.neusoft.mall.orderCenter.service.OrderService;
+import com.neusoft.common.entity.BasePageVo;
+import com.neusoft.mall.index.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,20 +12,22 @@ import java.util.Map;
 
 /**
  * @Author: xiaobai
- * @Date: 2019/4/8 17:49
+ * @Date: 2019/4/8 17:36
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
  * @Version 1.0
  */
 @RestController
-@RequestMapping(value = "/front/orderCenter")
-public class OrderController {
+@RequestMapping(value = "/front/commodity")
+public class IndexController {
+
 
     @Autowired
-    private OrderService orderService;
+    private IndexService indexService;
 
-    @GetMapping(value="getOrderList")
-    public Map<String,Object> getOrderList(){
+
+    @GetMapping(value = "getRecommondCommodityList")
+    public Map<String,Object> getRecommondCommodityList(String commodityIsRecommend,BasePageVo vo){
         HashMap<String, Object> map = new HashMap<>(16);
 
         return map;
