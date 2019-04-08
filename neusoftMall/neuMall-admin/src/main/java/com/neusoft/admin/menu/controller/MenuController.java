@@ -25,7 +25,7 @@ import java.util.Map;
  * @Date 2019/4/8
  */
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("backend/menu")
 @Validated
 public class MenuController {
 
