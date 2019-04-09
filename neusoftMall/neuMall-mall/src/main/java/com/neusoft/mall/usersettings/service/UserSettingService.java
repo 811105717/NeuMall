@@ -8,4 +8,5 @@ package com.neusoft.mall.usersettings.service;
  * @Version 1.0
  */
 public interface UserSettingService {
+    Integer updatePassWord(String id,String newPassWord,String passWord);
 }

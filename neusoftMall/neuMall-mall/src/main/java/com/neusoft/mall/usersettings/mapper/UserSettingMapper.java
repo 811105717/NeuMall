@@ -13,5 +13,5 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface UserSettingMapper {
-
+    Integer updatePassWord(String id,String newPassWord,String passWord);
 }

@@ -1,7 +1,10 @@
 package com.neusoft.mall.usersettings.service.impl;
 
+import com.neusoft.mall.usersettings.mapper.UserSettingMapper;
 import com.neusoft.mall.usersettings.service.UserSettingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Author: xiaobai
@@ -13,4 +16,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserSettingServiceImpl implements UserSettingService {
 
+    @Autowired
+    private UserSettingMapper mapper;
+    @Transactional
+    @Override
+    public Integer updatePassWord(String id,String newPassWord,String passWord) {
+        return mapper.updatePassWord(id,newPassWord,passWord);
+    }
 }

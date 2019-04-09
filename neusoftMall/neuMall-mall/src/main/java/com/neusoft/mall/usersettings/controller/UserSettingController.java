@@ -2,8 +2,12 @@ package com.neusoft.mall.usersettings.controller;
 
 import com.neusoft.mall.usersettings.service.UserSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author: xiaobai
@@ -18,5 +22,16 @@ public class UserSettingController {
 
     @Autowired
     private UserSettingService userSettingService;
+
+    @PutMapping(value = "updatePassWord")
+    public Map<String,Object> updatePassWord(String customerId,
+                                             String customerNewPassword,
+                                             String customerPassword){
+        HashMap<String, Object> map = new HashMap<>(16);
+
+
+
+        return map;
+    }
 
 }
