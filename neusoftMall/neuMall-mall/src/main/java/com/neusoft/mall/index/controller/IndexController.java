@@ -1,6 +1,7 @@
 package com.neusoft.mall.index.controller;
 
 import com.neusoft.common.entity.BasePageVo;
+import com.neusoft.mall.entity.OrderInfo;
 import com.neusoft.mall.index.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,7 +39,7 @@ public class IndexController {
     public Map<String,Object> getBuyCommodityList(String customerId){
         HashMap<String, Object> map = new HashMap<>(16);
 
-
+        List<OrderInfo> orderList = indexService.getCustomerOrderListByCustomerId(customerId);
 
         return map;
     }
