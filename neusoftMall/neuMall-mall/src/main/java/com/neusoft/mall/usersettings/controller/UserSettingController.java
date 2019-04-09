@@ -44,7 +44,6 @@ public class UserSettingController {
                                              String customerPassword) throws Exception{
         HashMap<String, Object> map = new HashMap<>(16);
         //检查用户是否存在  存在则修改密码  不存在则提示不存在
-//        log.info("pass:{}",CreateMD5.getMd5(customerPassword));
         UserInfo user = userSettingService.checkUser(customerId, customerPassword);
         if(null==user){
             map.put("code",4);
