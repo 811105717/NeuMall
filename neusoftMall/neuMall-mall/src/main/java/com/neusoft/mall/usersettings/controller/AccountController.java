@@ -1,15 +1,17 @@
 package com.neusoft.mall.usersettings.controller;
 
-import com.neusoft.common.util.CreateMD5;
-import com.neusoft.common.util.UUIDUtil;
-import com.neusoft.mall.entity.UserInfo;
-import com.neusoft.mall.usersettings.service.UserSettingService;
+import com.neusoft.mall.entity.CustomerInfo;
+import com.neusoft.mall.usersettings.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,11 +24,11 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-@RequestMapping("/front/passWord")
-public class UserSettingController {
+@RequestMapping("/front/account")
+public class AccountController {
 
     @Autowired
-    private UserSettingService userSettingService;
+    private AccountService accountService;
 
     /**
      * @Dept：大连东软信息学院
@@ -44,13 +46,14 @@ public class UserSettingController {
                                              String customerPassword) throws Exception{
         HashMap<String, Object> map = new HashMap<>(16);
         //检查用户是否存在  存在则修改密码  不存在则提示不存在
-        UserInfo user = userSettingService.checkUser(customerId, customerPassword);
+        CustomerInfo user = accountService.checkUser(customerId, customerPassword);
         if(null==user){
             map.put("code",4);
             map.put("msg","原始密码错误！");
             map.put("data","");
         }else {
-            Integer res = userSettingService.updateUser(customerId,customerNewPassword);
+            Integer res = accountService.updateUser(customerId,customerNewPassword);
+            //若返回值大于0 则说明有行数受到影响  密码更新成功
             if (res > 0) {
                 map.put("code", 0);
                 map.put("msg", "密码修改成功！");
@@ -63,6 +66,25 @@ public class UserSettingController {
         }
 
         return map;
+    }
+
+    @GetMapping(value = "userLogin")
+    public Map<String,Object> userLogin(String customerNumber, String customerPassword,
+                                        HttpServletRequest request) throws UnsupportedEncodingException {
+        HashMap<String, Object> map = new HashMap<>(16);
+        CustomerInfo loginUser = accountService.userLogin(customerNumber, customerPassword);
+        if(null==loginUser){
+            map.put("code",4);
+            map.put("msg","用户登录失败，用户名或密码错误！");
+            map.put("data","");
+        }else {
+            HttpSession session = request.getSession();
+            session.setAttribute("_LOGIN_USER_",loginUser);
+            map.put("code",0);
+            map.put("msg","登录成功！");
+            map.put("data","");
+        }
+        return  map;
     }
 
 }

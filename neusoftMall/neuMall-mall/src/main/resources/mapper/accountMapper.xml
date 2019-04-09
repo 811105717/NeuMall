@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neusoft.mall.usersettings.mapper.UserSettingMapper">
-    <select id="checkUser" parameterType="String" resultType="com.neusoft.mall.entity.UserInfo">
+<mapper namespace="com.neusoft.mall.usersettings.mapper.AccountMapper">
+    <select id="checkUser" parameterType="String" resultType="com.neusoft.mall.entity.CustomerInfo">
         SELECT customer_name,customer_number FROM t_customer
         WHERE  customer_id= #{id} AND  customer_password = #{pwd}
     </select>
@@ -12,4 +12,9 @@
         UPDATE t_customer SET customer_password = #{newPwd}
         WHERE customer_id = #{id}
     </update>
+
+    <select id="userLogin" parameterType="String" resultType="com.neusoft.mall.entity.CustomerInfo">
+        SELECT * FROM t_customer
+        WHERE customer_number = #{userNumber} AND customer_password = #{pwd}
+    </select>
 </mapper>

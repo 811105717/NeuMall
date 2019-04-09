@@ -11,7 +11,7 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
-public class UserInfo extends BaseEntity {
+public class CustomerInfo extends BaseEntity {
     private String customerId; //客户id
     private String customerNumber; //账号
     private String customerName; //客户姓名

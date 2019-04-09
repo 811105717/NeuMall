@@ -1,9 +1,9 @@
 package com.neusoft.mall.usersettings.service.impl;
 
 import com.neusoft.common.util.CreateMD5;
-import com.neusoft.mall.entity.UserInfo;
-import com.neusoft.mall.usersettings.mapper.UserSettingMapper;
-import com.neusoft.mall.usersettings.service.UserSettingService;
+import com.neusoft.mall.entity.CustomerInfo;
+import com.neusoft.mall.usersettings.mapper.AccountMapper;
+import com.neusoft.mall.usersettings.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +18,10 @@ import java.io.UnsupportedEncodingException;
  * @Version 1.0
  */
 @Service
-public class UserSettingServiceImpl implements UserSettingService {
+public class AccountServiceImpl implements AccountService {
 
     @Autowired
-    private UserSettingMapper mapper;
+    private AccountMapper mapper;
 
     /**
      * @Dept：大连东软信息学院
@@ -31,7 +31,7 @@ public class UserSettingServiceImpl implements UserSettingService {
      * @Return：com.neusoft.mall.entity.UserInfo
      */
     @Override
-    public UserInfo checkUser(String id, String pass) throws UnsupportedEncodingException {
+    public CustomerInfo checkUser(String id, String pass) throws UnsupportedEncodingException {
         return mapper.checkUser(id, CreateMD5.getMd5(pass));
     }
 
@@ -47,6 +47,20 @@ public class UserSettingServiceImpl implements UserSettingService {
     @Override
     public Integer updateUser(String id, String newPass) throws UnsupportedEncodingException {
         return mapper.updateUser(id,CreateMD5.getMd5(newPass));
+    }
+
+    /**
+     * @Dept：大连东软信息学院
+     * @Description： 用户登陆
+     * @Author：xiaobai
+     * @Date: 2019/4/9
+     * @Param：customerNumber
+        pwd
+     * @Return：com.neusoft.mall.entity.UserInfo
+     */
+    @Override
+    public CustomerInfo userLogin(String customerNumber, String pwd) throws UnsupportedEncodingException {
+        return mapper.userLogin(customerNumber,CreateMD5.getMd5(pwd));
     }
 
 
