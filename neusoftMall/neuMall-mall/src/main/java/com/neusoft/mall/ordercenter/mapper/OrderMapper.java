@@ -1,4 +1,4 @@
-package com.neusoft.mall.orderCenter.mapper;
+package com.neusoft.mall.ordercenter.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;

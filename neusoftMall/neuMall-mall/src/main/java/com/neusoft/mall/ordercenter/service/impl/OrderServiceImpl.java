@@ -1,6 +1,6 @@
-package com.neusoft.mall.orderCenter.service.impl;
+package com.neusoft.mall.ordercenter.service.impl;
 
-import com.neusoft.mall.orderCenter.service.OrderService;
+import com.neusoft.mall.ordercenter.service.OrderService;
 import org.springframework.stereotype.Service;
 
 /**

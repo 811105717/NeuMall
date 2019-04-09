@@ -1,6 +1,6 @@
-package com.neusoft.mall.orderCenter.controller;
+package com.neusoft.mall.ordercenter.controller;
 
-import com.neusoft.mall.orderCenter.service.OrderService;
+import com.neusoft.mall.ordercenter.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

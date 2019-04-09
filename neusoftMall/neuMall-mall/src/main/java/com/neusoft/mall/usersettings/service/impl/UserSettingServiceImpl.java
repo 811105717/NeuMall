@@ -1,6 +1,7 @@
-package com.neusoft.mall.userSettings.service.impl;
+package com.neusoft.mall.usersettings.service.impl;
 
-import com.neusoft.mall.userSettings.service.UserSettingService;
+import com.neusoft.mall.usersettings.service.UserSettingService;
+import org.springframework.stereotype.Service;
 
 /**
  * @Author: xiaobai
@@ -9,6 +10,7 @@ import com.neusoft.mall.userSettings.service.UserSettingService;
  * @address: 大连东软信息学院
  * @Version 1.0
  */
+@Service
 public class UserSettingServiceImpl implements UserSettingService {
 
 }

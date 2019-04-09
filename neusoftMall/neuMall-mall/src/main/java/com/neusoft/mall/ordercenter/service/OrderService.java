@@ -1,4 +1,4 @@
-package com.neusoft.mall.orderCenter.service;
+package com.neusoft.mall.ordercenter.service;
 
 /**
  * @Author: xiaobai
