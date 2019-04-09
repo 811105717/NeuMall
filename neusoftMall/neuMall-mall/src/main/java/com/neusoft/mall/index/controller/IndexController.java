@@ -29,6 +29,7 @@ public class IndexController {
     @GetMapping(value = "getRecommondCommodityList")
     public Map<String,Object> getRecommondCommodityList(String commodityIsRecommend, BasePageVo vo){
         HashMap<String, Object> map = new HashMap<>(16);
+
         return map;
     }
 }

@@ -14,6 +14,8 @@ import lombok.Data;
 public class CustomerInfo extends BaseEntity {
     private String customerId; //客户id
     private String customerNumber; //账号
+    private String customerPassword; //密码
     private String customerName; //客户姓名
     private String customerIsUsed;// 启用/禁用  0启用1禁用
+
 }

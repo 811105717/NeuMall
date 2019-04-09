@@ -19,6 +19,6 @@ public class WebConfig implements WebMvcConfigurer {
                 //添加需要进行拦截的链接
                 .excludePathPatterns("/front/account/userLogin");
         //排除不需要拦截的链接，多个链接直接用逗号隔开
-        System.out.println("===========   拦截器注册完毕   ===========");
+//        System.out.println("===========   拦截器注册完毕   ===========");
     }
 }
