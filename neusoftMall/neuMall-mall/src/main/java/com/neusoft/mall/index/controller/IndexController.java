@@ -25,11 +25,21 @@ public class IndexController {
     @Autowired
     private IndexService indexService;
 
-
-    @GetMapping(value = "getRecommondCommodityList")
-    public Map<String,Object> getRecommondCommodityList(String commodityIsRecommend, BasePageVo vo){
+    /**
+     * @Dept：大连东软信息学院
+     * @Description：获取用户买过的商品列表
+     * @Author：xiaobai
+     * @Date: 2019/4/9
+     * @Param：customerId
+     * @Return：java.util.Map<java.lang.String,java.lang.Object>
+     */
+    @GetMapping(value = "getBuyCommodityList")
+    public Map<String,Object> getBuyCommodityList(String customerId){
         HashMap<String, Object> map = new HashMap<>(16);
+
+
 
         return map;
     }
+
 }
