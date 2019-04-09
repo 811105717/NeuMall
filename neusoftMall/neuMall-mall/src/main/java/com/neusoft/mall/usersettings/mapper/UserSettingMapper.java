@@ -1,6 +1,8 @@
 package com.neusoft.mall.usersettings.mapper;
 
+import com.neusoft.mall.entity.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,5 +15,6 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface UserSettingMapper {
-    Integer updatePassWord(String id,String newPassWord,String passWord);
+    UserInfo checkUser(@Param("id") String id, @Param("pwd") String pwd);
+    Integer updateUser(@Param("id")String id, @Param("newPwd")String newPwd);
 }

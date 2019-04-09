@@ -3,7 +3,13 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.mall.usersettings.mapper.UserSettingMapper">
-    <update id="updatePassWord" parameterType="String" >
+    <select id="checkUser" parameterType="String" resultType="com.neusoft.mall.entity.UserInfo">
+        SELECT customer_name,customer_number FROM t_customer
+        WHERE  customer_id= #{id} AND  customer_password = #{pwd}
+    </select>
 
+    <update id="updateUser" parameterType="String">
+        UPDATE t_customer SET customer_password = #{newPwd}
+        WHERE customer_id = #{id}
     </update>
 </mapper>

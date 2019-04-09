@@ -1,5 +1,9 @@
 package com.neusoft.mall.usersettings.service;
 
+import com.neusoft.mall.entity.UserInfo;
+
+import java.io.UnsupportedEncodingException;
+
 /**
  * @Author: xiaobai
  * @Date: 2019/4/9 13:13
@@ -8,5 +12,6 @@ package com.neusoft.mall.usersettings.service;
  * @Version 1.0
  */
 public interface UserSettingService {
-    Integer updatePassWord(String id,String newPassWord,String passWord);
+    UserInfo checkUser(String id, String pass) throws UnsupportedEncodingException;
+    Integer updateUser(String id,String newPass) throws UnsupportedEncodingException;
 }
