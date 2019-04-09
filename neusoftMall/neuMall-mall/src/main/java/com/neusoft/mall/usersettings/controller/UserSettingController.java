@@ -1,6 +1,6 @@
-package com.neusoft.mall.userSettings.controller;
+package com.neusoft.mall.usersettings.controller;
 
-import com.neusoft.mall.userSettings.service.UserSettingService;
+import com.neusoft.mall.usersettings.service.UserSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
