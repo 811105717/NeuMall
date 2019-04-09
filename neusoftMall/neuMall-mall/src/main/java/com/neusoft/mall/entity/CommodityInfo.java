@@ -1,6 +1,7 @@
 package com.neusoft.mall.entity;
 
 import com.neusoft.common.entity.BaseEntity;
+import lombok.Data;
 
 /**
  * @Author: xiaobai
@@ -9,6 +10,7 @@ import com.neusoft.common.entity.BaseEntity;
  * @address: 大连东软信息学院
  * @Version 1.0
  */
+@Data
 public class CommodityInfo extends BaseEntity {
     private String commodityCode; //商品编号
     private String commodityId; //商品ID
