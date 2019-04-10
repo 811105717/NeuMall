@@ -15,8 +15,9 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface AccountMapper {
-    CustomerInfo checkUser(@Param("id") String id, @Param("pwd") String pwd);
-    CustomerInfo getCustomerById(@Param("id") String id);
+    Integer checkExistCustomer (@Param("number") String number);
+    Integer addCustomer(CustomerInfo custome);
     Integer updatePassword(CustomerInfo customer);
-    CustomerInfo userLogin(@Param("userNumber") String userNumber, @Param("pwd") String pwd);
+    CustomerInfo userLogin(CustomerInfo customer);
+    CustomerInfo getCustomerById(@Param("id") String id);
 }
