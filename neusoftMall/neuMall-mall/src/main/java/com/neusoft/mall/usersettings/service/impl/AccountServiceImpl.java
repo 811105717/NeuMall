@@ -1,5 +1,6 @@
 package com.neusoft.mall.usersettings.service.impl;
 
+import com.neusoft.common.response.AppResponse;
 import com.neusoft.common.util.CreateMD5;
 import com.neusoft.mall.entity.CustomerInfo;
 import com.neusoft.mall.usersettings.mapper.AccountMapper;
@@ -23,31 +24,34 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountMapper mapper;
 
-    /**
-     * @Dept：大连东软信息学院
-     * @Description：检查用户是否安全
-     * @Author：xiaobai
-     * @Date: 2019/4/9
-     * @Return：com.neusoft.mall.entity.UserInfo
-     */
+
     @Override
-    public CustomerInfo checkUser(String id, String pass) throws UnsupportedEncodingException {
-        return mapper.checkUser(id, CreateMD5.getMd5(pass));
+    public AppResponse updatePassword(CustomerInfo customer) throws UnsupportedEncodingException {
+        //判断密码是否为空
+        if(null!= customer.getCustomerPassword()&& !"".equals(customer.getCustomerPassword())){
+            //查找相应用户
+            CustomerInfo checkCustomer = mapper.getCustomerById(customer.getCustomerId());
+            if(null == checkCustomer){
+                return AppResponse.bizError("用户不存在或者已经被删除！");
+            }else if (!CreateMD5.getMd5(customer.getCustomerPassword()).
+                    equals(checkCustomer.getCustomerPassword())){
+                //若用户存在，且密码与当前密码不匹配
+                return AppResponse.bizError("原密码不匹配，请重新输入");
+            }else {
+                //修改密码  写入数据库
+                customer.setCustomerPassword(CreateMD5.getMd5(customer.getCustomerPassword()));
+                int result = mapper.updatePassword(customer);
+                if (0 == result) {
+                    return AppResponse.bizError("修改密码失败，请重试！");
+                }
+                return AppResponse.success("修改密码成功！");
+            }
+        }else {
+            //前端数据为空走这里！
+            return AppResponse.bizError("未知数据错误！");
+        }
     }
 
-    /**
-     * @Dept：大连东软信息学院
-     * @Description： 修改用户密码
-     * @Author：xiaobai
-     * @Date: 2019/4/9
-     * @Param：id
-     * @Return：java.lang.Integer
-     */
-    @Transactional
-    @Override
-    public Integer updateUser(String id, String newPass) throws UnsupportedEncodingException {
-        return mapper.updateUser(id,CreateMD5.getMd5(newPass));
-    }
 
     /**
      * @Dept：大连东软信息学院

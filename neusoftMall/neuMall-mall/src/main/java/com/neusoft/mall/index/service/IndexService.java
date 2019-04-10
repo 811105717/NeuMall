@@ -1,6 +1,9 @@
 package com.neusoft.mall.index.service;
 
+import com.neusoft.mall.entity.OrderInfo;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Author: xiaobai
@@ -10,5 +13,5 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  */
 public interface IndexService {
-
+    List<OrderInfo> getCustomerOrderListByCustomerId(String customerId);
 }

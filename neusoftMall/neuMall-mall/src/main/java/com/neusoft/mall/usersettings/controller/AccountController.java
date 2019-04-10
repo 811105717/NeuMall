@@ -1,5 +1,6 @@
 package com.neusoft.mall.usersettings.controller;
 
+import com.neusoft.common.response.AppResponse;
 import com.neusoft.mall.entity.CustomerInfo;
 import com.neusoft.mall.usersettings.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,31 +42,14 @@ public class AccountController {
      * @Return：java.util.Map<java.lang.String,java.lang.Object>
      */
     @PutMapping(value = "updatePassWord")
-    public Map<String,Object> updatePassWord(String customerId,
-                                             String customerNewPassword,
-                                             String customerPassword) throws Exception{
-        HashMap<String, Object> map = new HashMap<>(16);
-        //检查用户是否存在  存在则修改密码  不存在则提示不存在
-        CustomerInfo user = accountService.checkUser(customerId, customerPassword);
-        if(null==user){
-            map.put("code",4);
-            map.put("msg","原始密码错误！");
-            map.put("data","");
-        }else {
-            Integer res = accountService.updateUser(customerId,customerNewPassword);
-            //若返回值大于0 则说明有行数受到影响  密码更新成功
-            if (res > 0) {
-                map.put("code", 0);
-                map.put("msg", "密码修改成功！");
-                map.put("data", "");
-            } else {
-                map.put("code",1);
-                map.put("msg","修改密码失败！");
-                map.put("data","");
-            }
+    public AppResponse updatePassWord(CustomerInfo customer) throws Exception{
+        try {
+//            customer.setLastModifiedBy("xiaobai");
+            return accountService.updatePassword(customer);
+        } catch (UnsupportedEncodingException e) {
+            log.info("error update password {}",e);
+            throw new Exception("修改密码异常");
         }
-
-        return map;
     }
 
     @GetMapping(value = "userLogin")

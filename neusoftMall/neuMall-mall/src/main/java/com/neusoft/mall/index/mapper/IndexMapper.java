@@ -1,6 +1,7 @@
 package com.neusoft.mall.index.mapper;
 
 import com.neusoft.mall.entity.CommodityInfo;
+import com.neusoft.mall.entity.OrderInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -16,5 +17,5 @@ import java.util.List;
 @Mapper
 @Component
 public interface IndexMapper {
-
+    List<OrderInfo> getCustomerOrderListByCustomerId(String id);
 }
