@@ -21,6 +21,4 @@ public class ReceiveInfo extends BaseEntity {
     private String  receiveDetaileAddress;//详细地址
     private String  receiveTel;//联系电话
     private Integer receiveIsDefault;//是否默认，1默认，0不默认
-
-
 }
