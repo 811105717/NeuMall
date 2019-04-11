@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mall.ordercenter.mapper.OrderMapper">
+
+    <select id="getOrderList" parameterType="com.neusoft.mall.entity.OrderQueryVo"
+            resultType="com.neusoft.mall.entity.OrderInfo">
+        SELECT * FROM t_order
+        <where>
+            <if test="null!=customerId">
+                customer_id = #{customerId}
+                AND is_deleted = 0
+            </if>
+
+            <if test="null!=orderNumber">
+                AND order_number = #{orderNumber}
+            </if>
+
+            <if test="null!=orderDateStart">
+                AND order_date >= #{orderDateStart}
+            </if>
+            <!--<![CDATA[<]]> 处理小于号字符冲突 -->
+            <if test="null!=orderDateEnd">
+                AND order_date <![CDATA[<]]>= #{orderDateEnd}
+            </if>
+            <if test="null!=orderState">
+                AND order_state = #{orderState}
+            </if>
+        </where>
+        
+    </select>
+
+</mapper>

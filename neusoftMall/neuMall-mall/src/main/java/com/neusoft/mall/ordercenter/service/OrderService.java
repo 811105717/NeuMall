@@ -1,5 +1,8 @@
 package com.neusoft.mall.ordercenter.service;
 
+import com.neusoft.common.response.AppResponse;
+import com.neusoft.mall.entity.OrderQueryVo;
+
 /**
  * @Author: xiaobai
  * @Date: 2019/4/8 19:05
@@ -8,5 +11,7 @@ package com.neusoft.mall.ordercenter.service;
  * @Version 1.0
  */
 public interface OrderService {
+
+    AppResponse getOrderList(OrderQueryVo queryVo);
 
 }

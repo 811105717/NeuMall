@@ -1,5 +1,7 @@
 package com.neusoft.mall.ordercenter.controller;
 
+import com.neusoft.common.response.AppResponse;
+import com.neusoft.mall.entity.OrderQueryVo;
 import com.neusoft.mall.ordercenter.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +26,8 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping(value="getOrderList")
-    public Map<String,Object> getOrderList(){
-        HashMap<String, Object> map = new HashMap<>(16);
+    public AppResponse getOrderList(OrderQueryVo queryVo){
 
-        return map;
+        return orderService.getOrderList(queryVo);
     }
 }

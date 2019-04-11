@@ -1,7 +1,11 @@
 package com.neusoft.mall.ordercenter.mapper;
 
+import com.neusoft.mall.entity.OrderInfo;
+import com.neusoft.mall.entity.OrderQueryVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @Author: xiaobai
@@ -13,5 +17,5 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface OrderMapper {
-
+    List<OrderInfo> getOrderList(OrderQueryVo queryVo);
 }
