@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
     public AppResponse updatePwd(UserInfo userInfo) throws UnsupportedEncodingException {
         AppResponse appResponse = AppResponse.success("修改密码成功！");
         // 需要校验原密码是否正确
-        if (null != userInfo.getUserPwd() && !"".equals(userInfo.getUserPwd())) {
+        /*if (null != userInfo.getUserPwd() && !"".equals(userInfo.getUserPwd())) {
             String oldPwd = CreateMD5.getMd5(userInfo.getUserPwd());
             // 根据uuid获取用户信息
             UserInfo userDetail = userDao.getUserById(userInfo.getUserUuid());
@@ -118,7 +118,14 @@ public class UserServiceImpl implements UserService {
                     return AppResponse.bizError("原密码不匹配，请重新输入！");
                 }
             }
+        }*/
+        // 根据uuid获取用户信息
+        UserInfo userDetail = userDao.getUserById(userInfo.getUserUuid());
+
+        if (null == userDetail) {
+            return AppResponse.bizError("用户不存在或已被删除！");
         }
+
         // 修改密码
         userInfo.setUserPwd(CreateMD5.getMd5(userInfo.getUserNewPwd()));
         int count = userDao.updateUserPwd(userInfo);
