@@ -3,13 +3,14 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.mall.ordercenter.mapper.OrderMapper">
-
+    <!--  获取订单列表 ，根据条件进行查询  -->
     <select id="getOrderList" parameterType="com.neusoft.mall.entity.OrderQueryVo"
             resultType="com.neusoft.mall.entity.OrderInfo">
-        SELECT * FROM t_order
+        SELECT * FROM t_order JOIN t_customer
+        ON t_order.customer_id = t_customer.customer_id
         <where>
             <if test="null!=customerId">
-                customer_id = #{customerId}
+                t_order.customer_id = #{customerId}
                 AND is_deleted = 0
             </if>
 
@@ -28,7 +29,33 @@
                 AND order_state = #{orderState}
             </if>
         </where>
-        
     </select>
+    <!-- 获取订单详细信息 -->
+    <select id="getOrderDetail" parameterType="String" resultType="com.neusoft.mall.entity.OrderInfo">
+        SELECT * FROM t_order
+        WHERE order_id = #{orderId}
+    </select>
+    <!-- 获取订单全部的商品信息 -->
+    <select id="getOrderCommodityDetail" parameterType="String" resultType="com.neusoft.mall.entity.OrderDetailInfo">
+        SELECT * FROM t_order_detail JOIN t_commodity
+        ON t_order_detail.commodity_id = t_commodity.commodity_id
+        WHERE order_id = #{orderId}
+    </select>
+    <!--  获取订单内商品首图  -->
+    <select id="getGoodsFirstpictureAddress" parameterType="String" resultType="String">
+        SELECT picture_address FROM t_commodity_pic
+        WHERE commodity_id = #{commodityId} AND picture_is_fist_pictuer = 1
+    </select>
+
+    <update id="updateOrderStatus" parameterType="java.util.List">
+        UPDATE t_order SET
+        order_state = #{status},
+        last_modified_by = "xiaobai",
+        gmt_modified = NOW()
+        WHERE order_number IN
+        <foreach item="item" collection="orderList" separator="," open="(" close=")" index="">
+            #{item, jdbcType=int}
+        </foreach>
+    </update>
 
 </mapper>
