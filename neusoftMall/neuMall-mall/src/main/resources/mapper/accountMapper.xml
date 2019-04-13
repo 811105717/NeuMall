@@ -7,16 +7,19 @@
     <select id="getCustomerById" parameterType="String" resultType="com.neusoft.mall.entity.CustomerInfo">
         SELECT * FROM t_customer
         WHERE  customer_id= #{id}
+        AND is_deleted = 0
     </select>
 
     <select id="checkExistCustomer" parameterType="String" resultType="Integer">
         SELECT COUNT(customer_number) FROM t_customer
         WHERE customer_number = #{number}
+        AND is_deleted = 0
     </select>
 
     <select id="userLogin" parameterType="String" resultType="com.neusoft.mall.entity.CustomerInfo">
         SELECT * FROM t_customer
         WHERE customer_number = #{customerNumber} AND customer_password = #{customerPassword}
+        AND is_deleted = 0
     </select>
 
     <insert id="addCustomer" parameterType="com.neusoft.mall.entity.CustomerInfo">
@@ -26,7 +29,7 @@
         created_by,gmt_create,last_modified_by,gmt_modified,
         is_deleted,sort_no,version)
         VALUES (#{customerId},#{customerNumber},#{customerPassword},#{customerName},
-        1,"xiaobai",NOW(),#{lastModifiedBy},NOW(),0,0,1)
+        1,"xiaobai",NOW(),#{lastModifiedBy},NOW(),0,0,0)
     </insert>
 
     <update id="updatePassword" parameterType="com.neusoft.mall.entity.CustomerInfo">
@@ -34,6 +37,7 @@
         customer_password = #{customerPassword},
         last_modified_by = #{lastModifiedBy},gmt_modified = NOW()
         WHERE customer_id = #{customerId}
+        AND is_deleted = 0
     </update>
 
 

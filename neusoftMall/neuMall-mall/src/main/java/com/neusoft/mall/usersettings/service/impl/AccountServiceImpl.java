@@ -21,6 +21,7 @@ import java.io.UnsupportedEncodingException;
  * @address: 大连东软信息学院
  * @Version 1.0
  */
+@SuppressWarnings("ALL")
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -32,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
      * @Description： 修改密码逻辑处理
      * @Author：xiaobai
      * @Date: 2019/4/10
-     * @Param：customer
+     * @Param：customer 当前用户
      * @Return：com.neusoft.common.response.AppResponse
      */
     @Transactional
@@ -68,7 +69,7 @@ public class AccountServiceImpl implements AccountService {
      * @Description： 用户注册逻辑处理
      * @Author：xiaobai
      * @Date: 2019/4/10
-     * @Param：customer
+     * @Param：customer 被注册用户
      * @Return：com.neusoft.common.response.AppResponse
      */
 
@@ -102,7 +103,7 @@ public class AccountServiceImpl implements AccountService {
      * @Description： 用户登录逻辑处理
      * @Author：xiaobai
      * @Date: 2019/4/10
-     * @Param：customer
+     * @Param：customer 登录用户
      * @Return：com.neusoft.common.response.AppResponse
      */
 

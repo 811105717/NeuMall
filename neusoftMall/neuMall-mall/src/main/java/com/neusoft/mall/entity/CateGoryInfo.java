@@ -8,6 +8,7 @@ import lombok.Data;
  * @Date: 2019/4/11 18:38
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
+ * @Description 实体类 对应分类表
  * @Version 1.0
  */
 @Data

@@ -1,9 +1,8 @@
 package com.neusoft.mall.index.service;
 
-import com.neusoft.mall.entity.OrderInfo;
-import org.springframework.stereotype.Service;
+import com.neusoft.common.response.AppResponse;
+import com.neusoft.mall.entity.IndexQueryVO;
 
-import java.util.List;
 
 /**
  * @Author: xiaobai
@@ -13,5 +12,7 @@ import java.util.List;
  * @Version 1.0
  */
 public interface IndexService {
-    List<OrderInfo> getCustomerOrderListByCustomerId(String customerId);
+    AppResponse getRecommondCommodityList(IndexQueryVO queryVO);
+    AppResponse getBuyCommodityList(String customerId);
+    AppResponse getClassifyList(String categoryParentId);
 }

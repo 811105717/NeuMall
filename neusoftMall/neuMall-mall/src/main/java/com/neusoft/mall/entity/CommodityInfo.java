@@ -8,6 +8,7 @@ import lombok.Data;
  * @Date: 2019/4/9 17:00
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
+ * @Description 实体类 对应商品表
  * @Version 1.0
  */
 @Data
@@ -22,6 +23,7 @@ public class CommodityInfo extends BaseEntity {
     private String commodityIsSold; //是否上架 1是0否
     private String commodityInventory; //库存
     private String commodityIsLack; //是否缺货 1是0否
+    private String pictureAddress;//商品首图
     private String commodityTotalCount; //销量
     private String categoryFirst; //一级分类ID
     private String categorySecond; //二级分类ID

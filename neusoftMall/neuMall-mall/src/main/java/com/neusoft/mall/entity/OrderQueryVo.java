@@ -8,7 +8,7 @@ import lombok.Data;
  * @Date: 2019/4/11 19:01
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
- * @Description:
+ * @Description: 用于辅助查询订单的类 （分页）
  * @Version 1.0
  */
 @Data

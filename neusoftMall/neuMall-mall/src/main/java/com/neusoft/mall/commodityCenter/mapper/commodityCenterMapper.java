@@ -2,7 +2,9 @@ package com.neusoft.mall.commodityCenter.mapper;
 
 
 import com.neusoft.mall.entity.*;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
  * @Author: zhangqiang
  * @Date: 2019/4/9
  */
+@Mapper
 public interface commodityCenterMapper {
    List<CommodityInfo> getCommodityList(@Param("categoryFirst") String categoryFirst, @Param("categorySecond") String categorySecond, @Param("start") int start, @Param("end") int end);//商品中心主界面查询
    Integer getCommodityListForTotalRecords(@Param("categoryFirst") String categoryFirst, @Param("categorySecond") String categorySecond);//商品中心主界面查询
