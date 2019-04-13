@@ -8,7 +8,7 @@ import lombok.Data;
  * @Date: 2019/4/11 21:49
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
- * @description ：用来查询商品明细的entity
+ * @description ：实体类 对应商品明细与订单表链接
  * @Version 1.0
  */
 @Data

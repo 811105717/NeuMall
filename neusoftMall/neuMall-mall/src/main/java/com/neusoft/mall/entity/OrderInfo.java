@@ -11,6 +11,7 @@ import java.util.Map;
  * @Date: 2019/4/9 17:50
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
+ * @Description 实体类 对应订单表
  * @Version 1.0
  */
 @Data

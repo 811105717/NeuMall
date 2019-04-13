@@ -22,6 +22,7 @@ import java.util.List;
  * @address: 大连东软信息学院
  * @Version 1.0
  */
+@SuppressWarnings("ALL")
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -33,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
      * @Description： 获取订单列表
      * @Author：xiaobai
      * @Date: 2019/4/11
-     * @Param：queryVo
+     * @Param：queryVo 包装类 页码 页大小 用户
      * @Return：com.neusoft.common.response.AppResponse
      */
     @Override
@@ -50,48 +51,61 @@ public class OrderServiceImpl implements OrderService {
             if(0<list.getTotalRecords()){
                 return AppResponse.success("订单列表获取成功！",list);
             }else {
-                return AppResponse.bizError("未找到订单！");
+                return AppResponse.notFound("未查询到数据！");
             }
 
         }else {
             return AppResponse.bizError("未知参数错误！");
         }
     }
-
     /**
      * @Dept：大连东软信息学院
      * @Description： 获取订单详细信息
      * @Author：xiaobai
      * @Date: 2019/4/11
-     * @Param：orderId
+     * @Param：orderId 订单id
      * @Return：com.neusoft.common.response.AppResponse
      */
     @Override
     public AppResponse getOrderDetail(String orderId) {
         if (null != orderId && !"".equals(orderId)) {
             OrderInfo orderInfo = orderMapper.getOrderDetail(orderId);
-            List<OrderDetailInfo> commodityDetail = orderMapper.getOrderCommodityDetail(orderId);
-            orderInfo.setCommodityList(commodityDetail);
-            return AppResponse.success("订单细节获取成功！",orderInfo);
-        }else {
-            return AppResponse.bizError("未知数据错误！");
-        }
-    }
-
-    @Transactional
-    @Override
-    public AppResponse updateOrderStatus(List<String> orderList, String status) {
-        if(null!=orderList && null!=status && !"".equals(status)){
-            Integer res = orderMapper.updateOrderStatus(orderList,status);
-            if (0 != res) {
-                AppResponse.success("订单状态更新成功");
+            if(null == orderInfo){
+                return AppResponse.notFound("未查询到该订单信息");
             }else {
-                AppResponse.bizError("订单状态更新失败！返回结果0");
+                List<OrderDetailInfo> commodityDetail = orderMapper.getOrderCommodityDetail(orderId);
+                if(0 == commodityDetail.size()){
+                    return AppResponse.notFound("该订单不存在商品！");
+                }else {
+                    orderInfo.setCommodityList(commodityDetail);
+                    return AppResponse.success("订单细节获取成功！",orderInfo);
+                }
             }
         }else {
             return AppResponse.bizError("未知数据错误！");
         }
-        //事务操作  必须最后有返回
-        return AppResponse.bizError("未知错误！");
+    }
+    /**
+     * @Dept：大连东软信息学院
+     * @Description： 更新订单状态
+     * @Author：xiaobai
+     * @Date: 2019/4/13
+     * @Param：orderList 订单号列表
+        status 订单状态码
+     * @Return：com.neusoft.common.response.AppResponse
+     */
+    @Transactional
+    @Override
+    public AppResponse updateOrderStatus(List<String> orderList, String status) {
+        if(null!= orderList && null!=status && !"".equals(status)){
+            Integer res = orderMapper.updateOrderStatus(orderList,status);
+            if (0 != res) {
+                return AppResponse.success("订单状态更新成功");
+            }else {
+                return AppResponse.notFound("未找到相关订单");
+            }
+        }else {
+            return AppResponse.bizError("未知数据错误！");
+        }
     }
 }

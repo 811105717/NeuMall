@@ -21,6 +21,7 @@ import java.util.Map;
  * @address: 大连东软信息学院
  * @Version 1.0
  */
+@SuppressWarnings("All")
 @Slf4j
 @RestController
 @RequestMapping("/front/account")
@@ -79,7 +80,6 @@ public class AccountController {
     @GetMapping(value = "userLogin")
     public AppResponse customerLogin(CustomerInfo customer,
                                      HttpServletRequest request) throws Exception{
-
         try {
             return accountService.customerLogin(customer,request);
         } catch (UnsupportedEncodingException e) {

@@ -9,6 +9,7 @@ import lombok.Data;
  * @Date: 2019/4/11 16:37
  * @email: 870655525@qq.com
  * @address: 大连东软信息学院
+ * @Description 实体类 对应收货地址表
  * @Version 1.0
  */
 

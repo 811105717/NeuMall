@@ -8,6 +8,7 @@ import lombok.Data;
  * @ClassName: OrderDetail
  * @Description:F小组
  * @Author: zhangqiang
+ * @Description 实体类 对应订单细节
  * @Date: 2019/4/10
  */
 @Data

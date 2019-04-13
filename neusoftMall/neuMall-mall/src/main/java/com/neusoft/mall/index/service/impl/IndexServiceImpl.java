@@ -1,6 +1,5 @@
 package com.neusoft.mall.index.service.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.common.entity.PageVo;
@@ -25,6 +24,7 @@ import java.util.List;
  * @address: 大连东软信息学院
  * @Version 1.0
  */
+@SuppressWarnings("ALL")
 @Service
 public class IndexServiceImpl implements IndexService {
 
@@ -42,44 +42,72 @@ public class IndexServiceImpl implements IndexService {
      */
     @Override
     public AppResponse getRecommondCommodityList(IndexQueryVO queryVO) {
-        //分页
-        PageVo<CommodityInfo> list = new PageVo<>();
-        PageHelper.startPage(queryVO.getPageNum(),queryVO.getPageSize());
-        List<CommodityInfo> commodityInfoList = indexMapper.getCommodityList(queryVO.getCommodityIsRecommend());
-        list.setList(commodityInfoList);
-        list.setTotalRecords((int)new PageInfo<>(commodityInfoList).getTotal());
-        if(0!= list.getTotalRecords()){
-            //查到东西了
-            return AppResponse.success("推荐商品获取成功！",list);
-        }else {
-            return AppResponse.bizError("未查询到任何数据！");
-        }
-    }
-
-    @Override
-    public AppResponse getBuyCommodityList(String customerId) {
-        // 先查用户所有订单  根据订单查所有买过的商品  然后返回
-        //用来存储用户所有的订单
-        if (null != customerId && !"".equals(customerId)) {
-            List<CommodityInfo> commodityList = new ArrayList<>(16);
-            List<OrderInfo> userOrderList = indexMapper.getUserOrderList(customerId);
-            for(OrderInfo o:userOrderList){
-                CommodityInfo commodityInfo = indexMapper.getCommodityByOrderId(o.getOrderId());
-                commodityList.add(commodityInfo);
+        if (null != queryVO) {
+            //分页
+            PageVo<CommodityInfo> list = new PageVo<>();
+            PageHelper.startPage(queryVO.getPageNum(),queryVO.getPageSize());
+            List<CommodityInfo> commodityInfoList = indexMapper.getCommodityList(queryVO.getCommodityIsRecommend());
+            list.setList(commodityInfoList);
+            list.setTotalRecords((int)new PageInfo<>(commodityInfoList).getTotal());
+            if(0!= list.getTotalRecords()){
+                //查到东西了
+                return AppResponse.success("推荐商品获取成功！",list);
+            }else {
+                return AppResponse.bizError("未查询到任何数据！");
             }
-            return AppResponse.success("获取列表成功！",commodityList);
         }else {
             return AppResponse.bizError("未知数据错误！");
         }
 
-
     }
-
+    /**
+     * @Dept：大连东软信息学院
+     * @Description： 获取我买过的商品列表
+     * @Author：xiaobai
+     * @Date: 2019/4/13
+     * @Param：customerId 用户id
+     * @Return：com.neusoft.common.response.AppResponse
+     */
+    @Override
+    public AppResponse getBuyCommodityList(String customerId) {
+        // 先查用户所有订单  根据订单查所有买过的商品  然后返回
+        if (null != customerId && !"".equals(customerId)) {
+            //用来存储用户所有的订单
+            List<CommodityInfo> commodityList = new ArrayList<>(16);
+            List<OrderInfo> userOrderList = indexMapper.getUserOrderList(customerId);
+            if (0 == userOrderList.size()) {
+                return AppResponse.notFound("未查询到数据！");
+            }else {
+                for(OrderInfo o:userOrderList){
+                    CommodityInfo commodityInfo = indexMapper.getCommodityByOrderId(o.getOrderId());
+                    if (commodityInfo != null) {
+                        //有的订单可能被逻辑删除了
+                        commodityList.add(commodityInfo);
+                    }
+                }
+                return AppResponse.success("获取列表成功！",commodityList);
+            }
+        }else {
+            return AppResponse.bizError("未知数据错误！");
+        }
+    }
+    /**
+     * @Dept：大连东软信息学院
+     * @Description： 获取二级分类列表
+     * @Author：xiaobai
+     * @Date: 2019/4/13
+     * @Param：categoryParentId 父分类
+     * @Return：com.neusoft.common.response.AppResponse
+     */
     @Override
     public AppResponse getClassifyList(String categoryParentId) {
         if(null != categoryParentId && !"".equals(categoryParentId)){
             List<CateGoryInfo> cateGoryInfoList = indexMapper.getCategoryByParent(categoryParentId);
-            return  AppResponse.success("二级分类获取成功",cateGoryInfoList);
+            if (0 == cateGoryInfoList.size()) {
+                return AppResponse.notFound("未查询到数据！");
+            }else {
+                return  AppResponse.success("二级分类获取成功",cateGoryInfoList);
+            }
         }else {
             return  AppResponse.bizError("未知数据错误！");
         }
