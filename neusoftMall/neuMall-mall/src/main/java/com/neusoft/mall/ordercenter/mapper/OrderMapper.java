@@ -46,15 +46,5 @@ public interface OrderMapper {
      * @Return：java.util.List<com.neusoft.mall.entity.OrderDetailInfo>
      */
     List<OrderDetailInfo> getOrderCommodityDetail(@Param("orderId") String orderId);
-    /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取订单内商品的首图
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：commodityId 商品ID  可以从订单中明细中获得
-     * @Return：java.lang.String
-     */
-    String getGoodsFirstpictureAddress(@Param("commodityId") String commodityId);
-
     Integer updateOrderStatus(@Param("orderList")List<String> orderList,@Param("status") String status);
 }

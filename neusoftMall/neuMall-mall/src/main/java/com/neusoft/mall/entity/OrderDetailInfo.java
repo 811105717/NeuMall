@@ -21,6 +21,6 @@ public class OrderDetailInfo extends BaseEntity {
     private String commodityTotalPrice; //总价
     private String commodityCode;//商品编号
     private String commodityName;//商品名称
-    private String commodityFirstPicture;//商品首图
+    private String pictureAddress;//商品首图
 
 }

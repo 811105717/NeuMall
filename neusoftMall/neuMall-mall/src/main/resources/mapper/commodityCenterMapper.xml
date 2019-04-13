@@ -39,9 +39,9 @@
         {SELECT * FROM t_commodity WHERE category_fist=#{categoryFirst},category_second=#{categorySecond} ORDER BY commodity_retail_price DESC}
         a WHERE rownum &lt;#{end} AND rownum>=#{start}
     </select>
-    <insert id="addShoppingCart" parameterType="">
+<!--    <insert id="addShoppingCart" parameterType="">-->
 
-    </insert>
+<!--    </insert>-->
     <select id="getCommodityCenterDeatil" parameterType="com.neusoft.mall.entity.CommodityInfo">
         SELECT * FROM t_commodity WHERE commodity_id=#{commodityId}
     </select>
@@ -69,9 +69,9 @@
         SELECT commodity_retail_price
         FROM t_commodity WHERE commodity_id=#{commodityId}
     </select>
-    <insert id="commodityCollection" parameterType="">
+<!--    <insert id="commodityCollection" parameterType="">-->
 
-    </insert>
+<!--    </insert>-->
     <insert id="addOrder" parameterType="com.neusoft.mall.entity.OrderInfo">
         INSERT INTO t_order
         (order_number,order_price,customer_id,order_state,
@@ -86,7 +86,7 @@
         INSERT INTO t_order_detail
         (commodity_id,commodity_price,commodity_num,commondity_total_price,
          created_by,gmt_create,last_modified_by,gmt_modified,is_deleted,sort_no,version)
-        VALUES (#{commodityId},#{commodityPrice},#{commodityNum},#{commondityTotalPrice,"ZQ",NOW(),#{lastModifiedBy},NOW(),0,0,1)
+        VALUES (#{commodityId},#{commodityPrice},#{commodityNum},#{commondityTotalPrice},"ZQ",NOW(),#{lastModifiedBy},NOW(),0,0,1)
     </insert>
     <select id="addOrderDetailForPrice" parameterType="com.neusoft.mall.entity.OrderDetail">
         SELECT commodity_price FROM t_order_detail WHERE commodity_id=#{commodityId}

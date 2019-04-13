@@ -70,11 +70,7 @@ public class OrderServiceImpl implements OrderService {
     public AppResponse getOrderDetail(String orderId) {
         if (null != orderId && !"".equals(orderId)) {
             OrderInfo orderInfo = orderMapper.getOrderDetail(orderId);
-            //为订单内商品加图
             List<OrderDetailInfo> commodityDetail = orderMapper.getOrderCommodityDetail(orderId);
-            for (OrderDetailInfo od:commodityDetail){
-                od.setCommodityFirstPicture(orderMapper.getGoodsFirstpictureAddress(od.getOrderId()));
-            }
             orderInfo.setCommodityList(commodityDetail);
             return AppResponse.success("订单细节获取成功！",orderInfo);
         }else {

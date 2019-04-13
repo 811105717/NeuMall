@@ -14,4 +14,5 @@ import com.neusoft.mall.entity.IndexQueryVO;
 public interface IndexService {
     AppResponse getRecommondCommodityList(IndexQueryVO queryVO);
     AppResponse getBuyCommodityList(String customerId);
+    AppResponse getClassifyList(String categoryParentId);
 }

@@ -1,5 +1,6 @@
 package com.neusoft.mall.index.mapper;
 
+import com.neusoft.mall.entity.CateGoryInfo;
 import com.neusoft.mall.entity.CommodityInfo;
 
 import com.neusoft.mall.entity.OrderInfo;
@@ -25,4 +26,5 @@ public interface IndexMapper {
     List<OrderInfo> getUserOrderList(@Param("customerId")String customerId);
     //根据订单号查询全部商品细节
     CommodityInfo getCommodityByOrderId(@Param("orderId") String orderId);
+    List<CateGoryInfo> getCategoryByParent(@Param("categoryParentId") String categoryParentId);
 }

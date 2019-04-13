@@ -4,10 +4,7 @@ import com.neusoft.common.response.AppResponse;
 import com.neusoft.mall.entity.OrderQueryVo;
 import com.neusoft.mall.ordercenter.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +43,9 @@ public class OrderController {
         return orderService.getOrderDetail(orderId);
     }
     @PutMapping(value = "updateOrderStatus")
-    public AppResponse updateOrderStatus(List<String> orderNumberList,String orderState){
+    public AppResponse updateOrderStatus(
+            @RequestParam("orderNumberList") List<String> orderNumberList,
+            @RequestParam("orderState") String orderState){
         return orderService.updateOrderStatus(orderNumberList,orderState);
     }
 

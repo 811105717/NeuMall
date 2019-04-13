@@ -54,4 +54,17 @@ public class IndexController {
     public AppResponse getBuyCommodityList(String customerId){
         return indexService.getBuyCommodityList(customerId);
     }
+
+    /**
+     * @Dept：大连东软信息学院
+     * @Description： 根据父级分类获取二级分类
+     * @Author：xiaobai
+     * @Date: 2019/4/13
+     * @Param：categoryParentId
+     * @Return：com.neusoft.common.response.AppResponse
+     */
+    @GetMapping(value = "getClassifyList")
+    public AppResponse getClassifyList(String categoryParentId){
+        return indexService.getClassifyList(categoryParentId);
+    }
 }

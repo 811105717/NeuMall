@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
+import com.neusoft.mall.entity.CateGoryInfo;
 import com.neusoft.mall.entity.CommodityInfo;
 import com.neusoft.mall.entity.IndexQueryVO;
 import com.neusoft.mall.entity.OrderInfo;
@@ -72,5 +73,15 @@ public class IndexServiceImpl implements IndexService {
         }
 
 
+    }
+
+    @Override
+    public AppResponse getClassifyList(String categoryParentId) {
+        if(null != categoryParentId && !"".equals(categoryParentId)){
+            List<CateGoryInfo> cateGoryInfoList = indexMapper.getCategoryByParent(categoryParentId);
+            return  AppResponse.success("二级分类获取成功",cateGoryInfoList);
+        }else {
+            return  AppResponse.bizError("未知数据错误！");
+        }
     }
 }
