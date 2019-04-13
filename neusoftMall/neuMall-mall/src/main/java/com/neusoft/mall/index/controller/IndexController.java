@@ -1,6 +1,8 @@
 package com.neusoft.mall.index.controller;
 
 import com.neusoft.common.entity.BasePageVo;
+import com.neusoft.common.response.AppResponse;
+import com.neusoft.mall.entity.IndexQueryVO;
 import com.neusoft.mall.entity.OrderInfo;
 import com.neusoft.mall.index.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +31,27 @@ public class IndexController {
 
     /**
      * @Dept：大连东软信息学院
-     * @Description：获取用户买过的商品列表
+     * @Description： 获取热门推荐商品
      * @Author：xiaobai
-     * @Date: 2019/4/9
-     * @Param：customerId
-     * @Return：java.util.Map<java.lang.String,java.lang.Object>
+     * @Date: 2019/4/13
+     * @Param：queryVO 分页 和是否推荐
+     * @Return：com.neusoft.common.response.AppResponse
      */
-    @GetMapping(value = "getBuyCommodityList")
-    public Map<String,Object> getBuyCommodityList(String customerId){
-        HashMap<String, Object> map = new HashMap<>(16);
-
-        List<OrderInfo> orderList = indexService.getCustomerOrderListByCustomerId(customerId);
-
-        return map;
+    @GetMapping(value = "getRecommondCommodityList")
+    public AppResponse getRecommondCommodityList(IndexQueryVO queryVO){
+        return indexService.getRecommondCommodityList(queryVO);
     }
 
+    /**
+     * @Dept：大连东软信息学院
+     * @Description： 获取用户买过的商品
+     * @Author：xiaobai
+     * @Date: 2019/4/13
+     * @Param：customerId
+     * @Return：com.neusoft.common.response.AppResponse
+     */
+    @GetMapping(value = "getBuyCommodityList")
+    public AppResponse getBuyCommodityList(String customerId){
+        return indexService.getBuyCommodityList(customerId);
+    }
 }
