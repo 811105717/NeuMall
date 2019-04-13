@@ -39,7 +39,7 @@
         {SELECT * FROM t_commodity WHERE category_fist=#{categoryFirst},category_second=#{categorySecond} ORDER BY commodity_retail_price DESC}
         a WHERE rownum &lt;#{end} AND rownum>=#{start}
     </select>
-    <insert id="addShoppingCart" parameterType="">
+    <insert id="addShoppingCart" >
        INSERT INTO t_shop
        (commodity_id,shop_number,customer_id,created_by,gmt_create,last_modified_by,
       gmt_modified,is_deleted,sort_no,version)
