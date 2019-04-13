@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -97,10 +97,16 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
             }
         }
     }
-
+    @Transactional
     @Override
-    public AppResponse addShoppingCart(CommodityInfo commodityInfo, OrderDetail orderDetail, CustomerInfo customerInfo) {
-        return null;
+    public AppResponse addShoppingCart(CommodityInfo commodityInfo, String shopNumber, CustomerInfo customerInfo) {
+        Boolean result=commodityCenterMapper.addShoppingCart(commodityInfo.getCommodityId(),shopNumber,customerInfo.getCustomerId());
+        if (result){
+            return AppResponse.success("加入购物车成功");
+        }else {
+            return AppResponse.notFound("加入购物车失败");
+        }
+
     }
     @Transactional
     @Override
@@ -162,10 +168,24 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
             return AppResponse.notFound("立即购买失败");
         }
     }
-
+    @Transactional
     @Override
-    public AppResponse commodityCollection() {
-        return null;
+    public AppResponse commodityCollection(CollectInfo collectInfo,String collectFlag) {
+        if (collectFlag.equals("1")){
+            boolean result=commodityCenterMapper.commodityCollection(collectInfo.getCustomerId(),collectInfo.getCommodityId());
+            if (result){
+                return AppResponse.success("添加收藏成功");
+            }else {
+                return  AppResponse.notFound("添加收藏失败");
+            }
+        }else{
+            boolean result=commodityCenterMapper.commodityCollectionForDelete(collectInfo.getCustomerId(),collectInfo.getCommodityId());
+            if (result){
+                return AppResponse.success("取消收藏成功");
+            }else {
+                return  AppResponse.notFound("取消收藏失败");
+            }
+        }
     }
     @Transactional
     @Override
@@ -196,6 +216,17 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
             }
         }
         return AppResponse.success("提交订单成功",data);
+    }
+    @Transactional
+    @Override
+    public AppResponse commodityCollectionList(CollectInfo collectInfo) {
+        List<String> data=commodityCenterMapper.commodityCollectionList(collectInfo.getCustomerId());
+       if (data!=null){
+           return AppResponse.success("获取收藏列表成功",data);
+       }else {
+           return AppResponse.notFound("获取收藏列表失败");
+       }
+
     }
 }
 

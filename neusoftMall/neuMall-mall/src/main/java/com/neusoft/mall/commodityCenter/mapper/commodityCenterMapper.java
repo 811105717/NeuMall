@@ -23,8 +23,7 @@ public interface commodityCenterMapper {
    List<CommodityInfo> getCommodityListForTotalCount2(@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond,@Param("start") int start,@Param("end") int end);//商品中心主界面查询
    List<CommodityInfo> getCommodityListForTetailPrice1(@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond,@Param("start") int start,@Param("end") int end);//商品中心主界面查询
    List<CommodityInfo> getCommodityListForTetailPrice2(@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond,@Param("start") int start,@Param("end") int end);//商品中心主界面查询
-   //      addShoppingCart();//加入购物车
-
+   Boolean addShoppingCart(@Param("commodityId") String commodityId,@Param("shopNumber")String shopNumber,@Param("customerId")String customerId);//加入购物车
    CommodityInfo getCommodityCenterDeatil(@Param("commodityId") String commodityId);//商品详情
    List<String> getCommodityCenterDeatilForCollect(@Param("commodityId") String commodityId);//商品详情
    List<String> getCommodityCenterDeatilForPic(@Param("commodityId") String commodityId);//商品详情
@@ -32,10 +31,10 @@ public interface commodityCenterMapper {
    List<String>  getCommodityCenterTradin(@Param("commodityId") String commodityId);//交易记录
    CommodityInfo  getCommodityBuyNow(@Param("commodityId") String commodityId);//立即购买
    String  getCommodityBuyNowForPrice(@Param("commodityId") String commodityId);//立即购买
-//     commodityCollection();//添加收藏/取消收藏
-
+   Boolean  commodityCollection(@Param("customerId")String customerId,@Param("commodityId")String commodityId);//添加收藏/取消收藏
+   Boolean  commodityCollectionForDelete(@Param("customerId")String customerId,@Param("commodityId")String commodityId);//添加收藏/取消收藏
    Boolean  addOrder(@Param("orderNumber")String orderNumber,@Param("orderPrice")String orderPrice,@Param("customerId")String customerId,@Param("orderAddress")String orderAddress,@Param("receiveTel")String receiveTel,@Param("receiveContact")String receiveContact,@Param("orderRemark")String orderRemark);//提交订单
    Boolean  addOrderDetail(@Param("commodityId")String commodityId,@Param("commodityPrice")String commodityPrice,@Param("commodityNum")String commodityNum,@Param("commondityTotalPrice")String commondityTotalPrice);//提交订单
    String   addOrderDetailForPrice(@Param("commodityId")String commodityId);//提交订单
-//   commodityCollectionList();//收藏列表
+   List<String> commodityCollectionList(@Param("customerId")String customerId);//收藏列表
 }
