@@ -18,14 +18,12 @@ import java.util.List;
  */
 @Mapper
 public interface commodityCenterMapper {
-   List<CommodityInfo> getCommodityList(@Param("categoryFirst") String categoryFirst, @Param("categorySecond") String categorySecond, @Param("start") int start, @Param("end") int end);//商品中心主界面查询
-   Integer getCommodityListForTotalRecords(@Param("categoryFirst") String categoryFirst, @Param("categorySecond") String categorySecond);//商品中心主界面查询
-   List<CommodityInfo> getCommodityListForName(@Param("commodityName") String commodityName,@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond,@Param("start") int start,@Param("end") int end);//商品中心主界面查询
-   Integer getCommodityListForNameForTotalRecords(@Param("commodityName") String commodityName,@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond);//商品中心主界面查询
-   List<CommodityInfo> getCommodityListForTotalCount1(@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond,@Param("start") int start,@Param("end") int end);//商品中心主界面查询
-   List<CommodityInfo> getCommodityListForTotalCount2(@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond,@Param("start") int start,@Param("end") int end);//商品中心主界面查询
-   List<CommodityInfo> getCommodityListForTetailPrice1(@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond,@Param("start") int start,@Param("end") int end);//商品中心主界面查询
-   List<CommodityInfo> getCommodityListForTetailPrice2(@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond,@Param("start") int start,@Param("end") int end);//商品中心主界面查询
+   List<CommodityInfo> getCommodityList(@Param("categoryFirst") String categoryFirst, @Param("categorySecond") String categorySecond);//商品中心主界面查询
+   List<CommodityInfo> getCommodityListForName(@Param("commodityName") String commodityName,@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond);//商品中心主界面查询
+   List<CommodityInfo> getCommodityListForTotalCount1(@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond);//商品中心主界面查询
+   List<CommodityInfo> getCommodityListForTotalCount2(@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond);//商品中心主界面查询
+   List<CommodityInfo> getCommodityListForTetailPrice1(@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond);//商品中心主界面查询
+   List<CommodityInfo> getCommodityListForTetailPrice2(@Param("categoryFirst") String categoryFirst,@Param("categorySecond") String categorySecond);//商品中心主界面查询
    Boolean addShoppingCart(@Param("commodityId") String commodityId,@Param("shopNumber")String shopNumber,@Param("customerId")String customerId);//加入购物车
    CommodityInfo getCommodityCenterDeatil(@Param("commodityId") String commodityId);//商品详情
    List<String> getCommodityCenterDeatilForCollect(@Param("commodityId") String commodityId);//商品详情

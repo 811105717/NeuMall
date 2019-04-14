@@ -1,5 +1,8 @@
 package com.neusoft.mall.commodityCenter.service.impl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.neusoft.common.entity.BasePageVo;
+import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.common.util.StringUtil;
 import com.neusoft.mall.commodityCenter.mapper.commodityCenterMapper;
@@ -27,69 +30,74 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     @Transactional
     @Override
     public AppResponse getCommodityList(CommodityInfo commodityInfo, BasePageVo basePageVo, String sortingTotalCount, String sortingRetailPrice) {
-        int start=(basePageVo.getPageNum()-1)*basePageVo.getPageSize()+1;
-        int end=basePageVo.getPageNum()*basePageVo.getPageSize();
+        PageVo pageVo = new PageVo();
         if (sortingTotalCount.equals("1")){
-            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityListForTotalCount1(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond(),start,end);
-            int totalRecords=commodityCenterMapper.getCommodityListForTotalRecords(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            PageHelper.startPage(basePageVo.getPageNum(),basePageVo.getPageSize());
+            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityListForTotalCount1(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            pageVo.setList(commodityList);
+            pageVo.setTotalRecords((int)new PageInfo(commodityList).getTotal());
             Map<String,Object> data=null;
-            data.put("list",commodityList);
-            data.put("totalRecords",totalRecords);
+            data.put("list",pageVo);
             if(data!=null){
                 return AppResponse.success("获取商品表成功",data);
             }else{
                 return AppResponse.notFound("获取商品表失败");
             }
        }else if (sortingTotalCount.equals("2")){
-            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityListForTotalCount2(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond(),start,end);
-            int totalRecords=commodityCenterMapper.getCommodityListForTotalRecords(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            PageHelper.startPage(basePageVo.getPageNum(),basePageVo.getPageSize());
+            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityListForTotalCount2(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            pageVo.setList(commodityList);
+            pageVo.setTotalRecords((int)new PageInfo(commodityList).getTotal());
             Map<String,Object> data=null;
-            data.put("list",commodityList);
-            data.put("totalRecords",totalRecords);
+            data.put("list",pageVo);
             if(data!=null){
                 return AppResponse.success("获取商品表成功",data);
             }else{
                 return AppResponse.notFound("获取商品表失败");
             }
         }else if (sortingRetailPrice.equals("1")){
-            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityListForTetailPrice1(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond(),start,end);
-            int totalRecords=commodityCenterMapper.getCommodityListForTotalRecords(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            PageHelper.startPage(basePageVo.getPageNum(),basePageVo.getPageSize());
+            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityListForTetailPrice1(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            pageVo.setList(commodityList);
+            pageVo.setTotalRecords((int)new PageInfo(commodityList).getTotal());
             Map<String,Object> data=null;
-            data.put("list",commodityList);
-            data.put("totalRecords",totalRecords);
+            data.put("list",pageVo);
             if(data!=null){
                 return AppResponse.success("获取商品表成功",data);
             }else{
                 return AppResponse.notFound("获取商品表失败");
             }
         }else if (sortingRetailPrice.equals("2")){
-            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityListForTetailPrice2(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond(),start,end);
-            int totalRecords=commodityCenterMapper.getCommodityListForTotalRecords(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            PageHelper.startPage(basePageVo.getPageNum(),basePageVo.getPageSize());
+            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityListForTetailPrice2(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            pageVo.setList(commodityList);
+            pageVo.setTotalRecords((int)new PageInfo(commodityList).getTotal());
             Map<String,Object> data=null;
-            data.put("list",commodityList);
-            data.put("totalRecords",totalRecords);
+            data.put("list",pageVo);
             if(data!=null){
                 return AppResponse.success("获取商品表成功",data);
             }else{
                 return AppResponse.notFound("获取商品表失败");
             }
         }else if (commodityInfo.getCommodityName()!=null){
-            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityListForName(commodityInfo.getCommodityName(),commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond(),start,end);
-            int totalRecords=commodityCenterMapper.getCommodityListForNameForTotalRecords(commodityInfo.getCommodityName(),commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            PageHelper.startPage(basePageVo.getPageNum(),basePageVo.getPageSize());
+            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityListForName(commodityInfo.getCommodityName(),commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            pageVo.setList(commodityList);
+            pageVo.setTotalRecords((int)new PageInfo(commodityList).getTotal());
             Map<String,Object> data=null;
-            data.put("list",commodityList);
-            data.put("totalRecords",totalRecords);
+            data.put("list",pageVo);
             if(data!=null){
                 return AppResponse.success("获取商品表成功",data);
             }else{
                 return AppResponse.notFound("获取商品表失败");
             }
         }else{
-            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityList(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond(),start,end);
-            int totalRecords=commodityCenterMapper.getCommodityListForTotalRecords(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            PageHelper.startPage(basePageVo.getPageNum(),basePageVo.getPageSize());
+            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityList(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            pageVo.setList(commodityList);
+            pageVo.setTotalRecords((int)new PageInfo(commodityList).getTotal());
             Map<String,Object> data=null;
-            data.put("list",commodityList);
-            data.put("totalRecords",totalRecords);
+            data.put("list",pageVo);
             if(data!=null){
                 return AppResponse.success("获取商品表成功",data);
             }else{
