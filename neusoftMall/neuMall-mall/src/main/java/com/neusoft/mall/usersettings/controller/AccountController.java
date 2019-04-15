@@ -4,6 +4,8 @@ import com.neusoft.common.response.AppResponse;
 import com.neusoft.common.util.UUIDUtil;
 import com.neusoft.mall.entity.CustomerInfo;
 import com.neusoft.mall.usersettings.service.AccountService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/front/account")
+@Api("账户设置PAI")
 public class AccountController {
     private static final String LAST_MODIFIED_BY = "xiaobai";
     @Autowired
@@ -38,6 +41,7 @@ public class AccountController {
      * @Param：customer 客户实体对象
      * @Return：com.neusoft.common.response.AppResponse
      */
+    @ApiOperation("修改密码")
     @PutMapping(value = "updatePassWord")
     public AppResponse updatePassWord(CustomerInfo customer) throws Exception{
         try {
@@ -57,6 +61,7 @@ public class AccountController {
      * @Param：customer 用户实体对象
      * @Return：com.neusoft.common.response.AppResponse
      */
+    @ApiOperation("用户注册")
     @PostMapping(value = "registered")
     public AppResponse customerRegister(CustomerInfo customer) throws Exception{
         customer.setLastModifiedBy(LAST_MODIFIED_BY);
@@ -76,7 +81,7 @@ public class AccountController {
      * @Param：customer 用户实体
      * @Return：com.neusoft.common.response.AppResponse
      */
-
+    @ApiOperation("用户登录")
     @GetMapping(value = "userLogin")
     public AppResponse customerLogin(CustomerInfo customer,
                                      HttpServletRequest request) throws Exception{
