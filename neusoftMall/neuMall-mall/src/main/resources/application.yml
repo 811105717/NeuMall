@@ -21,3 +21,9 @@ mybatis:
 logging:
   level:
     com.neusoft.admin : debug   # 打印sql
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  returnPageInfo: check
