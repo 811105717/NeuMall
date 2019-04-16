@@ -5,8 +5,12 @@
 <mapper namespace="com.neusoft.mall.index.mapper.IndexMapper">
     <select id="getCommodityList" parameterType="String" resultType="com.neusoft.mall.entity.CommodityInfo">
         SELECT * FROM t_commodity
-        WHERE commodity_is_recommend = 1
-        AND is_deleted = 0
+        <where>
+            is_deleted = 0
+            <if test="null!=recommend">
+                AND commodity_is_recommend = #{recommend}
+            </if>
+        </where>
     </select>
 
     <select id="getUserOrderList" parameterType="String" resultType="com.neusoft.mall.entity.OrderInfo">

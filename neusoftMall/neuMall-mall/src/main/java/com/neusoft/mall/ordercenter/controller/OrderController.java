@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/front/orderCenter")
 @Api("订单中心API")
+@CrossOrigin
 public class OrderController {
 
     @Autowired

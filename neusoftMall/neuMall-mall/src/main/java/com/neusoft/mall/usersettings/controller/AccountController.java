@@ -1,7 +1,6 @@
 package com.neusoft.mall.usersettings.controller;
 
 import com.neusoft.common.response.AppResponse;
-import com.neusoft.common.util.UUIDUtil;
 import com.neusoft.mall.entity.CustomerInfo;
 import com.neusoft.mall.usersettings.service.AccountService;
 import io.swagger.annotations.Api;
@@ -9,12 +8,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author: xiaobai
@@ -28,6 +23,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/front/account")
 @Api("账户设置PAI")
+@CrossOrigin
 public class AccountController {
     private static final String LAST_MODIFIED_BY = "xiaobai";
     @Autowired
