@@ -45,6 +45,10 @@ public class OrderServiceImpl implements OrderService {
             PageVo<OrderInfo>list = new PageVo<>();
             PageHelper.startPage(queryVo.getPageNum(),queryVo.getPageSize());
             List<OrderInfo> orderList = orderMapper.getOrderList(queryVo);
+            for(OrderInfo o:orderList){
+                List<OrderDetailInfo> orderDetailInfos = orderMapper.getOrderCommodityDetail(o.getOrderId());
+                        o.setCommodityList(orderDetailInfos);
+            }
             list.setList(orderList);
             list.setTotalRecords((int)new PageInfo<>(orderList).getTotal());
             //获取数据成功！

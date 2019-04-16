@@ -20,7 +20,7 @@ mybatis:
     map-underscore-to-camel-case: true
 logging:
   level:
-    com.neusoft.admin : debug   # 打印sql
+    com.neusoft.mall : debug   # 打印sql
 pagehelper:
   helperDialect: mysql
   reasonable: true
