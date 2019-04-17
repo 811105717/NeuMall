@@ -25,6 +25,7 @@ ext {
 }
 
 dependencies {
+    compile(project(':neuMall-common'))
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
     compileOnly 'org.projectlombok:lombok'
