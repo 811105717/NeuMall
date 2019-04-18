@@ -9,23 +9,23 @@
         SELECT * FROM t_order JOIN t_customer
         ON t_order.customer_id = t_customer.customer_id
         <where>
-            <if test="null!=customerId">
+            <if test="null!=customerId and ''!=customerId">
                 t_order.customer_id = #{customerId}
                 AND t_order.is_deleted = 0
             </if>
 
-            <if test="null!=orderNumber">
-                AND order_number = #{orderNumber}
+            <if test="null!=orderNumber and ''!=orderNumber">
+                AND order_number LIKE CONCAT(CONCAT('%', #{orderNumber}), '%')
             </if>
 
-            <if test="null!=orderDateStart">
-                AND order_date >= #{orderDateStart}
+            <if test="null!=orderDateStart and ''!=orderDateStart">
+                AND date_format(order_date,'%Y-%m-%d') >= #{orderDateStart}
             </if>
             <!--<![CDATA[<]]> 处理小于号字符冲突 -->
-            <if test="null!=orderDateEnd">
-                AND order_date <![CDATA[<]]>= #{orderDateEnd}
+            <if test="null!=orderDateEnd and ''!=orderDateEnd">
+                AND date_format(order_date,'%Y-%m-%d') <![CDATA[<]]>= #{orderDateEnd}
             </if>
-            <if test="null!=orderState">
+            <if test="null!=orderState and ''!=orderState">
                 AND order_state = #{orderState}
             </if>
         </where>

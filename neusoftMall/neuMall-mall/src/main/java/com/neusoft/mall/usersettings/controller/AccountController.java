@@ -40,6 +40,7 @@ public class AccountController {
     @ApiOperation("修改密码")
     @PutMapping(value = "updatePassWord")
     public AppResponse updatePassWord(CustomerInfo customer) throws Exception{
+        log.info("cust:{}",customer);
         try {
             customer.setLastModifiedBy(LAST_MODIFIED_BY);
             return accountService.updatePassword(customer);
@@ -85,7 +86,7 @@ public class AccountController {
             return accountService.customerLogin(customer,request);
         } catch (UnsupportedEncodingException e) {
             log.info("error register customer {}",e);
-            throw new Exception("用户注册异常");
+            throw new Exception("用户登录异常");
         }
     }
 

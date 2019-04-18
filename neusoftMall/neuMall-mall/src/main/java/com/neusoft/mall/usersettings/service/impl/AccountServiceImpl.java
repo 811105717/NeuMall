@@ -51,7 +51,7 @@ public class AccountServiceImpl implements AccountService {
                 return AppResponse.bizError("原密码不匹配，请重新输入");
             }else {
                 //修改密码  写入数据库
-                customer.setCustomerPassword(CreateMD5.getMd5(customer.getCustomerPassword()));
+                customer.setCustomerPassword(CreateMD5.getMd5(customer.getCustomerNewPassword()));
                 int result = mapper.updatePassword(customer);
                 if (0 == result) {
                     return AppResponse.bizError("修改密码失败，请重试！");
@@ -121,7 +121,7 @@ public class AccountServiceImpl implements AccountService {
                 //登录成功  处理session
                 HttpSession session = request.getSession();
                 session.setAttribute("_LOGIN_USER_",logInCustomer);
-                return AppResponse.success("用户登录成功！");
+                return AppResponse.success("用户登录成功！",logInCustomer);
             }
         }else {
             return AppResponse.bizError("未知数据错误！");
