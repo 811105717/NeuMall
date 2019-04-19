@@ -6,6 +6,7 @@ import com.neusoft.mall.entity.StateUpdateVo;
 import com.neusoft.mall.ordercenter.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/front/orderCenter")
 @Api("订单中心API")
 @CrossOrigin
+@Slf4j
 public class OrderController {
 
     @Autowired
@@ -38,6 +40,7 @@ public class OrderController {
     @ApiOperation("获取用户所有订单")
     @GetMapping(value="getOrderList")
     public AppResponse getOrderList(OrderQueryVo queryVo){
+        log.info("queryvo:{}",queryVo);
         return orderService.getOrderList(queryVo);
     }
     /**
