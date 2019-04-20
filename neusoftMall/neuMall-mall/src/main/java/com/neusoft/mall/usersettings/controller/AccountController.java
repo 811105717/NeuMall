@@ -3,6 +3,7 @@ package com.neusoft.mall.usersettings.controller;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.mall.entity.CustomerInfo;
 import com.neusoft.mall.usersettings.service.AccountService;
+import com.neusoft.mall.util.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

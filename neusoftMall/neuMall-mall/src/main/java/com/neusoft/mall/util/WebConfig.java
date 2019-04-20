@@ -1,5 +1,6 @@
 package com.neusoft.mall.util;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -12,13 +13,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    /**
+     * @Dept：大连东软信息学院
+     * @Description：
+     * @Author：xiaobai
+     * @Date: 2019/4/20
+     * @Param：
+     * @Return：com.neusoft.mall.util.AccessHandler
+     */
+    @Bean
+    public AccessHandler AccessHandler(){
+        return new AccessHandler();
+    }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AccessHandler())
-                .addPathPatterns("/**");
-                //添加需要进行拦截的链接
-//                .excludePathPatterns("/front/account/userLogin");
-        //排除不需要拦截的链接，多个链接直接用逗号隔开
-//        System.out.println("===========   拦截器注册完毕   ===========");
+        registry.addInterceptor(AccessHandler()).addPathPatterns("/**");
     }
 }

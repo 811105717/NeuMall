@@ -6,6 +6,8 @@ import com.neusoft.common.util.UUIDUtil;
 import com.neusoft.mall.entity.CustomerInfo;
 import com.neusoft.mall.usersettings.mapper.AccountMapper;
 import com.neusoft.mall.usersettings.service.AccountService;
+import com.neusoft.mall.util.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,10 +25,13 @@ import java.io.UnsupportedEncodingException;
  */
 @SuppressWarnings("ALL")
 @Service
+@Slf4j
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountMapper mapper;
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * @Dept：大连东软信息学院
@@ -92,7 +97,6 @@ public class AccountServiceImpl implements AccountService {
                     return AppResponse.success("用户注册成功！");
                 }
             }
-
         }else {
             return AppResponse.bizError("未知数据错误！");
         }
@@ -118,10 +122,16 @@ public class AccountServiceImpl implements AccountService {
                 //如果登陆失败  可能用户不存在  也可能密码错误
                 return AppResponse.bizError("用户登录失败，用户名或密码错误！");
             }else {
-                //登录成功  处理session
-                HttpSession session = request.getSession();
-                session.setAttribute("_LOGIN_USER_",logInCustomer);
-                return AppResponse.success("用户登录成功！",logInCustomer);
+                //放入token
+                logInCustomer.setCustomerPassword(null);
+                logInCustomer.setTokenFront(RedisUtil.generateToken());
+                boolean res1 = redisUtil.addData(logInCustomer.getTokenFront(),logInCustomer);
+                boolean res2 = redisUtil.updateActiveTime(logInCustomer.getTokenFront());
+                if(res1 && res2){
+                    log.info("用户登陆成功  放入redis token {}",logInCustomer.getTokenFront());
+                    return AppResponse.success("用户登录成功！",logInCustomer);
+                }
+                return AppResponse.bizError("放入redis失败 拒绝登陆！");
             }
         }else {
             return AppResponse.bizError("未知数据错误！");

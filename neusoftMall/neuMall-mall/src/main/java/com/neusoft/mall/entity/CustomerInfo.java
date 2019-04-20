@@ -3,6 +3,8 @@ package com.neusoft.mall.entity;
 import com.neusoft.common.entity.BaseEntity;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @Author: xiaobai
  * @Date: 2019/4/9 14:02
@@ -12,12 +14,13 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
-public class CustomerInfo extends BaseEntity {
+public class CustomerInfo extends BaseEntity implements Serializable {
     private String customerId; //客户id
     private String customerNumber; //账号
     private String customerPassword; //密码
     private String customerNewPassword;//新密码
     private String customerName; //客户姓名
     private String customerIsUsed;// 启用/禁用  0启用1禁用
+    private String tokenFront; //用户token
 
 }
