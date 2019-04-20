@@ -1,13 +1,10 @@
 package com.neusoft.mall.util;
 
-
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
@@ -24,8 +21,12 @@ import java.io.PrintWriter;
 public class AccessHandler implements HandlerInterceptor {
     //不希望被拦截的请求路由
     final String[] passPath = new String[]
-            {"/front/account/registered","/front/account/userLogin",
-            "/admin/backend/login/userLogin","/admin/backend/user/updatePwd","error"};
+            {"error",
+             "/front/account/registered",
+             "/front/account/userLogin",
+             "/admin/backend/login/userLogin",
+             "/admin/backend/user/updatePwd",
+             };
     @Autowired
     private RedisUtil redisUtil;
     @Override
@@ -47,7 +48,6 @@ public class AccessHandler implements HandlerInterceptor {
                 return true;
             }
         }
-
         //拿到 token key  进行验证
         String key = request.getParameter("tokenFront");
         if(null==key){
@@ -77,8 +77,4 @@ public class AccessHandler implements HandlerInterceptor {
         out.print(obj.toJSONString());
         return false;
     }
-
-
-
-
 }
