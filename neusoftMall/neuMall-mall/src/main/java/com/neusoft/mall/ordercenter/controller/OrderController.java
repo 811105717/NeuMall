@@ -40,7 +40,7 @@ public class OrderController {
     @ApiOperation("获取用户所有订单")
     @GetMapping(value="getOrderList")
     public AppResponse getOrderList(OrderQueryVo queryVo){
-        log.info("queryvo:{}",queryVo);
+        log.info("getOrderList frontData :{}",queryVo);
         return orderService.getOrderList(queryVo);
     }
     /**
@@ -54,6 +54,7 @@ public class OrderController {
     @ApiOperation("获取订单详细信息")
     @GetMapping(value = "getOrderDetail")
     public AppResponse getOrderDetail(String orderId){
+        log.info("getOrderDetail frontData {}",orderId);
         return orderService.getOrderDetail(orderId);
     }
     /**
@@ -67,6 +68,7 @@ public class OrderController {
     @ApiOperation("更新订单状态 已签收 撤销")
     @PutMapping(value = "updateOrderStatus")
     public AppResponse updateOrderStatus(@RequestBody StateUpdateVo stateUpdateVo){
+        log.info("updateOrderStatus frontData {}",stateUpdateVo);
         return orderService.updateOrderStatus(stateUpdateVo.getOrderNumberList(),stateUpdateVo.getOrderState());
     }
 

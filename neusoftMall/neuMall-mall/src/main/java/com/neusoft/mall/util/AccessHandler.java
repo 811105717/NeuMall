@@ -1,7 +1,7 @@
 package com.neusoft.mall.util;
 
 import lombok.extern.slf4j.Slf4j;
-import net.minidev.json.JSONObject;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -27,6 +27,7 @@ public class AccessHandler implements HandlerInterceptor {
              "/admin/backend/login/userLogin",
              "/admin/backend/user/updatePwd",
              };
+
     @Autowired
     private RedisUtil redisUtil;
     @Override
@@ -38,7 +39,7 @@ public class AccessHandler implements HandlerInterceptor {
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "x-requested-with,Cache-Control,Pragma,Content-Type,Token");
         response.setHeader("Access-Control-Allow-Credentials", "true");
-        //是否支持cookie跨域
+        //打印访问信息
         log.info("来自：{}",request.getHeader("Origin"));
         log.info("请求：{}",request.getRequestURL());
         //不在拦截范围内
@@ -51,30 +52,29 @@ public class AccessHandler implements HandlerInterceptor {
         //拿到 token key  进行验证
         String key = request.getParameter("tokenFront");
         if(null==key){
-            log.info("前台token获取失败 获取后台token");
             key = request.getParameter("tokenBackend");
         }
         if(null!=key){
+            log.info("得到token {}",key);
             //获取用户信息  成功就不拦截
             Object data = redisUtil.getData(key);
             if(null!=data){
-                log.info("查询到token 通过拦截！{}",key);
                 //延长token时间
                 boolean res = redisUtil.updateActiveTime(key);
                 if(res){
-                    log.info("获取token 成功，更新存活时间！{}",key);
+                    log.info("比对token 成功，更新存活时间！{}",key);
+                    return true;
                 }
-                return true;
             }
         }
-        log.info("未查询到相关token信息，拦截请求！ {}",key);
+        log.info("未查询到相关token信息，拦截请求！");
         response.setContentType("application/json; charset=utf-8");
         PrintWriter out = response.getWriter();
         JSONObject obj = new JSONObject();
         obj.put("code",1);
-        obj.put("msg","操作被拦截");
-        obj.put("data",null);
-        out.print(obj.toJSONString());
+        obj.put("msg","权限不足，请您重新登陆！");
+        obj.put("data","");
+        out.print(obj.toString());
         return false;
     }
 }

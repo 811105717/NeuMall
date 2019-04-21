@@ -29,13 +29,14 @@
         created_by,gmt_create,last_modified_by,gmt_modified,
         is_deleted,sort_no,version)
         VALUES (#{customerId},#{customerNumber},#{customerPassword},#{customerName},
-        1,"xiaobai",NOW(),#{lastModifiedBy},NOW(),0,0,0)
+        1,"xiaobai",NOW(),#{lastModifiedBy},NOW(),0,0,1)
     </insert>
 
     <update id="updatePassword" parameterType="com.neusoft.mall.entity.CustomerInfo">
         UPDATE t_customer SET
         customer_password = #{customerPassword},
-        last_modified_by = #{lastModifiedBy},gmt_modified = NOW()
+        last_modified_by = #{lastModifiedBy},
+        gmt_modified = NOW(),version = version + 1
         WHERE customer_id = #{customerId}
         AND is_deleted = 0
     </update>

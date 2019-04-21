@@ -49,7 +49,7 @@
         UPDATE t_order SET
         order_state = #{status},
         last_modified_by = "xiaobai",
-        gmt_modified = NOW()
+        gmt_modified = NOW(),version = version + 1
         WHERE order_number IN
         <foreach item="item" collection="orderList" separator="," open="(" close=")" index="">
             #{item}

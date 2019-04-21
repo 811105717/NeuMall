@@ -41,7 +41,7 @@ public class AccountController {
     @ApiOperation("修改密码")
     @PutMapping(value = "updatePassWord")
     public AppResponse updatePassWord(CustomerInfo customer) throws Exception{
-        log.info("cust:{}",customer);
+        log.info("updatePassWord frontData :{}",customer);
         try {
             customer.setLastModifiedBy(LAST_MODIFIED_BY);
             return accountService.updatePassword(customer);
@@ -63,6 +63,7 @@ public class AccountController {
     @PostMapping(value = "registered")
     public AppResponse customerRegister(CustomerInfo customer) throws Exception{
         customer.setLastModifiedBy(LAST_MODIFIED_BY);
+        log.info("registered frontData {}",customer);
         try {
             return accountService.customerRegister(customer);
         } catch (UnsupportedEncodingException e) {
@@ -83,6 +84,7 @@ public class AccountController {
     @GetMapping(value = "userLogin")
     public AppResponse customerLogin(CustomerInfo customer,
                                      HttpServletRequest request) throws Exception{
+        log.info("userLogin frontData {}",customer);
         try {
             return accountService.customerLogin(customer,request);
         } catch (UnsupportedEncodingException e) {
