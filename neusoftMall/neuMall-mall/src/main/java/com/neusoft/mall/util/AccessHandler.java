@@ -24,8 +24,7 @@ public class AccessHandler implements HandlerInterceptor {
             {"error",
              "/front/account/registered",
              "/front/account/userLogin",
-             "/admin/backend/login/userLogin",
-             "/admin/backend/user/updatePwd",
+             "/admin/backend/login/userLogin"
              };
 
     @Autowired
