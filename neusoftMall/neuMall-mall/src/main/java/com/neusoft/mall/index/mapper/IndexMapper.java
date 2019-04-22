@@ -48,7 +48,7 @@ public interface IndexMapper {
      * @Param：orderId 订单id
      * @Return：com.neusoft.mall.entity.CommodityInfo
      */
-    CommodityInfo getCommodityByOrderId(@Param("orderId") String orderId);
+    List<CommodityInfo> getCommodityByOrderId(@Param("orderId") String orderId);
     /**
      * @Dept：大连东软信息学院
      * @Description： 获取二级分类

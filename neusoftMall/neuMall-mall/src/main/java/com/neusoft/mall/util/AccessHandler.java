@@ -49,41 +49,43 @@ public class AccessHandler implements HandlerInterceptor {
                 return true;
             }
         }
-        //拿到 token key  进行验证
-        String key = request.getParameter("tokenFront");
-        if(null==key){
-            key = request.getParameter("tokenBackend");
-        }
-        if(null!=key){
-            log.info("得到token {}",key);
-            //获取用户信息  成功就不拦截
-            Object data = redisUtil.getData(key);
-
+        return true;
+        //拦截器token配置
+//        //拿到 token key  进行验证
+//        String key = request.getParameter("tokenFront");
+//        if(null==key){
+//            key = request.getParameter("tokenBackend");
+//        }
+//        if(null!=key){
+//            log.info("得到token {}",key);
+//            //获取用户信息  成功就不拦截
+//            Object data = redisUtil.getData(key);
 //
-//            if(data instanceof CustomerInfo){
-//                log.info("customerinfo {}",data.toString());
-//            }else {
-//                log.info("cast error {}",data);
+////
+////            if(data instanceof CustomerInfo){
+////                log.info("customerinfo {}",data.toString());
+////            }else {
+////                log.info("cast error {}",data);
+////            }
+//
+//
+//            if(null!=data){
+//                //延长token时间
+//                boolean res = redisUtil.updateActiveTime(key);
+//                if(res){
+//                    log.info("比对token 成功，更新存活时间！{}",key);
+//                    return true;
+//                }
 //            }
-
-
-            if(null!=data){
-                //延长token时间
-                boolean res = redisUtil.updateActiveTime(key);
-                if(res){
-                    log.info("比对token 成功，更新存活时间！{}",key);
-                    return true;
-                }
-            }
-        }
-        log.info("未查询到相关token信息，拦截请求！");
-        response.setContentType("application/json; charset=utf-8");
-        PrintWriter out = response.getWriter();
-        JSONObject obj = new JSONObject();
-        obj.put("code",1);
-        obj.put("msg","权限不足，请您重新登陆！");
-        obj.put("data","");
-        out.print(obj.toString());
-        return false;
+//        }
+//        log.info("未查询到相关token信息，拦截请求！");
+//        response.setContentType("application/json; charset=utf-8");
+//        PrintWriter out = response.getWriter();
+//        JSONObject obj = new JSONObject();
+//        obj.put("code",1);
+//        obj.put("msg","权限不足，请您重新登陆！");
+//        obj.put("data","");
+//        out.print(obj.toString());
+//        return false;
     }
 }

@@ -5,10 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
-import com.neusoft.mall.entity.CateGoryInfo;
-import com.neusoft.mall.entity.CommodityInfo;
-import com.neusoft.mall.entity.IndexQueryVO;
-import com.neusoft.mall.entity.OrderInfo;
+import com.neusoft.mall.entity.*;
 import com.neusoft.mall.index.mapper.IndexMapper;
 import com.neusoft.mall.index.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,10 +77,12 @@ public class IndexServiceImpl implements IndexService {
                 return AppResponse.notFound("未查询到数据！");
             }else {
                 for(OrderInfo o:userOrderList){
-                    CommodityInfo commodityInfo = indexMapper.getCommodityByOrderId(o.getOrderId());
-                    if (commodityInfo != null) {
+                    List<CommodityInfo> commodityInfo = indexMapper.getCommodityByOrderId(o.getOrderId());
+                    if (commodityInfo != null && commodityInfo.size()!=0) {
                         //有的订单可能被逻辑删除了
-                        commodityList.add(commodityInfo);
+                        for(CommodityInfo c: commodityInfo){
+                            commodityList.add(c);
+                        }
                     }
                 }
                 return AppResponse.success("获取列表成功！",commodityList);
