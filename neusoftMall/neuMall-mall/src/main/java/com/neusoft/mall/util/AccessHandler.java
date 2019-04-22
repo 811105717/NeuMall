@@ -1,5 +1,6 @@
 package com.neusoft.mall.util;
 
+import com.neusoft.mall.entity.CustomerInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,15 @@ public class AccessHandler implements HandlerInterceptor {
             log.info("得到token {}",key);
             //获取用户信息  成功就不拦截
             Object data = redisUtil.getData(key);
+
+//
+//            if(data instanceof CustomerInfo){
+//                log.info("customerinfo {}",data.toString());
+//            }else {
+//                log.info("cast error {}",data);
+//            }
+
+
             if(null!=data){
                 //延长token时间
                 boolean res = redisUtil.updateActiveTime(key);
