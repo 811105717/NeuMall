@@ -16,6 +16,6 @@ import java.io.UnsupportedEncodingException;
 public interface AccountService {
     AppResponse updatePassword(CustomerInfo customer) throws UnsupportedEncodingException;
     AppResponse customerRegister(CustomerInfo customer) throws UnsupportedEncodingException;
-    AppResponse customerLogin(CustomerInfo customer, HttpServletRequest request)
+    AppResponse customerLogin(CustomerInfo customer)
             throws UnsupportedEncodingException;
 }
