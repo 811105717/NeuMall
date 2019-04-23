@@ -31,7 +31,7 @@ public class AccountController {
 
     /**
      * @Dept：大连东软信息学院
-     * @Description：修改密码
+     * @Description： 修改密码
      * @Author：xiaobai
      * @Date: 2019/4/10
      * @Param：customer 客户实体对象
@@ -78,9 +78,8 @@ public class AccountController {
      * @Return：com.neusoft.common.response.AppResponse
      */
     @ApiOperation("用户登录")
-    @GetMapping(value = "userLogin")
-    public AppResponse customerLogin(CustomerInfo customer,
-                                     HttpServletRequest request) throws Exception{
+    @PostMapping(value = "userLogin")
+    public AppResponse customerLogin(CustomerInfo customer) throws Exception{
         log.info("userLogin frontData {}",customer);
         try {
             return accountService.customerLogin(customer);

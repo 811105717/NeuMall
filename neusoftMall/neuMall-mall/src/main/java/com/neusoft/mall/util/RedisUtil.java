@@ -17,22 +17,25 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 @Slf4j
-public class RedisUtil {
+public class RedisUtil<T> {
+
     @Autowired
     private RedisTemplate redisTemplate;
-    //数据存活时间
+    /**
+     * 数据存活时间
+     */
     private static final long ACTIVE_TIME = 30;
 
     /**
      * @Dept：大连东软信息学院
-     * @Description： 向redis 中添加数据
+     * @Description： 用于向redis中添加一条数据，返回结果表示是否添加成功
      * @Author：xiaobai
      * @Date: 2019/4/20
-     * @Param：key
+     * @Param：key 键值
      * @Return：boolean
      */
 
-    public synchronized boolean addData(String key,Object value){
+    public  boolean addData(String key,T value){
         if(null == key){
             return false;
         }
@@ -45,17 +48,17 @@ public class RedisUtil {
     }
     /**
      * @Dept：大连东软信息学院
-     * @Description： 取数据
+     * @Description： 从redis中根据key取出一条数据 返回类型为Object
      * @Author：xiaobai
      * @Date: 2019/4/20
-     * @Param：key
+     * @Param：key 键值
      * @Return：java.lang.Object
      */
-    public synchronized Object getData(String key){
+    public  T getData(String key){
         if(null == key){
             return null;
         }
-        return redisTemplate.opsForValue().get(key);
+        return (T)redisTemplate.opsForValue().get(key);
     }
 
     /**
@@ -84,7 +87,7 @@ public class RedisUtil {
      * @Param：key
      * @Return：boolean
      */
-    public synchronized boolean deleteData(String key){
+    public  boolean deleteData(String key){
         if(null == key){
             return false;
         }
