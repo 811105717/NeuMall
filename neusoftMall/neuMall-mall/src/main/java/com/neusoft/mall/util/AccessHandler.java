@@ -24,7 +24,7 @@ public class AccessHandler implements HandlerInterceptor {
      * 不希望被拦截的路由
      */
     final String[] passPath = new String[]
-            {"error",
+        {   "/error",
              "/front/account/registered",
              "/front/account/userLogin",
              "/front/commodity/getRecommondCommodityList",
@@ -32,10 +32,9 @@ public class AccessHandler implements HandlerInterceptor {
              "/front/commodityCenter/getCommodityList",
              "/front/commodityCenter/getCommodityCenterDeatil",
              "/front/commodityCenter/getCommodityCenterSimilar",
-             "/front/commodityCenter/getCommodityCenterTrading"
+             "/front/commodityCenter/getCommodityCenterTrading",
 
-
-             };
+            };
 
     @Autowired
     private RedisUtil redisUtil;
