@@ -83,7 +83,7 @@ public class AccountController {
                                      HttpServletRequest request) throws Exception{
         log.info("userLogin frontData {}",customer);
         try {
-            return accountService.customerLogin(customer,request);
+            return accountService.customerLogin(customer);
         } catch (UnsupportedEncodingException e) {
             log.info("error register customer {}",e);
             throw new Exception("用户登录异常");

@@ -25,7 +25,14 @@ public class AccessHandler implements HandlerInterceptor {
             {"error",
              "/front/account/registered",
              "/front/account/userLogin",
-             "/admin/backend/login/userLogin",
+             "/front/commodity/getRecommondCommodityList",
+             "/front/commodity/getClassifyList",
+             "/front/commodityCenter/getCommodityList",
+             "/front/commodityCenter/getCommodityCenterDeatil",
+             "/front/commodityCenter/getCommodityCenterSimilar",
+             "/front/commodityCenter/getCommodityCenterTrading"
+
+
              };
 
     @Autowired
