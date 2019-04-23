@@ -4,11 +4,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
+import com.neusoft.mall.entity.CustomerInfo;
 import com.neusoft.mall.entity.OrderDetailInfo;
 import com.neusoft.mall.entity.OrderInfo;
 import com.neusoft.mall.entity.OrderQueryVo;
 import com.neusoft.mall.ordercenter.mapper.OrderMapper;
 import com.neusoft.mall.ordercenter.service.OrderService;
+import com.neusoft.mall.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * @Dept：大连东软信息学院
@@ -39,6 +43,11 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public AppResponse getOrderList(OrderQueryVo queryVo) {
+        if(null == queryVo.getTokenFront()){
+            return AppResponse.bizError("token失效");
+        }
+        CustomerInfo currCustomer = (CustomerInfo) redisUtil.getData(queryVo.getTokenFront());
+        queryVo.setCustomerId(currCustomer.getCustomerId());
         //用户id不为空的时候
         if(null != queryVo.getCustomerId() && !"".equals(queryVo.getCustomerId())){
             //处理分页
@@ -71,7 +80,12 @@ public class OrderServiceImpl implements OrderService {
      * @Return：com.neusoft.common.response.AppResponse
      */
     @Override
-    public AppResponse getOrderDetail(String orderId) {
+    public AppResponse getOrderDetail(String tokenFront) {
+        CustomerInfo currcustomer = (CustomerInfo) redisUtil.getData(tokenFront);
+        if(null == currcustomer){
+            return AppResponse.bizError("当前用户token失效");
+        }
+        String orderId = currcustomer.getCustomerId();
         if (null != orderId && !"".equals(orderId)) {
             OrderInfo orderInfo = orderMapper.getOrderDetail(orderId);
             if(null == orderInfo){

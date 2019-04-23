@@ -8,6 +8,7 @@ import com.neusoft.common.response.AppResponse;
 import com.neusoft.mall.entity.*;
 import com.neusoft.mall.index.mapper.IndexMapper;
 import com.neusoft.mall.index.service.IndexService;
+import com.neusoft.mall.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,8 @@ public class IndexServiceImpl implements IndexService {
 
     @Autowired
     private IndexMapper indexMapper;
+    @Autowired
+    private RedisUtil redisUtil;
 
 
     /**
@@ -67,7 +70,12 @@ public class IndexServiceImpl implements IndexService {
      * @Return：com.neusoft.common.response.AppResponse
      */
     @Override
-    public AppResponse getBuyCommodityList(String customerId) {
+    public AppResponse getBuyCommodityList(String token) {
+        CustomerInfo currCustomer = (CustomerInfo) redisUtil.getData(token);
+        if(null == currCustomer){
+            return AppResponse.bizError("无效的token");
+        }
+        String customerId = currCustomer.getCustomerId();
         // 先查用户所有订单  根据订单查所有买过的商品  然后返回
         if (null != customerId && !"".equals(customerId)) {
             //用来存储用户所有的订单

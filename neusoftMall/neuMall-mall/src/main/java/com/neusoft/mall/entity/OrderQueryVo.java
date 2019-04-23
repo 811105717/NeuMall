@@ -18,4 +18,5 @@ public class OrderQueryVo extends BasePageVo {
     private String orderDateEnd; //订单结束日期
     private String orderState; //订单状态
     private String customerId; //下单人ID
+    private String tokenFront;//token
 }

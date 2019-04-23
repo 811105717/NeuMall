@@ -56,9 +56,9 @@ public class IndexController {
      */
     @ApiOperation("获取用户买过的订单列表")
     @GetMapping(value = "getBuyCommodityList")
-    public AppResponse getBuyCommodityList(String customerId){
-        log.info("getBuyCommodityList frontData {}",customerId);
-        return indexService.getBuyCommodityList(customerId);
+    public AppResponse getBuyCommodityList(String tokenFront){
+        log.info("getBuyCommodityList frontData {}",tokenFront);
+        return indexService.getBuyCommodityList(tokenFront);
     }
 
     /**

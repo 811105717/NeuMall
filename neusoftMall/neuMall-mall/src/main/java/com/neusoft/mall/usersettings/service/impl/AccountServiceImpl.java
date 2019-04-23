@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -33,6 +32,7 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private RedisUtil redisUtil;
 
+
     /**
      * @Dept：大连东软信息学院
      * @Description： 修改密码逻辑处理
@@ -44,10 +44,16 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     @Override
     public AppResponse updatePassword(CustomerInfo customer) throws UnsupportedEncodingException {
+        //从redis取出当前登录用户
+        CustomerInfo currCustomer = (CustomerInfo) redisUtil.getData(customer.getTokenFront());
+        if(null == currCustomer){
+            return AppResponse.bizError("无效的TOKEN！");
+        }
+        log.info("get custoner by redis {}",currCustomer);
         //判断密码是否为空
-        if(null!= customer.getCustomerPassword()&& !"".equals(customer.getCustomerPassword())){
+        if(null!= currCustomer.getCustomerPassword()&& !"".equals(currCustomer.getCustomerPassword())){
             //查找相应用户
-            CustomerInfo checkCustomer = mapper.getCustomerById(customer.getCustomerId());
+            CustomerInfo checkCustomer = mapper.getCustomerById(currCustomer.getCustomerId());
             if(null == checkCustomer){
                 return AppResponse.bizError("用户不存在或者已经被删除！");
             }else if (!CreateMD5.getMd5(customer.getCustomerPassword()).
@@ -56,6 +62,7 @@ public class AccountServiceImpl implements AccountService {
                 return AppResponse.bizError("原密码不匹配，请重新输入");
             }else {
                 //修改密码  写入数据库
+                customer.setLastModifiedBy(currCustomer.getCustomerName());
                 customer.setCustomerPassword(CreateMD5.getMd5(customer.getCustomerNewPassword()));
                 int result = mapper.updatePassword(customer);
                 if (0 == result) {
@@ -88,6 +95,7 @@ public class AccountServiceImpl implements AccountService {
                 return AppResponse.bizError("用户名已经存在！请更换！");
             }else {
                 //对用户进行一些处理  然后存入数据库
+                customer.setLastModifiedBy(customer.getCustomerId());
                 customer.setCustomerId(UUIDUtil.uuidStr());
                 customer.setCustomerPassword(CreateMD5.getMd5(customer.getCustomerPassword()));
                 Integer res = mapper.addCustomer(customer);
@@ -123,11 +131,14 @@ public class AccountServiceImpl implements AccountService {
                 return AppResponse.bizError("用户登录失败，用户名或密码错误！");
             }else {
                 //放入token
-                logInCustomer.setCustomerPassword(null);
+
                 logInCustomer.setTokenFront(RedisUtil.generateToken());
                 boolean res1 = redisUtil.addData(logInCustomer.getTokenFront(),logInCustomer);
                 boolean res2 = redisUtil.updateActiveTime(logInCustomer.getTokenFront());
                 if(res1 && res2){
+                    //放入redis成功后 设置customerId 与 password失效
+                    logInCustomer.setCustomerId(null);
+                    logInCustomer.setCustomerPassword(null);
                     log.info("用户登陆成功  放入redis token {}",logInCustomer.getTokenFront());
                     return AppResponse.success("用户登录成功！",logInCustomer);
                 }

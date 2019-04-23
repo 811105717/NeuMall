@@ -26,7 +26,6 @@ import java.io.UnsupportedEncodingException;
 @Api("账户设置PAI")
 @CrossOrigin
 public class AccountController {
-    private static final String LAST_MODIFIED_BY = "xiaobai";
     @Autowired
     private AccountService accountService;
 
@@ -43,7 +42,6 @@ public class AccountController {
     public AppResponse updatePassWord(CustomerInfo customer) throws Exception{
         log.info("updatePassWord frontData :{}",customer);
         try {
-            customer.setLastModifiedBy(LAST_MODIFIED_BY);
             return accountService.updatePassword(customer);
         } catch (UnsupportedEncodingException e) {
             log.info("error update password {}",e);
@@ -62,7 +60,6 @@ public class AccountController {
     @ApiOperation("用户注册")
     @PostMapping(value = "registered")
     public AppResponse customerRegister(CustomerInfo customer) throws Exception{
-        customer.setLastModifiedBy(LAST_MODIFIED_BY);
         log.info("registered frontData {}",customer);
         try {
             return accountService.customerRegister(customer);
