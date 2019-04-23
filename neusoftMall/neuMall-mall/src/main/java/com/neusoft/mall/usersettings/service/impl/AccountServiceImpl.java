@@ -96,7 +96,7 @@ public class AccountServiceImpl implements AccountService {
                 return AppResponse.bizError("用户名已经存在！请更换！");
             }else {
                 //对用户进行一些处理  然后存入数据库
-                customer.setLastModifiedBy(customer.getCustomerId());
+                customer.setLastModifiedBy(customer.getCustomerName());
                 customer.setCustomerId(UUIDUtil.uuidStr());
                 customer.setCustomerPassword(CreateMD5.getMd5(customer.getCustomerPassword()));
                 Integer res = mapper.addCustomer(customer);
