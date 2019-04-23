@@ -51,7 +51,7 @@ public class AccountServiceImpl implements AccountService {
         }
         log.info("get custoner by redis {}",currCustomer);
         //判断密码是否为空
-        if(null!= currCustomer.getCustomerPassword()&& !"".equals(currCustomer.getCustomerPassword())){
+        if(null!= customer.getCustomerPassword()&& !"".equals(customer.getCustomerPassword())){
             //查找相应用户
             CustomerInfo checkCustomer = mapper.getCustomerById(currCustomer.getCustomerId());
             if(null == checkCustomer){
@@ -62,6 +62,7 @@ public class AccountServiceImpl implements AccountService {
                 return AppResponse.bizError("原密码不匹配，请重新输入");
             }else {
                 //修改密码  写入数据库
+                customer.setCustomerId(currCustomer.getCustomerId());
                 customer.setLastModifiedBy(currCustomer.getCustomerName());
                 customer.setCustomerPassword(CreateMD5.getMd5(customer.getCustomerNewPassword()));
                 int result = mapper.updatePassword(customer);
@@ -120,7 +121,7 @@ public class AccountServiceImpl implements AccountService {
      */
 
     @Override
-    public AppResponse customerLogin(CustomerInfo customer, HttpServletRequest request)
+    public AppResponse customerLogin(CustomerInfo customer)
             throws UnsupportedEncodingException {
         //判断用户名
         if(null != customer.getCustomerPassword() && !"".equals(customer.getCustomerPassword()) ){
