@@ -53,9 +53,9 @@ public class OrderController {
      */
     @ApiOperation("获取订单详细信息")
     @GetMapping(value = "getOrderDetail")
-    public AppResponse getOrderDetail(String tokenFront){
-        log.info("getOrderDetail frontData {}",tokenFront);
-        return orderService.getOrderDetail(tokenFront);
+    public AppResponse getOrderDetail(String orderId){
+        log.info("getOrderDetail frontData {}",orderId);
+        return orderService.getOrderDetail(orderId);
     }
     /**
      * @Dept：大连东软信息学院

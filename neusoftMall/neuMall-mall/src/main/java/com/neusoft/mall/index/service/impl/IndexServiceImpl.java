@@ -30,7 +30,7 @@ public class IndexServiceImpl implements IndexService {
     @Autowired
     private IndexMapper indexMapper;
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisUtil<CustomerInfo> redisUtil;
 
 
     /**
@@ -44,14 +44,12 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public AppResponse getRecommondCommodityList(IndexQueryVO queryVO) {
         if (null != queryVO) {
-            //分页
             PageVo<CommodityInfo> list = new PageVo<>();
             PageHelper.startPage(queryVO.getPageNum(),queryVO.getPageSize());
             List<CommodityInfo> commodityInfoList = indexMapper.getCommodityList(queryVO.getCommodityIsRecommend());
             list.setList(commodityInfoList);
             list.setTotalRecords((int)new PageInfo<>(commodityInfoList).getTotal());
             if(0!= list.getTotalRecords()){
-                //查到东西了
                 return AppResponse.success("推荐商品获取成功！",list);
             }else {
                 return AppResponse.bizError("未查询到任何数据！");
@@ -71,23 +69,19 @@ public class IndexServiceImpl implements IndexService {
      */
     @Override
     public AppResponse getBuyCommodityList(String token) {
-        CustomerInfo currCustomer = (CustomerInfo) redisUtil.getData(token);
-        if(null == currCustomer){
-            return AppResponse.bizError("无效的token");
-        }
+        CustomerInfo currCustomer = redisUtil.getData(token);
         String customerId = currCustomer.getCustomerId();
-        // 先查用户所有订单  根据订单查所有买过的商品  然后返回
         if (null != customerId && !"".equals(customerId)) {
-            //用来存储用户所有的订单
             List<CommodityInfo> commodityList = new ArrayList<>(16);
             List<OrderInfo> userOrderList = indexMapper.getUserOrderList(customerId);
             if (0 == userOrderList.size()) {
                 return AppResponse.notFound("未查询到数据！");
             }else {
+                //所有的订单 每一个订单可能有多个商品
                 for(OrderInfo o:userOrderList){
                     List<CommodityInfo> commodityInfo = indexMapper.getCommodityByOrderId(o.getOrderId());
                     if (commodityInfo != null && commodityInfo.size()!=0) {
-                        //有的订单可能被逻辑删除了
+                        //多个商品
                         for(CommodityInfo c: commodityInfo){
                             commodityList.add(c);
                         }

@@ -11,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -30,7 +28,7 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountMapper mapper;
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisUtil<CustomerInfo> redisUtil;
 
 
     /**
@@ -41,19 +39,14 @@ public class AccountServiceImpl implements AccountService {
      * @Param：customer 当前用户
      * @Return：com.neusoft.common.response.AppResponse
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public AppResponse updatePassword(CustomerInfo customer) throws UnsupportedEncodingException {
-        //从redis取出当前登录用户
         CustomerInfo currCustomer = (CustomerInfo) redisUtil.getData(customer.getTokenFront());
-        if(null == currCustomer){
-            return AppResponse.bizError("无效的TOKEN！");
-        }
+        customer.setCustomerId(currCustomer.getCustomerId());
         log.info("get custoner by redis {}",currCustomer);
-        //判断密码是否为空
-        if(null!= customer.getCustomerPassword()&& !"".equals(customer.getCustomerPassword())){
-            //查找相应用户
-            CustomerInfo checkCustomer = mapper.getCustomerById(currCustomer.getCustomerId());
+        if(null != customer.getCustomerPassword() && !"".equals(customer.getCustomerPassword())){
+            CustomerInfo checkCustomer = mapper.getCustomerById(customer.getCustomerId());
             if(null == checkCustomer){
                 return AppResponse.bizError("用户不存在或者已经被删除！");
             }else if (!CreateMD5.getMd5(customer.getCustomerPassword()).
@@ -61,9 +54,8 @@ public class AccountServiceImpl implements AccountService {
                 //若用户存在，且密码与当前密码不匹配
                 return AppResponse.bizError("原密码不匹配，请重新输入");
             }else {
-                //修改密码  写入数据库
-                customer.setCustomerId(currCustomer.getCustomerId());
                 customer.setLastModifiedBy(currCustomer.getCustomerName());
+                //更新密码（加密）
                 customer.setCustomerPassword(CreateMD5.getMd5(customer.getCustomerNewPassword()));
                 int result = mapper.updatePassword(customer);
                 if (0 == result) {
@@ -72,7 +64,6 @@ public class AccountServiceImpl implements AccountService {
                 return AppResponse.success("修改密码成功！");
             }
         }else {
-            //前端数据为空走这里！
             return AppResponse.bizError("未知数据错误！");
         }
     }
@@ -86,10 +77,9 @@ public class AccountServiceImpl implements AccountService {
      * @Return：com.neusoft.common.response.AppResponse
      */
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public AppResponse customerRegister(CustomerInfo customer) throws UnsupportedEncodingException {
-        //检查用户账号是否重复
         if(null != customer.getCustomerNumber() && !"".equals(customer.getCustomerNumber())){
             Integer count = mapper.checkExistCustomer(customer.getCustomerNumber());
             if(0 != count){
@@ -123,21 +113,18 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AppResponse customerLogin(CustomerInfo customer)
             throws UnsupportedEncodingException {
-        //判断用户名
         if(null != customer.getCustomerPassword() && !"".equals(customer.getCustomerPassword()) ){
+            //对密码进行加密转换 然后查询
             customer.setCustomerPassword(CreateMD5.getMd5(customer.getCustomerPassword()));
             CustomerInfo logInCustomer = mapper.userLogin(customer);
             if (null == logInCustomer){
-                //如果登陆失败  可能用户不存在  也可能密码错误
                 return AppResponse.bizError("用户登录失败，用户名或密码错误！");
             }else {
-                //放入token
-
                 logInCustomer.setTokenFront(RedisUtil.generateToken());
                 boolean res1 = redisUtil.addData(logInCustomer.getTokenFront(),logInCustomer);
                 boolean res2 = redisUtil.updateActiveTime(logInCustomer.getTokenFront());
                 if(res1 && res2){
-                    //放入redis成功后 设置customerId 与 password失效
+                    //放入redis成功后 设置customerId 与 password失效 然后返回给前端
                     logInCustomer.setCustomerId(null);
                     logInCustomer.setCustomerPassword(null);
                     log.info("用户登陆成功  放入redis token {}",logInCustomer.getTokenFront());

@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisUtil<CustomerInfo> redisUtil;
 
     /**
      * @Dept：大连东软信息学院
@@ -46,21 +46,20 @@ public class OrderServiceImpl implements OrderService {
         if(null == queryVo.getTokenFront()){
             return AppResponse.bizError("token失效");
         }
-        CustomerInfo currCustomer = (CustomerInfo) redisUtil.getData(queryVo.getTokenFront());
+        //根据token 获取customer对象，并且得到customerId 赋值给queryVo
+        CustomerInfo currCustomer = redisUtil.getData(queryVo.getTokenFront());
         queryVo.setCustomerId(currCustomer.getCustomerId());
-        //用户id不为空的时候
         if(null != queryVo.getCustomerId() && !"".equals(queryVo.getCustomerId())){
-            //处理分页
             PageVo<OrderInfo>list = new PageVo<>();
             PageHelper.startPage(queryVo.getPageNum(),queryVo.getPageSize());
             List<OrderInfo> orderList = orderMapper.getOrderList(queryVo);
+            //每一条订单对应多个商品
             for(OrderInfo o:orderList){
                 List<OrderDetailInfo> orderDetailInfos = orderMapper.getOrderCommodityDetail(o.getOrderId());
                         o.setCommodityList(orderDetailInfos);
             }
             list.setList(orderList);
             list.setTotalRecords((int)new PageInfo<>(orderList).getTotal());
-            //获取数据成功！
             if(0<list.getTotalRecords()){
                 return AppResponse.success("订单列表获取成功！",list);
             }else {
@@ -80,12 +79,7 @@ public class OrderServiceImpl implements OrderService {
      * @Return：com.neusoft.common.response.AppResponse
      */
     @Override
-    public AppResponse getOrderDetail(String tokenFront) {
-        CustomerInfo currcustomer = (CustomerInfo) redisUtil.getData(tokenFront);
-        if(null == currcustomer){
-            return AppResponse.bizError("当前用户token失效");
-        }
-        String orderId = currcustomer.getCustomerId();
+    public AppResponse getOrderDetail(String orderId) {
         if (null != orderId && !"".equals(orderId)) {
             OrderInfo orderInfo = orderMapper.getOrderDetail(orderId);
             if(null == orderInfo){
@@ -112,7 +106,7 @@ public class OrderServiceImpl implements OrderService {
         status 订单状态码
      * @Return：com.neusoft.common.response.AppResponse
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public AppResponse updateOrderStatus(List<String> orderList, String status) {
         if(null!= orderList && null!=status && !"".equals(status)){

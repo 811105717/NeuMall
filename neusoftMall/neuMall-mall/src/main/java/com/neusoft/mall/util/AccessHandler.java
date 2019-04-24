@@ -20,9 +20,11 @@ import java.io.PrintWriter;
 @Configuration
 @Slf4j
 public class AccessHandler implements HandlerInterceptor {
-    //不希望被拦截的请求路由
+    /**
+     * 不希望被拦截的路由
+     */
     final String[] passPath = new String[]
-            {"error",
+        {   "/error",
              "/front/account/registered",
              "/front/account/userLogin",
              "/front/commodity/getRecommondCommodityList",
@@ -30,24 +32,22 @@ public class AccessHandler implements HandlerInterceptor {
              "/front/commodityCenter/getCommodityList",
              "/front/commodityCenter/getCommodityCenterDeatil",
              "/front/commodityCenter/getCommodityCenterSimilar",
-             "/front/commodityCenter/getCommodityCenterTrading"
+             "/front/commodityCenter/getCommodityCenterTrading",
 
-
-             };
+            };
 
     @Autowired
     private RedisUtil redisUtil;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        //跨域
+        //允许跨域
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE,PUT");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "x-requested-with,Cache-Control,Pragma,Content-Type,Token");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         //打印访问信息
-        log.info("来自：{}",request.getHeader("Origin"));
         log.info("请求：{}",request.getRequestURL());
         //不在拦截范围内
         for(String path:passPath){
@@ -56,26 +56,14 @@ public class AccessHandler implements HandlerInterceptor {
                 return true;
             }
         }
-//        return true;
-//        拦截器token配置
-        //拿到 token key  进行验证
+        //token验证
         String key = request.getParameter("tokenFront");
         if(null==key){
             key = request.getParameter("tokenBackend");
         }
         if(null!=key){
             log.info("得到token {}",key);
-            //获取用户信息  成功就不拦截
             Object data = redisUtil.getData(key);
-
-//
-//            if(data instanceof CustomerInfo){
-//                log.info("customerinfo {}",data.toString());
-//            }else {
-//                log.info("cast error {}",data);
-//            }
-
-
             if(null!=data){
                 //延长token时间
                 boolean res = redisUtil.updateActiveTime(key);
@@ -85,6 +73,7 @@ public class AccessHandler implements HandlerInterceptor {
                 }
             }
         }
+        //没有token 返回提示用户登录
         log.info("未查询到相关token信息，拦截请求！");
         response.setContentType("application/json; charset=utf-8");
         PrintWriter out = response.getWriter();
