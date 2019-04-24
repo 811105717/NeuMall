@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -23,15 +22,15 @@ public class AccessFilter extends ZuulFilter {
      * 不希望被拦截的路由
      */
     final String[] passPath = new String[]
-            {   "/error",
-                    "/mall/front/account/registered",
-                    "/mall/front/account/userLogin",
-                    "/mall/front/commodity/getRecommondCommodityList",
-                    "/mall/front/commodity/getClassifyList",
-                    "/mall/front/commodityCenter/getCommodityList",
-                    "/mall/front/commodityCenter/getCommodityCenterDeatil",
-                    "/mall/front/commodityCenter/getCommodityCenterSimilar",
-                    "/mall/front/commodityCenter/getCommodityCenterTrading",
+            {   "/error","/mall/error",
+                "/mall/front/account/registered",
+                "/mall/front/account/userLogin",
+                "/mall/front/commodity/getRecommondCommodityList",
+                "/mall/front/commodity/getClassifyList",
+                "/mall/front/commodityCenter/getCommodityList",
+                "/mall/front/commodityCenter/getCommodityCenterDeatil",
+                "/mall/front/commodityCenter/getCommodityCenterSimilar",
+                "/mall/front/commodityCenter/getCommodityCenterTrading",
 
             };
 
@@ -59,6 +58,15 @@ public class AccessFilter extends ZuulFilter {
     @Override
     public boolean shouldFilter() {
         HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
+        //跨域
+
+//        HttpServletResponse response = RequestContext.getCurrentContext().getResponse();
+//        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+//        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE,PUT");
+//        response.setHeader("Access-Control-Max-Age", "3600");
+//        response.setHeader("Access-Control-Allow-Headers", "x-requested-with,Cache-Control,Pragma,Content-Type,Token");
+//        response.setHeader("Access-Control-Allow-Credentials", "true");
+
         //不拦截的路由
         for(String pass:passPath){
             if(request.getServletPath().equals(pass)){
@@ -99,7 +107,7 @@ public class AccessFilter extends ZuulFilter {
             requestContext.setResponseStatusCode(401);
             requestContext.getResponse().setContentType("application/json; charset=utf-8");
             JSONObject obj = new JSONObject();
-            obj.put("code",1);
+            obj.put("code",2);
             obj.put("msg","权限不足，请您重新登陆！");
             obj.put("data","");
             requestContext.setResponseBody(obj.toString());
