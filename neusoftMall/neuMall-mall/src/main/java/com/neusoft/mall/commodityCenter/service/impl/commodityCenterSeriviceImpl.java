@@ -99,8 +99,8 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     @Transactional
     @Override
     public AppResponse addShoppingCart(CommodityInfo commodityInfo, ShopInfo shopInfo,String tokenFront) {
-        if (tokenFront.equals(RedisUtil.generateToken())){
-            RedisUtil redisUtil=new RedisUtil();
+        RedisUtil redisUtil=new RedisUtil();
+        if (redisUtil.getData(tokenFront)!=null){
             CustomerInfo customerInfo=(CustomerInfo)redisUtil.getData(tokenFront);
             String shopId= UUIDUtil.uuidStr();
             Boolean result=commodityCenterMapper.addShoppingCart(shopId,commodityInfo.getCommodityId(),shopInfo.getShop_number(),customerInfo.getCustomerId());
@@ -166,7 +166,8 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     @Transactional
     @Override
     public AppResponse getCommodityBuyNow(CommodityInfo commodityInfo,String commodityNum,String tokenFront) {
-        if (tokenFront.equals(RedisUtil.generateToken())){
+        RedisUtil redisUtil=new RedisUtil();
+        if (redisUtil.getData(tokenFront)!=null){
             CommodityInfo commodity=commodityCenterMapper.getCommodityBuyNow(commodityInfo.getCommodityId());
             String commodityPrice=commodity.getCommodityRetailPrice();
             int commodityTotalPriceInt=Integer.parseInt(commodityNum)*Integer.parseInt(commodityPrice);
@@ -188,7 +189,8 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     @Transactional
     @Override
     public AppResponse commodityCollection(CollectInfo collectInfo,String collectFlag,String tokenFront) {
-        if (tokenFront.equals(RedisUtil.generateToken())){
+        RedisUtil redisUtil=new RedisUtil();
+        if (redisUtil.getData(tokenFront)!=null){
             if (collectFlag.equals("1")){
                 String collectId=UUIDUtil.uuidStr();
                 boolean result=commodityCenterMapper.commodityCollection(collectId,collectInfo.getCustomerId(),collectInfo.getCommodityId());
@@ -214,7 +216,8 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     @Transactional
     @Override
     public AppResponse addOrder(OrderInfo orderInfo, List<OrderDetail> commodityList,String tokenFront) {
-       if (tokenFront.equals(RedisUtil.generateToken())){
+       RedisUtil redisUtil=new RedisUtil();
+        if (redisUtil.getData(tokenFront)!=null){
            String orderId=UUIDUtil.uuidStr();
            Boolean result=commodityCenterMapper.addOrder(orderId,orderInfo.getOrderNumber(),orderInfo.getOrderPrice(),orderInfo.getCustomerId(),orderInfo.getOrderAddress(),orderInfo.getReceiveTel(),orderInfo.getReceiveContact(),orderInfo.getOrderRemark());
            String[] commodityPrice=new String[commodityList.size()];
@@ -252,7 +255,8 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     @Transactional
     @Override
     public AppResponse commodityCollectionList(CommodityInfo commodityInfo,String tokenFront) {
-        if (tokenFront.equals(RedisUtil.generateToken())){
+        RedisUtil redisUtil=new RedisUtil();
+        if (redisUtil.getData(tokenFront)!=null){
             if (commodityInfo.getCommodityName()!=null){
                 List<CollectList> collectLists=commodityCenterMapper.commodityCollectionListForSearch(commodityInfo.getCommodityName());
                 Map<String,Object> data=new HashMap<>();
@@ -263,7 +267,7 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
                     return AppResponse.notFound("获取收藏列表失败");
                 }
             }else{
-                RedisUtil redisUtil=new RedisUtil();
+
                 CustomerInfo customerInfo=(CustomerInfo) redisUtil.getData(tokenFront);
                 List<CollectList> collectLists=commodityCenterMapper.commodityCollectionList(customerInfo.getCustomerId());
                 Map<String,Object> data=new HashMap<>();

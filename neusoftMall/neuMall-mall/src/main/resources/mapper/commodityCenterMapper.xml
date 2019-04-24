@@ -44,7 +44,8 @@
         FROM t_commodity WHERE category_first=#{categoryFirst}
     </select>
     <select id="getCommodityCenterTradin" resultType="com.neusoft.mall.entity.TradinInfo">
-        SELECT *
+        SELECT t_customer.customer_name,t_shop.created_by,t_shop.gmt_create,t_commodity.commodity_retail_price,
+        t_shop.shop_number
         FROM t_commodity JOIN t_shop ON t_commodity.commodity_id=t_shop.commodity_id
         JOIN t_customer ON  t_shop.customer_id=t_customer.customer_id
         WHERE t_commodity.commodity_id=#{commodityId}
