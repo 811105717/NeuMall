@@ -85,7 +85,17 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
             }else{
                 return AppResponse.notFound("获取商品表失败");
             }
-        }else{
+        }else if(commodityInfo.getCategoryFirst()!=null&&commodityInfo.getCategorySecond()!=null){
+            PageHelper.startPage(basePageVo.getPageNum(),basePageVo.getPageSize());
+            List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityList(commodityInfo.getCategoryFirst(),commodityInfo.getCategorySecond());
+            pageVo.setList(commodityList);
+            pageVo.setTotalRecords((int)new PageInfo(commodityList).getTotal());
+            if(pageVo!=null){
+                return AppResponse.success("获取商品表成功",pageVo);
+            }else{
+                return AppResponse.notFound("获取商品表失败");
+            }
+        }else {
             PageHelper.startPage(basePageVo.getPageNum(),basePageVo.getPageSize());
             List<CommodityInfo> commodityList=commodityCenterMapper.getCommodityList0();
             pageVo.setList(commodityList);
