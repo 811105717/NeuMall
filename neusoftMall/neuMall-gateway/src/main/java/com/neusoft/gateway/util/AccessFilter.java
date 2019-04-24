@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author: xiaobai
@@ -26,12 +25,14 @@ public class AccessFilter extends ZuulFilter {
             {   "/error","/mall/error",
                 "/mall/front/account/registered",
                 "/mall/front/account/userLogin",
+                    "/mall/front/account/updatePassWord",
                 "/mall/front/commodity/getRecommondCommodityList",
                 "/mall/front/commodity/getClassifyList",
                 "/mall/front/commodityCenter/getCommodityList",
                 "/mall/front/commodityCenter/getCommodityCenterDeatil",
                 "/mall/front/commodityCenter/getCommodityCenterSimilar",
                 "/mall/front/commodityCenter/getCommodityCenterTrading",
+                "/mall/front/orderCenter/updateOrderStatus"
 
             };
 
@@ -59,15 +60,6 @@ public class AccessFilter extends ZuulFilter {
     @Override
     public boolean shouldFilter() {
         HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
-        //跨域
-//
-//        HttpServletResponse response = RequestContext.getCurrentContext().getResponse();
-//        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-//        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE,PUT");
-//        response.setHeader("Access-Control-Max-Age", "3600");
-//        response.setHeader("Access-Control-Allow-Headers", "x-requested-with,Cache-Control,Pragma,Content-Type,Token");
-//        response.setHeader("Access-Control-Allow-Credentials", "true");
-
         //不拦截的路由
         for(String pass:passPath){
             if(request.getServletPath().equals(pass)){
@@ -93,7 +85,6 @@ public class AccessFilter extends ZuulFilter {
         if(null==key){
             key = request.getParameter("tokenBackend");
         }
-
         if(null!=key){
             log.info("得到token {}",key);
             Object data = redisUtil.getData(key);
@@ -109,14 +100,14 @@ public class AccessFilter extends ZuulFilter {
         if(!hasToken){
             //如果验证失败
             requestContext.setSendZuulResponse(false);
-            requestContext.setResponseStatusCode(401);
+            requestContext.setResponseStatusCode(800);
             requestContext.getResponse().setContentType("application/json; charset=utf-8");
             JSONObject obj = new JSONObject();
             obj.put("code",2);
             obj.put("msg","权限不足，请您重新登陆！");
             obj.put("data","");
             requestContext.setResponseBody(obj.toString());
-            log.info("token 无效 拦截请求 {}",request.getServletPath());
+            log.info("token 无效  拦截请求 {}",request.getServletPath());
         }
         return null;
     }
