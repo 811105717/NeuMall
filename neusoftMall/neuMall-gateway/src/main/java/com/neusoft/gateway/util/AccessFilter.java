@@ -84,7 +84,7 @@ public class AccessFilter extends ZuulFilter {
      */
     @Override
     public Object run() throws ZuulException {
-        System.out.println("sdfsdfsdfsdfsdfsdf");
+        boolean hasToken = false;
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
 
@@ -102,20 +102,21 @@ public class AccessFilter extends ZuulFilter {
                 boolean res = redisUtil.updateActiveTime(key);
                 if(res){
                     log.info("比对token 成功，更新存活时间！{}",key);
+                    hasToken = true;
                 }
             }
-            else{
-                //如果验证失败
-                requestContext.setSendZuulResponse(false);
-                requestContext.setResponseStatusCode(401);
-                requestContext.getResponse().setContentType("application/json; charset=utf-8");
-                JSONObject obj = new JSONObject();
-                obj.put("code",2);
-                obj.put("msg","权限不足，请您重新登陆！");
-                obj.put("data","");
-                requestContext.setResponseBody(obj.toString());
-                log.info("token 无效 拦截请求 {}",request.getServletPath());
-            }
+        }
+        if(!hasToken){
+            //如果验证失败
+            requestContext.setSendZuulResponse(false);
+            requestContext.setResponseStatusCode(401);
+            requestContext.getResponse().setContentType("application/json; charset=utf-8");
+            JSONObject obj = new JSONObject();
+            obj.put("code",2);
+            obj.put("msg","权限不足，请您重新登陆！");
+            obj.put("data","");
+            requestContext.setResponseBody(obj.toString());
+            log.info("token 无效 拦截请求 {}",request.getServletPath());
         }
         return null;
     }
