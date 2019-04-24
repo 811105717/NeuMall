@@ -6,6 +6,16 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/neusoftmall?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     username: root
     password: root
+  redis:
+    host: 39.106.45.82
+    port: 6379
+    password: xiaobai
+    jedis:
+      pool:
+        max-active: 200
+        max-wait: -1
+        max-idle: 10
+        min-idle: 0
 eureka:
   client:
     service-url:
