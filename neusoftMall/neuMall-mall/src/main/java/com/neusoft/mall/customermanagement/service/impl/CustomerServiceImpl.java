@@ -2,13 +2,12 @@ package com.neusoft.mall.customermanagement.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.neusoft.common.entity.CustomerInfo;
 import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.mall.customermanagement.mapper.CustomerManageMapper;
 import com.neusoft.mall.customermanagement.service.CustomerManageService;
-import com.neusoft.mall.entity.CustomerInfo;
 import com.neusoft.mall.entity.CustomerInfoVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

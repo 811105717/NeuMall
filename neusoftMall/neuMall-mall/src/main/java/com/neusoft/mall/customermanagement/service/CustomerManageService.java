@@ -1,7 +1,7 @@
 package com.neusoft.mall.customermanagement.service;
 
+import com.neusoft.common.entity.CustomerInfo;
 import com.neusoft.common.response.AppResponse;
-import com.neusoft.mall.entity.CustomerInfo;
 import com.neusoft.mall.entity.CustomerInfoVo;
 
 /**

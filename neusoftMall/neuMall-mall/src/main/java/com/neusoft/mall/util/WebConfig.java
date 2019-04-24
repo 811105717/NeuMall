@@ -11,7 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Author: shengtt
  * @Date: 2019/3/26
  */
-@Configuration
+//@Configuration
+@Deprecated
 public class WebConfig implements WebMvcConfigurer {
     /**
      * @Dept：大连东软信息学院

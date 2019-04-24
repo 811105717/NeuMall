@@ -1,9 +1,9 @@
 package com.neusoft.mall.customermanagement.controller;
 
+import com.neusoft.common.entity.CustomerInfo;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.mall.customermanagement.service.CustomerManageService;
 import com.neusoft.mall.customermanagement.util.StringUtil;
-import com.neusoft.mall.entity.CustomerInfo;
 import com.neusoft.mall.entity.CustomerInfoVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

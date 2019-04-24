@@ -1,6 +1,6 @@
 package com.neusoft.mall.usersettings.mapper;
 
-import com.neusoft.mall.entity.CustomerInfo;
+import com.neusoft.common.entity.CustomerInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;

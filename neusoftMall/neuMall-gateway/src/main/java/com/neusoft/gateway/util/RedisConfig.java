@@ -1,4 +1,4 @@
-package com.neusoft.mall.util;
+package com.neusoft.gateway.util;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -26,7 +26,6 @@ import java.lang.reflect.Method;
  */
 @Configuration
 @EnableCaching
-@Deprecated
 public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
@@ -53,7 +52,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
     @Primary
-    public RedisTemplate<String, ? extends Object> redisTemplate(RedisConnectionFactory factory) {
+    public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory factory) {
         // StringRedisTemplate template = new StringRedisTemplate(factory);
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         template.setConnectionFactory(factory);

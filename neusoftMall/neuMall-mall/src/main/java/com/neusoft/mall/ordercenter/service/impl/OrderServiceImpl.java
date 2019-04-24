@@ -2,9 +2,9 @@ package com.neusoft.mall.ordercenter.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.neusoft.common.entity.CustomerInfo;
 import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
-import com.neusoft.mall.entity.CustomerInfo;
 import com.neusoft.mall.entity.OrderDetailInfo;
 import com.neusoft.mall.entity.OrderInfo;
 import com.neusoft.mall.entity.OrderQueryVo;

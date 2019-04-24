@@ -1,6 +1,6 @@
 package com.neusoft.mall.customermanagement.mapper;
 
-import com.neusoft.mall.entity.CustomerInfo;
+import com.neusoft.common.entity.CustomerInfo;
 import com.neusoft.mall.entity.CustomerInfoVo;
 import org.apache.ibatis.annotations.Mapper;
 

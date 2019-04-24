@@ -2,6 +2,7 @@ package com.neusoft.mall.commodityCenter.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.common.entity.BasePageVo;
+import com.neusoft.common.entity.CustomerInfo;
 import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.common.util.StringUtil;

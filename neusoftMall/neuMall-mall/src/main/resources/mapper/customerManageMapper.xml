@@ -3,7 +3,7 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.mall.customermanagement.mapper.CustomerManageMapper">
-    <select id="getCustomerDetail" resultType="com.neusoft.mall.entity.CustomerInfo" parameterType="String">
+    <select id="getCustomerDetail" resultType="com.neusoft.common.entity.CustomerInfo" parameterType="String">
       select customer_id,customer_number,customer_name,customer_is_used,version from t_customer
       where customer_id=#{customerId} order by sort_no
     </select>
@@ -24,12 +24,12 @@
       order by sort_no
     </select>
 
-    <insert id="addCustomer" parameterType="com.neusoft.mall.entity.CustomerInfo">
+    <insert id="addCustomer" parameterType="com.neusoft.common.entity.CustomerInfo">
       insert into t_customer(customer_id,customer_number,customer_name,customer_password,customer_is_used,is_deleted,created_by,last_modified_by,gmt_create,gmt_modified,sort_no,version)
       values (#{customerId},#{customerNumber},#{customerName},#{customerPassword},#{customerIsUsed},#{isDeleted},#{createdBy},#{lastModifiedBy},now(),now(),0,0)
     </insert>
 
-    <update id="updateAccountByStatus" parameterType="com.neusoft.mall.entity.CustomerInfo">
+    <update id="updateAccountByStatus" parameterType="com.neusoft.common.entity.CustomerInfo">
       update t_customer set
       customer_is_used = #{customerIsUsed},
       last_modified_by=#{lastModifiedBy},
@@ -38,7 +38,7 @@
        where customer_id=#{customerId}
     </update>
 
-    <update id="updateAccount" parameterType="com.neusoft.mall.entity.CustomerInfo">
+    <update id="updateAccount" parameterType="com.neusoft.common.entity.CustomerInfo">
       update t_customer set
       customer_name=#{customerName},
       customer_is_used=#{customerIsUsed},

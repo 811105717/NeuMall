@@ -1,9 +1,7 @@
 package com.neusoft.mall.usersettings.service;
 
+import com.neusoft.common.entity.CustomerInfo;
 import com.neusoft.common.response.AppResponse;
-import com.neusoft.mall.entity.CustomerInfo;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
 /**

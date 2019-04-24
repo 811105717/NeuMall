@@ -1,6 +1,5 @@
-package com.neusoft.mall.entity;
+package com.neusoft.common.entity;
 
-import com.neusoft.common.entity.BaseEntity;
 import lombok.Data;
 
 import java.io.Serializable;
