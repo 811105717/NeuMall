@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author: xiaobai
@@ -59,7 +60,7 @@ public class AccessFilter extends ZuulFilter {
     public boolean shouldFilter() {
         HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
         //跨域
-
+//
 //        HttpServletResponse response = RequestContext.getCurrentContext().getResponse();
 //        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 //        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE,PUT");
@@ -83,8 +84,10 @@ public class AccessFilter extends ZuulFilter {
      */
     @Override
     public Object run() throws ZuulException {
+        System.out.println("sdfsdfsdfsdfsdfsdf");
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
+
         //token验证
         String key = request.getParameter("tokenFront");
         if(null==key){
@@ -101,17 +104,18 @@ public class AccessFilter extends ZuulFilter {
                     log.info("比对token 成功，更新存活时间！{}",key);
                 }
             }
-        }else{
-            //如果验证失败
-            requestContext.setSendZuulResponse(false);
-            requestContext.setResponseStatusCode(401);
-            requestContext.getResponse().setContentType("application/json; charset=utf-8");
-            JSONObject obj = new JSONObject();
-            obj.put("code",2);
-            obj.put("msg","权限不足，请您重新登陆！");
-            obj.put("data","");
-            requestContext.setResponseBody(obj.toString());
-            log.info("token 无效 拦截请求 {}",request.getServletPath());
+            else{
+                //如果验证失败
+                requestContext.setSendZuulResponse(false);
+                requestContext.setResponseStatusCode(401);
+                requestContext.getResponse().setContentType("application/json; charset=utf-8");
+                JSONObject obj = new JSONObject();
+                obj.put("code",2);
+                obj.put("msg","权限不足，请您重新登陆！");
+                obj.put("data","");
+                requestContext.setResponseBody(obj.toString());
+                log.info("token 无效 拦截请求 {}",request.getServletPath());
+            }
         }
         return null;
     }
