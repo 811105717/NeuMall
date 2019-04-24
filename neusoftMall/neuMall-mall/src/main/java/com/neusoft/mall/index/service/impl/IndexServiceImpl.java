@@ -3,6 +3,7 @@ package com.neusoft.mall.index.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.neusoft.common.entity.CustomerInfo;
 import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.mall.entity.*;

@@ -1,4 +1,4 @@
-package com.neusoft.mall.util;
+package com.neusoft.gateway.util;
 
 import com.neusoft.common.util.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @address: 大连东软信息学院
  * @Version 1.0
  */
-@Deprecated
+@SuppressWarnings("ALL")
 @Component
 @Slf4j
 public class RedisUtil<T> {

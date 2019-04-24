@@ -1,10 +1,8 @@
 package com.neusoft.mall.util;
 
-import com.neusoft.mall.entity.CustomerInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +15,8 @@ import java.io.PrintWriter;
  * @Date: 2019/3/26
  */
 @SuppressWarnings("ALL")
-@Configuration
 @Slf4j
+@Deprecated
 public class AccessHandler implements HandlerInterceptor {
     /**
      * 不希望被拦截的路由
@@ -38,6 +36,7 @@ public class AccessHandler implements HandlerInterceptor {
 
     @Autowired
     private RedisUtil redisUtil;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
