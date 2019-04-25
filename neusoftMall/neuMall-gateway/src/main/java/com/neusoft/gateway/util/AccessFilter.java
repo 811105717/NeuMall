@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author: xiaobai
@@ -21,20 +22,22 @@ public class AccessFilter extends ZuulFilter {
     /**
      * 不希望被拦截的路由
      */
-    final String[] passPath = new String[]
+    static final String[] PASS_PATH = new String[]
             {   "/error","/mall/error",
                 "/mall/front/account/registered",
                 "/mall/front/account/userLogin",
-                "/mall/front/account/updatePassWord",
                 "/mall/front/commodity/getRecommondCommodityList",
                 "/mall/front/commodity/getClassifyList",
                 "/mall/front/commodityCenter/getCommodityList",
                 "/mall/front/commodityCenter/getCommodityCenterDeatil",
                 "/mall/front/commodityCenter/getCommodityCenterSimilar",
                 "/mall/front/commodityCenter/getCommodityCenterTrading"
-//                "/mall/front/orderCenter/updateOrderStatus"
 
             };
+    /**
+     * 跨域探测请求
+     */
+    static final String PASS_METHOD = "OPTIONS";
 
     @Autowired
     private RedisUtil<Object> redisUtil;
@@ -60,8 +63,12 @@ public class AccessFilter extends ZuulFilter {
     @Override
     public boolean shouldFilter() {
         HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
+        //跨域请求不拦截
+        if(request.getMethod().equals(AccessFilter.PASS_METHOD)){
+            return false;
+        }
         //不拦截的路由
-        for(String pass:passPath){
+        for(String pass:AccessFilter.PASS_PATH){
             if(request.getServletPath().equals(pass)){
                 log.info("不拦截路由 {}",request.getServletPath());
                 return false;
@@ -86,7 +93,7 @@ public class AccessFilter extends ZuulFilter {
             key = request.getParameter("tokenBackend");
         }
         if(null == key){
-            key = request.getHeader("token");
+            key = (String) request.getHeader("token");
         }
         if(null!=key){
             log.info("得到token {}",key);
