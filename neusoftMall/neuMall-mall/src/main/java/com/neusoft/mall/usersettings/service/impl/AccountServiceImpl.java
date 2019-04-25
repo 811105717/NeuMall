@@ -4,8 +4,10 @@ import com.neusoft.common.entity.CustomerInfo;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.common.util.CreateMD5;
 import com.neusoft.common.util.UUIDUtil;
+
 import com.neusoft.mall.usersettings.mapper.AccountMapper;
 import com.neusoft.mall.usersettings.service.AccountService;
+
 import com.neusoft.mall.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

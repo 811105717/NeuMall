@@ -32,8 +32,12 @@ public class AccessFilter extends ZuulFilter {
                 "/mall/front/commodityCenter/getCommodityCenterDeatil",
                 "/mall/front/commodityCenter/getCommodityCenterSimilar",
                 "/mall/front/commodityCenter/getCommodityCenterTrading",
-                "/mall/front/orderCenter/updateOrderStatus"
-
+                "/mall/front/orderCenter/updateOrderStatus",
+                    "/mall/front/commodityCenter/addShoppingCart",
+                    "/mall/front/commodityCenter/getCommodityBuyNow",
+                    "/mall/front/commodityCenter/commodityCollection",
+                    "/mall/front/commodityCenter/commodityCollectionList",
+                    "/mall/front/commodityCenter/addOrder"
             };
 
     @Autowired

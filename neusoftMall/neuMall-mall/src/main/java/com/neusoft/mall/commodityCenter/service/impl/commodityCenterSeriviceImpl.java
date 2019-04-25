@@ -7,13 +7,13 @@ import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.common.util.StringUtil;
 import com.neusoft.common.util.UUIDUtil;
-//import com.neusoft.gateway.util.RedisUtil;
+import com.neusoft.gateway.util.RedisUtil;
 import com.neusoft.mall.commodityCenter.mapper.commodityCenterMapper;
 import com.neusoft.mall.commodityCenter.service.commodityCenterSerivice;
 import com.neusoft.mall.entity.*;
 
 
-import com.neusoft.mall.util.RedisUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

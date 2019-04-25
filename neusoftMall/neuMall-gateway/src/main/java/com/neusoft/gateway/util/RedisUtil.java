@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("ALL")
 @Component
 @Slf4j
-@Deprecated
+//@Deprecated
 public class RedisUtil<T> {
 
     @Autowired
