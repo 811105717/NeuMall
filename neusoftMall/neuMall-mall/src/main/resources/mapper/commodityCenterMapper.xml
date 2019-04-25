@@ -6,6 +6,9 @@
     <select id="getCommodityList0" resultType="com.neusoft.mall.entity.CommodityInfo">
         SELECT * FROM t_commodity
     </select>
+    <select id="getCommodityList1" resultType="com.neusoft.mall.entity.CommodityInfo">
+         SELECT * FROM t_commodity WHERE category_first=#{categoryFirst}
+    </select>
     <select id="getCommodityList" resultType="com.neusoft.mall.entity.CommodityInfo" >
         SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} AND category_second=#{categorySecond}
     </select>
@@ -30,11 +33,8 @@
       gmt_modified,is_deleted,sort_no,version)
        VALUES (#{shopId},#{commodityId},#{shopNumber},#{customerId},"ZQ",NOW(),"ZQ",NOW(),0,0,1)
     </insert>
-    <select id="getCommodityCenterDeatil" resultType="com.neusoft.mall.entity.CommodityInfo">
-        SELECT * FROM t_commodity WHERE commodity_id=#{commodityId}
-    </select>
-    <select id="getCommodityCenterDeatilForPic" resultType="com.neusoft.mall.entity.CommodityPic">
-        SELECT * FROM t_commodity_pic WHERE commodity_id=#{commodityId}
+    <select id="getCommodityCenterDeatil" resultType="com.neusoft.mall.entity.Deatilinfo">
+        SELECT * FROM t_commodity  JOIN t_commodity_pic ON  t_commodity.commodity_id=t_commodity_pic.commodity_id WHERE t_commodity.commodity_id=#{commodityId}
     </select>
     <select id="getCommodityCenterDeatilForIsCollect" resultType="com.neusoft.mall.entity.CollectInfo">
         SELECT * FROM t_collect WHERE commodity_id=#{commodityId} AND customer_id=#{customerId}
@@ -44,15 +44,16 @@
         FROM t_commodity WHERE category_first=#{categoryFirst}
     </select>
     <select id="getCommodityCenterTradin" resultType="com.neusoft.mall.entity.TradinInfo">
-        SELECT t_customer.customer_name,t_shop.created_by,t_shop.gmt_create,t_commodity.commodity_retail_price,
-        t_shop.shop_number
+        SELECT t_customer.customer_id,t_customer.customer_name,t_commodity.commodity_retail_price as commodity_price,
+        t_shop.shop_number as commodity_num,t_shop.gmt_create as gmt_create
         FROM t_commodity JOIN t_shop ON t_commodity.commodity_id=t_shop.commodity_id
         JOIN t_customer ON  t_shop.customer_id=t_customer.customer_id
         WHERE t_commodity.commodity_id=#{commodityId}
     </select>
-    <select id="getCommodityBuyNow" resultType="com.neusoft.mall.entity.CommodityInfo">
-        SELECT commodity_id,commodity_code,commodity_first_picture,commodity_name,commodity_retail_price
-        FROM t_commodity WHERE commodity_id=#{commodityId}
+    <select id="getCommodityBuyNow" resultType="com.neusoft.mall.entity.TradinInfo">
+        SELECT t_commodity.commodity_id,t_commodity.commodity_code,t_commodity.picture_address,t_commodity.commodity_name,
+        t_commodity.commodity_retail_price as commodity_price,t_shop.shop_number as commodity_num
+        FROM t_commodity JOIN t_shop ON t_commodity.commodity_id=t_shop.commodity_id WHERE t_commodity.commodity_id=#{commodityId}
     </select>
     <insert id="commodityCollection" parameterType="com.neusoft.mall.entity.CollectInfo">
      INSERT INTO t_collect
@@ -96,5 +97,11 @@
         t_commodity.commodity_name,t_commodity.commodity_retail_price
         FROM t_commodity JOIN t_collect ON t_commodity.commodity_id=t_collect.commodity_id
         WHERE t_commodity.commodity_name=#{commodityName}  AND t_collect.is_deleted=0
+    </select>
+    <select id="commodityCollectionListForSearch02" resultType="com.neusoft.mall.entity.CollectList">
+        SELECT t_collect.customer_id,t_commodity.commodity_id,t_commodity.commodity_first_picture,
+        t_commodity.commodity_name,t_commodity.commodity_retail_price
+        FROM t_commodity JOIN t_collect ON t_commodity.commodity_id=t_collect.commodity_id
+        WHERE  t_collect.is_deleted=0
     </select>
 </mapper>

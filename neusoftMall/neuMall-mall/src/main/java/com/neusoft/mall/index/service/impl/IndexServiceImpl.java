@@ -104,15 +104,24 @@ public class IndexServiceImpl implements IndexService {
      */
     @Override
     public AppResponse getClassifyList(String categoryParentId) {
+        List<CateGoryInfo> cateGoryInfoList = null;
         if(null != categoryParentId && !"".equals(categoryParentId)){
-            List<CateGoryInfo> cateGoryInfoList = indexMapper.getCategoryByParent(categoryParentId);
+            if(new Integer(0).toString().equals(categoryParentId)){
+                cateGoryInfoList = indexMapper.getParentCategory();
+            }else {
+                cateGoryInfoList = indexMapper.getCategoryByParent(categoryParentId);
+            }
+
             if (0 == cateGoryInfoList.size()) {
                 return AppResponse.notFound("未查询到数据！");
             }else {
-                return  AppResponse.success("二级分类获取成功",cateGoryInfoList);
+                return  AppResponse.success("分类获取成功",cateGoryInfoList);
             }
         }else {
             return  AppResponse.bizError("未知数据错误！");
         }
     }
+
+
+
 }
