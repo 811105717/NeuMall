@@ -27,4 +27,116 @@ public class CommodityInfo extends BaseEntity {
     private String commodityTotalCount; //销量
     private String categoryFirst; //一级分类ID
     private String categorySecond; //二级分类ID
+
+    public String getCommodityCode() {
+        return commodityCode;
+    }
+
+    public void setCommodityCode(String commodityCode) {
+        this.commodityCode = commodityCode;
+    }
+
+    public String getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(String commodityId) {
+        this.commodityId = commodityId;
+    }
+
+    public String getCommodityName() {
+        return commodityName;
+    }
+
+    public void setCommodityName(String commodityName) {
+        this.commodityName = commodityName;
+    }
+
+    public String getCommodityColor() {
+        return commodityColor;
+    }
+
+    public void setCommodityColor(String commodityColor) {
+        this.commodityColor = commodityColor;
+    }
+
+    public String getCommodityOriginalPrice() {
+        return commodityOriginalPrice;
+    }
+
+    public void setCommodityOriginalPrice(String commodityOriginalPrice) {
+        this.commodityOriginalPrice = commodityOriginalPrice;
+    }
+
+    public String getCommodityRetailPrice() {
+        return commodityRetailPrice;
+    }
+
+    public void setCommodityRetailPrice(String commodityRetailPrice) {
+        this.commodityRetailPrice = commodityRetailPrice;
+    }
+
+    public String getCommodityUnitId() {
+        return commodityUnitId;
+    }
+
+    public void setCommodityUnitId(String commodityUnitId) {
+        this.commodityUnitId = commodityUnitId;
+    }
+
+    public String getCommodityIsSold() {
+        return commodityIsSold;
+    }
+
+    public void setCommodityIsSold(String commodityIsSold) {
+        this.commodityIsSold = commodityIsSold;
+    }
+
+    public String getCommodityInventory() {
+        return commodityInventory;
+    }
+
+    public void setCommodityInventory(String commodityInventory) {
+        this.commodityInventory = commodityInventory;
+    }
+
+    public String getCommodityIsLack() {
+        return commodityIsLack;
+    }
+
+    public void setCommodityIsLack(String commodityIsLack) {
+        this.commodityIsLack = commodityIsLack;
+    }
+
+    public String getCommodityFirstPicture() {
+        return commodityFirstPicture;
+    }
+
+    public void setCommodityFirstPicture(String commodityFirstPicture) {
+        this.commodityFirstPicture = commodityFirstPicture;
+    }
+
+    public String getCommodityTotalCount() {
+        return commodityTotalCount;
+    }
+
+    public void setCommodityTotalCount(String commodityTotalCount) {
+        this.commodityTotalCount = commodityTotalCount;
+    }
+
+    public String getCategoryFirst() {
+        return categoryFirst;
+    }
+
+    public void setCategoryFirst(String categoryFirst) {
+        this.categoryFirst = categoryFirst;
+    }
+
+    public String getCategorySecond() {
+        return categorySecond;
+    }
+
+    public void setCategorySecond(String categorySecond) {
+        this.categorySecond = categorySecond;
+    }
 }

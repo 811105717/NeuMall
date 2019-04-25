@@ -22,4 +22,59 @@ public class CustomerInfo extends BaseEntity implements Serializable {
     private String customerIsUsed;// 启用/禁用  0启用1禁用
     private String tokenFront; //用户token
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCustomerNumber() {
+        return customerNumber;
+    }
+
+    public void setCustomerNumber(String customerNumber) {
+        this.customerNumber = customerNumber;
+    }
+
+    public String getCustomerPassword() {
+        return customerPassword;
+    }
+
+    public void setCustomerPassword(String customerPassword) {
+        this.customerPassword = customerPassword;
+    }
+
+    public String getCustomerNewPassword() {
+        return customerNewPassword;
+    }
+
+    public void setCustomerNewPassword(String customerNewPassword) {
+        this.customerNewPassword = customerNewPassword;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerIsUsed() {
+        return customerIsUsed;
+    }
+
+    public void setCustomerIsUsed(String customerIsUsed) {
+        this.customerIsUsed = customerIsUsed;
+    }
+
+    public String getTokenFront() {
+        return tokenFront;
+    }
+
+    public void setTokenFront(String tokenFront) {
+        this.tokenFront = tokenFront;
+    }
 }

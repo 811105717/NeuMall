@@ -14,5 +14,37 @@ public class CommodityPic extends BaseEntity{
     private String pictureAddress;
     private String pictureIsFistPicture;
     private String commodityId;
+
+    public String getPictureId() {
+        return pictureId;
+    }
+
+    public void setPictureId(String pictureId) {
+        this.pictureId = pictureId;
+    }
+
+    public String getPictureAddress() {
+        return pictureAddress;
+    }
+
+    public void setPictureAddress(String pictureAddress) {
+        this.pictureAddress = pictureAddress;
+    }
+
+    public String getPictureIsFistPicture() {
+        return pictureIsFistPicture;
+    }
+
+    public void setPictureIsFistPicture(String pictureIsFistPicture) {
+        this.pictureIsFistPicture = pictureIsFistPicture;
+    }
+
+    public String getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(String commodityId) {
+        this.commodityId = commodityId;
+    }
 }
 

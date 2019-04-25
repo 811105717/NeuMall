@@ -44,7 +44,7 @@ public class AccessHandler implements HandlerInterceptor {
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE,PUT");
         response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with,Cache-Control,Pragma,Content-Type,Token");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with,Cache-Control,Pragma,Content-Type,token");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         //打印访问信息
         log.info("请求：{}",request.getRequestURL());

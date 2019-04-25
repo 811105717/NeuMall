@@ -43,6 +43,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AppResponse updatePassword(CustomerInfo customer) throws UnsupportedEncodingException {
         CustomerInfo currCustomer = (CustomerInfo) redisUtil.getData(customer.getTokenFront());
+        System.out.println(customer);
+        System.out.println(currCustomer);
         customer.setCustomerId(currCustomer.getCustomerId());
         log.info("get custoner by redis {}",currCustomer);
         if(null != customer.getCustomerPassword() && !"".equals(customer.getCustomerPassword())){
