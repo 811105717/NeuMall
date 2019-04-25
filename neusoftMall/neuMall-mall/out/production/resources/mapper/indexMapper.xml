@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mall.index.mapper.IndexMapper">
+    <select id="getCommodityList" parameterType="String" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity
+        <where>
+            is_deleted = 0
+            <if test="null!=recommend">
+                AND commodity_is_recommend = #{recommend}
+            </if>
+        </where>
+    </select>
+
+    <select id="getUserOrderList" parameterType="String" resultType="com.neusoft.mall.entity.OrderInfo">
+        SELECT order_id,customer_id FROM t_order
+        WHERE customer_id =#{customerId}
+        AND is_deleted = 0
+    </select>
+
+    <select id="getCommodityByOrderId" parameterType="String" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT t_commodity.commodity_id,commodity_code,picture_address,
+        commodity_name,commodity_retail_price,t_commodity.version
+        FROM t_order_detail JOIN t_commodity ON t_commodity.commodity_id = t_order_detail.commodity_id
+        WHERE t_order_detail.order_id = #{orderId}
+        AND t_order_detail.is_deleted = 0
+    </select>
+
+    <select id="getCategoryByParent" parameterType="String" resultType="com.neusoft.mall.entity.CateGoryInfo">
+        SELECT * FROM t_category
+        WHERE category_parent_id = #{categoryParentId}
+        AND is_deleted = 0
+    </select>
+</mapper>

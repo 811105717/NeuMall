@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mall.customermanagement.mapper.CustomerManageMapper">
+    <select id="getCustomerDetail" resultType="com.neusoft.common.entity.CustomerInfo" parameterType="String">
+      select customer_id,customer_number,customer_name,customer_is_used,version from t_customer
+      where customer_id=#{customerId} order by sort_no
+    </select>
+
+    <select id="getCustomerList" resultType="com.neusoft.mall.entity.CustomerInfoVo" parameterType="com.neusoft.mall.entity.CustomerInfoVo">
+      select customer_id,customer_number,customer_name,customer_is_used,version from t_customer
+      <where>
+          <if test="null!=customerIsUsed">
+              AND customer_is_used=#{customerIsUsed}
+          </if>
+          <if test="null!=customerNumber">
+              AND customer_number= #{customerNumber}
+          </if>
+          <if test="null!=customerName">
+              AND customer_name= #{customerName}
+          </if>
+      </where>
+      order by sort_no
+    </select>
+
+    <insert id="addCustomer" parameterType="com.neusoft.common.entity.CustomerInfo">
+      insert into t_customer(customer_id,customer_number,customer_name,customer_password,customer_is_used,is_deleted,created_by,last_modified_by,gmt_create,gmt_modified,sort_no,version)
+      values (#{customerId},#{customerNumber},#{customerName},#{customerPassword},#{customerIsUsed},#{isDeleted},#{createdBy},#{lastModifiedBy},now(),now(),0,0)
+    </insert>
+
+    <update id="updateAccountByStatus" parameterType="com.neusoft.common.entity.CustomerInfo">
+      update t_customer set
+      customer_is_used = #{customerIsUsed},
+      last_modified_by=#{lastModifiedBy},
+      version=version+1,
+       gmt_modified=now()
+       where customer_id=#{customerId}
+    </update>
+
+    <update id="updateAccount" parameterType="com.neusoft.common.entity.CustomerInfo">
+      update t_customer set
+      customer_name=#{customerName},
+      customer_is_used=#{customerIsUsed},
+      version=version+1,
+      last_modified_by=#{lastModifiedBy},
+      gmt_modified=now()
+      where customer_id=#{customerId} and version=#{version}
+    </update>
+
+</mapper>
