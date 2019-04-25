@@ -69,7 +69,7 @@ public class AccountServiceImpl implements AccountService {
             return AppResponse.bizError("未知数据错误！");
         }
     }
-
+//
     /**
      * @Dept：大连东软信息学院
      * @Description： 用户注册逻辑处理
