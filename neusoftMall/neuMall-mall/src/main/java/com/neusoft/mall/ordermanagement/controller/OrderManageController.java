@@ -1,11 +1,10 @@
 package com.neusoft.mall.ordermanagement.controller;
 
+import com.neusoft.common.entity.UserInfo;
 import com.neusoft.common.response.AppResponse;
-import com.neusoft.mall.entity.CommodityListInfo;
-import com.neusoft.mall.entity.OrderNumberListInfo;
-import com.neusoft.mall.entity.OrderQueryVo;
-import com.neusoft.mall.entity.OrdermanageInfo;
+import com.neusoft.mall.entity.*;
 import com.neusoft.mall.ordermanagement.service.OrderManageService;
+import com.neusoft.mall.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,25 +19,29 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping(value = "backend")
+@CrossOrigin
+@RequestMapping(value = "/backend")
 public class OrderManageController {
     @Autowired
     OrderManageService orderManageService;
-
+    @Autowired
+    private RedisUtil redisUtil;
     /**
      * @Dept：大连东软信息学院
      * @Description： 获取订单详情
      * @Author：fanwenkai
      * @Date: 2019/4/15
      */
-    @RequestMapping(value = "order/getOrderDetail",method = RequestMethod.GET)
-    public AppResponse getCustomerDetail(@PathParam("orderId") String orderId) throws Exception{
-        System.out.print(orderId);
-        OrdermanageInfo ordermanageInfo = null;
+    @RequestMapping(value = "/order/getOrderDetail",method = RequestMethod.GET)
+    public AppResponse getCustomerDetail(OrdermanageInfo ordermanageInfo) throws Exception{
+        System.out.print(ordermanageInfo.getTokenBackend());
+        if(null == ordermanageInfo.getTokenBackend()){
+            return AppResponse.bizError("token失效");
+        }
         List<CommodityListInfo> commodityInfoList=null;
         try {
-            ordermanageInfo =orderManageService.getOrderDetail(orderId);
-            commodityInfoList=orderManageService.getCommodityListInfo(orderId);
+            ordermanageInfo =orderManageService.getOrderDetail(ordermanageInfo.getOrderId());
+            commodityInfoList=orderManageService.getCommodityListInfo(ordermanageInfo.getOrderId());
             ordermanageInfo.setCommodityList(commodityInfoList);
         } catch (Exception e) {
             log.error("订单查询错误", e);
@@ -55,11 +58,14 @@ public class OrderManageController {
      * @Author：fanwenkai
      * @Date: 2019/4/15
      */
-    @PutMapping(value = "order/updateOrderStatus")
+    @PutMapping(value = "/order/updateOrderStatus")
     public AppResponse updateAccount(@RequestBody OrderNumberListInfo orderNumberListInfo) throws Exception {
         System.out.print(orderNumberListInfo);
-        String user="stt1";//修改订单的用户名
-        orderNumberListInfo.setLastModifiedBy(user);
+        if(null == orderNumberListInfo.getTokenBackend()){
+            return AppResponse.bizError("token失效");
+        }
+        UserInfo user = (UserInfo) redisUtil.getData(orderNumberListInfo.getTokenBackend());
+        orderNumberListInfo.setLastModifiedBy(user.getUserName());
         try {
             AppResponse appResponse = orderManageService.updateOrderStatus(orderNumberListInfo);
             return appResponse;
@@ -74,8 +80,11 @@ public class OrderManageController {
      * @Author：fanwenkai
      * @Date: 2019/4/15
      */
-    @GetMapping(value = "order/getOrders")
+    @GetMapping(value = "/order/getOrders")
     public AppResponse getOrderList(OrderQueryVo queryVo){
+        if(null == queryVo.getTokenBackend()){
+            return AppResponse.bizError("token失效");
+        }
         System.out.print(queryVo.getPageNum());
         return orderManageService.getOrders(queryVo);
     }

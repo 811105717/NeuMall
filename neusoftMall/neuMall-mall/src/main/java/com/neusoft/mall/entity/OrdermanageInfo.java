@@ -24,6 +24,7 @@ public class OrdermanageInfo extends BaseEntity {
     private String receiveTel;//联系方式
     private String receiveContact; //收件人
     private String orderRemark; //发货留言
+    private String tokenBackend;//后端token
     private List<CommodityListInfo> commodityList;//商品列表
 
     public String getOrderId() {

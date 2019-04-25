@@ -19,7 +19,7 @@ public class OrderQueryVo extends BasePageVo {
     private String orderState; //订单状态
     private String customerId; //下单人ID
     private String tokenFront;//token
-
+    private String tokenBackend;//token后
     public String getOrderNumber() {
         return orderNumber;
     }

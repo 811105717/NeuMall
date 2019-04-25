@@ -22,25 +22,25 @@
         version=version+1,
         last_modified_by=#{lastModifiedBy},
         gmt_modified=now()
-        where order_number=#{orderNumber}
+        where order_id=#{orderNumber}
     </update>
 
     <!--订单查询 -->
     <select id="getOrders" resultType="com.neusoft.mall.entity.OrdermanageInfo" parameterType="com.neusoft.mall.entity.OrderQueryVo">
         SELECT * FROM `t_order`
         <where>
-            <if test="null!=orderNumber">
+            <if test="null!=orderNumber and ''!=orderNumber">
                 AND order_number = #{orderNumber}
             </if>
 
-            <if test="null!=orderDateStart">
+            <if test="null!=orderDateStart and ''!=orderDateStart">
                 AND order_date >= #{orderDateStart}
             </if>
             <!--<![CDATA[<]]> 处理小于号字符冲突 -->
-            <if test="null!=orderDateEnd">
+            <if test="null!=orderDateEnd and ''!=orderDateEnd">
                 AND order_date <![CDATA[<]]>= #{orderDateEnd}
             </if>
-            <if test="null!=orderState">
+            <if test="null!=orderState and ''!=orderState">
                 AND order_state = #{orderState}
             </if>
         </where>
