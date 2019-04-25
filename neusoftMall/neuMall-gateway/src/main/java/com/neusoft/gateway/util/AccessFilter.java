@@ -38,7 +38,7 @@ public class AccessFilter extends ZuulFilter {
      * 跨域探测请求
      */
     static final String PASS_METHOD = "OPTIONS";
-
+    //
     @Autowired
     private RedisUtil<Object> redisUtil;
 
