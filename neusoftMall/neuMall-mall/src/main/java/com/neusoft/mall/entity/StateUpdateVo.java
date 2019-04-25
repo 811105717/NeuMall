@@ -17,4 +17,28 @@ public class StateUpdateVo {
     private List<String> orderNumberList; //订单号列表
     private String orderState; //订单状态
     private String lastModifiedBy; //最后修改者
+
+    public List<String> getOrderNumberList() {
+        return orderNumberList;
+    }
+
+    public void setOrderNumberList(List<String> orderNumberList) {
+        this.orderNumberList = orderNumberList;
+    }
+
+    public String getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(String orderState) {
+        this.orderState = orderState;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
 }

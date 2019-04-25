@@ -19,4 +19,52 @@ public class CateGoryInfo extends BaseEntity {
     private String categoryLevel; //层级 1 一级 2 二级
     private String categoryTreeCode; //树状查询码
     private String categoryRemark;//备注
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryParentId() {
+        return categoryParentId;
+    }
+
+    public void setCategoryParentId(String categoryParentId) {
+        this.categoryParentId = categoryParentId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getCategoryLevel() {
+        return categoryLevel;
+    }
+
+    public void setCategoryLevel(String categoryLevel) {
+        this.categoryLevel = categoryLevel;
+    }
+
+    public String getCategoryTreeCode() {
+        return categoryTreeCode;
+    }
+
+    public void setCategoryTreeCode(String categoryTreeCode) {
+        this.categoryTreeCode = categoryTreeCode;
+    }
+
+    public String getCategoryRemark() {
+        return categoryRemark;
+    }
+
+    public void setCategoryRemark(String categoryRemark) {
+        this.categoryRemark = categoryRemark;
+    }
 }

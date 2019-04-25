@@ -25,14 +25,14 @@ public class AccessFilter extends ZuulFilter {
             {   "/error","/mall/error",
                 "/mall/front/account/registered",
                 "/mall/front/account/userLogin",
-                    "/mall/front/account/updatePassWord",
+                "/mall/front/account/updatePassWord",
                 "/mall/front/commodity/getRecommondCommodityList",
                 "/mall/front/commodity/getClassifyList",
                 "/mall/front/commodityCenter/getCommodityList",
                 "/mall/front/commodityCenter/getCommodityCenterDeatil",
                 "/mall/front/commodityCenter/getCommodityCenterSimilar",
-                "/mall/front/commodityCenter/getCommodityCenterTrading",
-                "/mall/front/orderCenter/updateOrderStatus"
+                "/mall/front/commodityCenter/getCommodityCenterTrading"
+//                "/mall/front/orderCenter/updateOrderStatus"
 
             };
 
@@ -85,6 +85,9 @@ public class AccessFilter extends ZuulFilter {
         if(null==key){
             key = request.getParameter("tokenBackend");
         }
+        if(null == key){
+            key = request.getHeader("token");
+        }
         if(null!=key){
             log.info("得到token {}",key);
             Object data = redisUtil.getData(key);
@@ -107,7 +110,7 @@ public class AccessFilter extends ZuulFilter {
             obj.put("msg","权限不足，请您重新登陆！");
             obj.put("data","");
             requestContext.setResponseBody(obj.toString());
-            log.info("token 无效  拦截请求 {}",request.getServletPath());
+            log.info("token= {} 无效  拦截请求 {}",key,request.getServletPath());
         }
         return null;
     }

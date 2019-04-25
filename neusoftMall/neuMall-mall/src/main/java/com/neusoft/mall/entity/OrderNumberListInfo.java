@@ -14,4 +14,20 @@ import java.util.List;
 public class OrderNumberListInfo extends BaseEntity {
     private List<String> orderNumberList;//订单号列表
     private String orderState;//订单状态
+
+    public List<String> getOrderNumberList() {
+        return orderNumberList;
+    }
+
+    public void setOrderNumberList(List<String> orderNumberList) {
+        this.orderNumberList = orderNumberList;
+    }
+
+    public String getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(String orderState) {
+        this.orderState = orderState;
+    }
 }

@@ -67,7 +67,7 @@ public class OrderController {
      */
     @ApiOperation("更新订单状态 已签收 撤销")
     @PutMapping(value = "updateOrderStatus")
-    public AppResponse updateOrderStatus(StateUpdateVo stateUpdateVo){
+    public AppResponse updateOrderStatus(@RequestBody StateUpdateVo stateUpdateVo){
         log.info("updateOrderStatus frontData {}",stateUpdateVo);
         return orderService.updateOrderStatus(stateUpdateVo.getOrderNumberList(),stateUpdateVo.getOrderState());
     }

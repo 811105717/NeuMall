@@ -13,5 +13,19 @@ public class PageVo<T> {
 
     private Integer totalRecords;
 
+    public List<T> getList() {
+        return list;
+    }
 
+    public void setList(List<T> list) {
+        this.list = list;
+    }
+
+    public Integer getTotalRecords() {
+        return totalRecords;
+    }
+
+    public void setTotalRecords(Integer totalRecords) {
+        this.totalRecords = totalRecords;
+    }
 }

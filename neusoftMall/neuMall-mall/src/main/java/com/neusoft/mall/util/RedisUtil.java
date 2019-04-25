@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
  * @address: 大连东软信息学院
  * @Version 1.0
  */
-@Deprecated
 @Component
 @Slf4j
 public class RedisUtil<T> {

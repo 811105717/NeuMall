@@ -23,4 +23,75 @@ public class OrderDetailInfo extends BaseEntity {
     private String commodityName;//商品名称
     private String pictureAddress;//商品首图
 
+    public String getOrderDetailId() {
+        return orderDetailId;
+    }
+
+    public void setOrderDetailId(String orderDetailId) {
+        this.orderDetailId = orderDetailId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(String commodityId) {
+        this.commodityId = commodityId;
+    }
+
+    public String getCommodityPrice() {
+        return commodityPrice;
+    }
+
+    public void setCommodityPrice(String commodityPrice) {
+        this.commodityPrice = commodityPrice;
+    }
+
+    public String getCommodityNum() {
+        return commodityNum;
+    }
+
+    public void setCommodityNum(String commodityNum) {
+        this.commodityNum = commodityNum;
+    }
+
+    public String getCommodityTotalPrice() {
+        return commodityTotalPrice;
+    }
+
+    public void setCommodityTotalPrice(String commodityTotalPrice) {
+        this.commodityTotalPrice = commodityTotalPrice;
+    }
+
+    public String getCommodityCode() {
+        return commodityCode;
+    }
+
+    public void setCommodityCode(String commodityCode) {
+        this.commodityCode = commodityCode;
+    }
+
+    public String getCommodityName() {
+        return commodityName;
+    }
+
+    public void setCommodityName(String commodityName) {
+        this.commodityName = commodityName;
+    }
+
+    public String getPictureAddress() {
+        return pictureAddress;
+    }
+
+    public void setPictureAddress(String pictureAddress) {
+        this.pictureAddress = pictureAddress;
+    }
 }

@@ -19,4 +19,52 @@ public class OrderQueryVo extends BasePageVo {
     private String orderState; //订单状态
     private String customerId; //下单人ID
     private String tokenFront;//token
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public String getOrderDateStart() {
+        return orderDateStart;
+    }
+
+    public void setOrderDateStart(String orderDateStart) {
+        this.orderDateStart = orderDateStart;
+    }
+
+    public String getOrderDateEnd() {
+        return orderDateEnd;
+    }
+
+    public void setOrderDateEnd(String orderDateEnd) {
+        this.orderDateEnd = orderDateEnd;
+    }
+
+    public String getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(String orderState) {
+        this.orderState = orderState;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getTokenFront() {
+        return tokenFront;
+    }
+
+    public void setTokenFront(String tokenFront) {
+        this.tokenFront = tokenFront;
+    }
 }

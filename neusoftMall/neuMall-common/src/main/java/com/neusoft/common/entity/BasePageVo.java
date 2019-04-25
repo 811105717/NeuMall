@@ -26,4 +26,5 @@ public class BasePageVo {
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
+
 }
