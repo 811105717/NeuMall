@@ -16,6 +16,7 @@ public class CustomerInfoVo extends BasePageVo {
     private String customerName; //客户姓名
     private String customerIsUsed;// 启用/禁用  0启用1禁用
     private int version;//版本号
+    private String tokenBackend;//后端token
 
     public String getCustomerId() {
         return customerId;

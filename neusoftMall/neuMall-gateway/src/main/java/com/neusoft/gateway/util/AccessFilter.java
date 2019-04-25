@@ -32,8 +32,7 @@ public class AccessFilter extends ZuulFilter {
                 "/mall/front/commodityCenter/getCommodityCenterDeatil",
                 "/mall/front/commodityCenter/getCommodityCenterSimilar",
                 "/mall/front/commodityCenter/getCommodityCenterTrading",
-                "/mall/front/commodityCenter/getCommodityCenterDeatil"
-
+                "/mall/backend/user/Login"
             };
     /**
      * 跨域探测请求
@@ -68,7 +67,6 @@ public class AccessFilter extends ZuulFilter {
         if(request.getMethod().equals(AccessFilter.PASS_METHOD)){
             return false;
         }
-
         //不拦截的路由
         for(String pass:AccessFilter.PASS_PATH){
             if(request.getServletPath().equals(pass)){
