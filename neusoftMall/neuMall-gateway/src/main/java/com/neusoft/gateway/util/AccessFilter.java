@@ -60,6 +60,7 @@ public class AccessFilter extends ZuulFilter {
     @Override
     public boolean shouldFilter() {
         HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
+
         //不拦截的路由
         for(String pass:passPath){
             if(request.getServletPath().equals(pass)){

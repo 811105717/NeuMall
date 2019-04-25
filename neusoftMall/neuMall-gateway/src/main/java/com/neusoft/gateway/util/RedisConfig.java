@@ -24,8 +24,9 @@ import java.lang.reflect.Method;
  * @Author: shengtt
  * @Date: 2019/4/17
  */
-@Configuration
+//@Configuration
 @EnableCaching
+@Deprecated
 public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean

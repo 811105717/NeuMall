@@ -10,10 +10,9 @@ import lombok.Data;
  * @Date: 2019/4/18
  */
 @Data
-public class TradinInfo extends BaseEntity{
+public class TradinInfo extends BaseEntity {
     private String customerId;
     private String customerName;
-    private String commodityRetailPrice;
-    private String shopNumber;
+    private String commodityPrice;
+    private String commodityNum;
 }
-

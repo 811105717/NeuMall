@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Configuration;
  * @address: 大连东软信息学院
  * @Version 1.0
  */
-@Configuration
+//@Configuration
+@Deprecated
 public class WebConfig {
     @Bean
     public AccessFilter accessFilter(){

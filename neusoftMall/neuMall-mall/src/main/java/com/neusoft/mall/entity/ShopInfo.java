@@ -14,7 +14,7 @@ import lombok.Data;
 public class ShopInfo extends BaseEntity {
     private String shopId;
     private String commodityId;
-    private String shop_number;
+    private String shopNumber;
     private String customerId;
 }
 
