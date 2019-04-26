@@ -5,7 +5,6 @@
 <mapper namespace="com.neusoft.mall.commodityCenter.mapper.commodityCenterMapper">
     <select id="getCommodityList0" resultType="com.neusoft.mall.entity.CommodityInfo">
         SELECT * FROM t_commodity
-
     </select>
     <select id="getCommodityList1" resultType="com.neusoft.mall.entity.CommodityInfo">
          SELECT * FROM t_commodity WHERE category_first=#{categoryFirst}
