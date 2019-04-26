@@ -22,6 +22,7 @@
           </if>
       </where>
       order by sort_no
+
     </select>
 
     <insert id="addCustomer" parameterType="com.neusoft.common.entity.CustomerInfo">

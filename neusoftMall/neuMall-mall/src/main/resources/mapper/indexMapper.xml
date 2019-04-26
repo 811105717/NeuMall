@@ -38,5 +38,6 @@
         WHERE category_parent_id = 0
         AND is_deleted = 0
     </select>
-    
+
+
 </mapper>

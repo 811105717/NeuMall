@@ -8,4 +8,5 @@
     WHERE user_account = #{userAccount} AND user_pwd = #{userPwd}
     AND is_deleted = 0
 </select>
+
 </mapper>

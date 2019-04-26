@@ -22,6 +22,7 @@
         AND is_deleted = 0
     </select>
 
+
     <insert id="addCustomer" parameterType="com.neusoft.common.entity.CustomerInfo">
         INSERT INTO t_customer
         (customer_id,customer_number,
