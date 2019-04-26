@@ -36,7 +36,6 @@ dependencies {
             'io.springfox:springfox-swagger-ui:2.8.0'
     compile'org.springframework.boot:spring-boot-starter-data-redis'
     compile group: 'org.json', name: 'json', version: '20180813'
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
 }
 
 dependencyManagement {
