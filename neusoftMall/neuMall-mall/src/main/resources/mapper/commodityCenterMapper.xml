@@ -40,7 +40,7 @@
         SELECT * FROM t_collect WHERE commodity_id=#{commodityId} AND customer_id=#{customerId}
     </select>
     <select id="getCommodityCenterSimilar" resultType="com.neusoft.mall.entity.CommodityInfo">
-        SELECT commodity_code,commodity_first_picture,commodity_name,commodity_retail_price,version
+        SELECT commodity_code,commodity_first_picture AS  picture_address,commodity_name,commodity_retail_price,version
         FROM t_commodity WHERE category_first=#{categoryFirst}
     </select>
     <select id="getCommodityCenterTradin" resultType="com.neusoft.mall.entity.TradinInfo">
