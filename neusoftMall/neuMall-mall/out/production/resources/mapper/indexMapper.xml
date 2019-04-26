@@ -32,4 +32,10 @@
         WHERE category_parent_id = #{categoryParentId}
         AND is_deleted = 0
     </select>
+
+    <select id="getParentCategory" resultType="com.neusoft.mall.entity.CateGoryInfo">
+        SELECT * FROM t_category
+        WHERE category_parent_id = 0
+        AND is_deleted = 0
+    </select>
 </mapper>
