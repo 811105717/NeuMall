@@ -15,6 +15,7 @@
          where a.order_id=#{orderId} order by b.sort_no
     </select>
 
+
     <!--订单发货(修改订单状态) -->
     <update id="updateOrderStatus" parameterType="com.neusoft.mall.entity.OrdermanageInfo">
         update t_order set

@@ -20,7 +20,7 @@
     </select>
 
     <select id="getCommodityByOrderId" parameterType="String" resultType="com.neusoft.mall.entity.CommodityInfo">
-        SELECT t_commodity.commodity_id,commodity_code,picture_address,
+        SELECT t_commodity.commodity_id,commodity_code,t_commodity.commodity_first_picture,
         commodity_name,commodity_retail_price,t_commodity.version
         FROM t_order_detail JOIN t_commodity ON t_commodity.commodity_id = t_order_detail.commodity_id
         WHERE t_order_detail.order_id = #{orderId}
@@ -38,4 +38,6 @@
         WHERE category_parent_id = 0
         AND is_deleted = 0
     </select>
+
+
 </mapper>
