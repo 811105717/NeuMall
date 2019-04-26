@@ -10,6 +10,7 @@ import com.neusoft.mall.commodityCenter.service.commodityCenterSerivice;
 import com.neusoft.mall.entity.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/front/commodityCenter")
+@CrossOrigin
 public class commodityCenterController {
     @Autowired
     private commodityCenterSerivice commodityCenterSerivice;
@@ -49,9 +51,9 @@ public class commodityCenterController {
     public AppResponse getCommodityCenterTradin(CommodityInfo commodityInfo){
         return commodityCenterSerivice.getCommodityCenterTradin(commodityInfo);
     }
-    @RequestMapping(value = "getCommodityBuyNow",method = RequestMethod.GET)
-    public AppResponse getCommodityBuyNow(CommodityInfo commodityInfo,String commodityNum,String tokenFront){
-        return  commodityCenterSerivice.getCommodityBuyNow(commodityInfo,commodityNum,tokenFront);
+    @RequestMapping(value = "getCommodityBuyNow",method = RequestMethod.POST)
+    public AppResponse getCommodityBuyNow(CommodityInfo commodityInfo,TradinInfo tradinInfo,String tokenFront){
+        return  commodityCenterSerivice.getCommodityBuyNow(commodityInfo,tradinInfo,tokenFront);
     }
     @RequestMapping(value = "commodityCollection",method = RequestMethod.POST)
     public AppResponse commodityCollection(CollectInfo collectInfo,String collectFlag,String tokenFront){

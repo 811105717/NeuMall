@@ -11,13 +11,13 @@
     <select id="getCustomerList" resultType="com.neusoft.mall.entity.CustomerInfoVo" parameterType="com.neusoft.mall.entity.CustomerInfoVo">
       select customer_id,customer_number,customer_name,customer_is_used,version from t_customer
       <where>
-          <if test="null!=customerIsUsed">
+          <if test="null!=customerIsUsed and ''!= customerIsUsed">
               AND customer_is_used=#{customerIsUsed}
           </if>
-          <if test="null!=customerNumber">
+          <if test="null!=customerNumber and ''!= customerNumber">
               AND customer_number= #{customerNumber}
           </if>
-          <if test="null!=customerName">
+          <if test="null!=customerName and ''!=customerName">
               AND customer_name= #{customerName}
           </if>
       </where>

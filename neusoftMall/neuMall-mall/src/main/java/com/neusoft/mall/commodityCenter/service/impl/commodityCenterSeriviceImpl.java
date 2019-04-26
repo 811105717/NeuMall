@@ -7,13 +7,12 @@ import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.common.util.StringUtil;
 import com.neusoft.common.util.UUIDUtil;
-import com.neusoft.gateway.util.RedisUtil;
 import com.neusoft.mall.commodityCenter.mapper.commodityCenterMapper;
 import com.neusoft.mall.commodityCenter.service.commodityCenterSerivice;
 import com.neusoft.mall.entity.*;
 
 
-
+import com.neusoft.mall.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -126,12 +125,12 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     @Transactional
     @Override
     public AppResponse addShoppingCart(CommodityInfo commodityInfo, ShopInfo shopInfo,String tokenFront) {
-        RedisUtil redisUtil=new RedisUtil();
+//        RedisUtil redisUtil=new RedisUtil();
 //        if (redisUtil.getData(tokenFront)!=null){
-            CustomerInfo customerInfo=(CustomerInfo)redisUtil.getData(tokenFront);
+//            CustomerInfo customerInfo=(CustomerInfo)redisUtil.getData(tokenFront);
             String shopId= UUIDUtil.uuidStr();
-            Boolean result=commodityCenterMapper.addShoppingCart(shopId,commodityInfo.getCommodityId(),shopInfo.getShopNumber(),"01","1");
-            if (true){
+            Boolean result=commodityCenterMapper.addShoppingCart(shopId,commodityInfo.getCommodityId(),shopInfo.getShopNumber(),"1");
+            if (result){
                 return AppResponse.success("加入购物车成功");
             }else {
                 return AppResponse.notFound("加入购物车失败");
@@ -187,7 +186,7 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     }
     @Transactional
     @Override
-    public AppResponse getCommodityBuyNow(CommodityInfo commodityInfo,String commodityNum,String tokenFront) {
+    public AppResponse getCommodityBuyNow(CommodityInfo commodityInfo,TradinInfo tradinInfo,String tokenFront) {
 //        RedisUtil redisUtil=new RedisUtil();
 //        if (redisUtil.getData(tokenFront)!=null){
             TradinInfo data=commodityCenterMapper.getCommodityBuyNow(commodityInfo.getCommodityId());

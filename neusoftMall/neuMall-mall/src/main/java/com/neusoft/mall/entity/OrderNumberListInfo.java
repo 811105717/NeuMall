@@ -14,7 +14,7 @@ import java.util.List;
 public class OrderNumberListInfo extends BaseEntity {
     private List<String> orderNumberList;//订单号列表
     private String orderState;//订单状态
-
+    private String tokenBackend;//后端token
     public List<String> getOrderNumberList() {
         return orderNumberList;
     }

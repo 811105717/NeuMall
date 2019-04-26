@@ -29,9 +29,9 @@
     </select>
     <insert id="addShoppingCart">
        INSERT INTO t_shop
-       (shop_id,commodity_id,shop_number,customer_id,commodity_num,created_by,gmt_create,last_modified_by,
+       (shop_id,commodity_id,shop_number,customer_id,created_by,gmt_create,last_modified_by,
       gmt_modified,is_deleted,sort_no,version)
-       VALUES (#{shopId},#{commodityId},#{shopNumber},#{customerId},#{commodityNum},"ZQ",NOW(),"ZQ",NOW(),0,0,1)
+       VALUES (#{shopId},#{commodityId},#{shopNumber},#{customerId},"ZQ",NOW(),"ZQ",NOW(),0,0,1)
     </insert>
     <select id="getCommodityCenterDeatil" resultType="com.neusoft.mall.entity.Deatilinfo">
         SELECT * FROM t_commodity  JOIN t_commodity_pic ON  t_commodity.commodity_id=t_commodity_pic.commodity_id WHERE t_commodity.commodity_id=#{commodityId}
@@ -44,14 +44,16 @@
         FROM t_commodity WHERE category_first=#{categoryFirst}
     </select>
     <select id="getCommodityCenterTradin" resultType="com.neusoft.mall.entity.TradinInfo">
-        SELECT *
+        SELECT t_customer.customer_id,t_customer.customer_name,t_commodity.commodity_retail_price as commodity_price,
+        t_shop.shop_number as commodity_num,t_shop.gmt_create as gmt_create
         FROM t_commodity JOIN t_shop ON t_commodity.commodity_id=t_shop.commodity_id
         JOIN t_customer ON  t_shop.customer_id=t_customer.customer_id
         WHERE t_commodity.commodity_id=#{commodityId}
     </select>
     <select id="getCommodityBuyNow" resultType="com.neusoft.mall.entity.TradinInfo">
-        SELECT *
-        FROM t_commodity JOIN t_shop ON t_commodity.commodity_id=t_shop.commodity_id WHERE commodity_id=#{commodityId}
+        SELECT t_commodity.commodity_id,t_commodity.commodity_code,t_commodity.picture_address,t_commodity.commodity_name,
+        t_commodity.commodity_retail_price as commodity_price,t_shop.shop_number as commodity_num
+        FROM t_commodity JOIN t_shop ON t_commodity.commodity_id=t_shop.commodity_id WHERE t_commodity.commodity_id=#{commodityId}
     </select>
     <insert id="commodityCollection" parameterType="com.neusoft.mall.entity.CollectInfo">
      INSERT INTO t_collect

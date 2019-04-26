@@ -58,4 +58,6 @@ public interface IndexMapper {
      * @Return：java.util.List<com.neusoft.mall.entity.CateGoryInfo>
      */
     List<CateGoryInfo> getCategoryByParent(@Param("categoryParentId") String categoryParentId);
+
+    List<CateGoryInfo> getParentCategory();
 }

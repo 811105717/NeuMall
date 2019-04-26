@@ -21,7 +21,7 @@ public class CustomerInfo extends BaseEntity implements Serializable {
     private String customerName; //客户姓名
     private String customerIsUsed;// 启用/禁用  0启用1禁用
     private String tokenFront; //用户token
-
+    private String tokenBackend;
     public String getCustomerId() {
         return customerId;
     }
