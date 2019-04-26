@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @Version 1.0
  */
 @Configuration
+//@Deprecated
 public class WebConfig {
     @Bean
     public AccessFilter accessFilter(){
