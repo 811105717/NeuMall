@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mall.commodityCenter.mapper.commodityCenterMapper">
+    <select id="getCommodityList0" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity
+    </select>
+    <select id="getCommodityList1" resultType="com.neusoft.mall.entity.CommodityInfo">
+         SELECT * FROM t_commodity WHERE category_first=#{categoryFirst}
+    </select>
+    <select id="getCommodityList" resultType="com.neusoft.mall.entity.CommodityInfo" >
+        SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} AND category_second=#{categorySecond}
+    </select>
+    <select id="getCommodityListForName" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE commodity_name=#{commodityName} AND category_first=#{categoryFirst} AND category_second=#{categorySecond}
+    </select>
+    <select id="getCommodityListForTotalCount1" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} AND category_second=#{categorySecond} ORDER BY commodity_totalCount ASC
+    </select>
+    <select id="getCommodityListForTotalCount2" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} AND category_second=#{categorySecond} ORDER BY commodity_totalCount DESC
+    </select>
+    <select id="getCommodityListForTetailPrice1" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} AND category_second=#{categorySecond} ORDER BY commodity_retail_price
+    </select>
+    <select id="getCommodityListForTetailPrice2" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} AND category_second=#{categorySecond} ORDER BY commodity_retail_price DESC
+    </select>
+    <insert id="addShoppingCart">
+       INSERT INTO t_shop
+       (shop_id,commodity_id,shop_number,customer_id,created_by,gmt_create,last_modified_by,
+      gmt_modified,is_deleted,sort_no,version)
+       VALUES (#{shopId},#{commodityId},#{shopNumber},#{customerId},"ZQ",NOW(),"ZQ",NOW(),0,0,1)
+    </insert>
+    <select id="getCommodityCenterDeatil" resultType="com.neusoft.mall.entity.Deatilinfo">
+        SELECT * FROM t_commodity  JOIN t_commodity_pic ON  t_commodity.commodity_id=t_commodity_pic.commodity_id WHERE t_commodity.commodity_id=#{commodityId}
+    </select>
+    <select id="getCommodityCenterDeatilForIsCollect" resultType="com.neusoft.mall.entity.CollectInfo">
+        SELECT * FROM t_collect WHERE commodity_id=#{commodityId} AND customer_id=#{customerId}
+    </select>
+    <select id="getCommodityCenterSimilar" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT commodity_code,commodity_first_picture,commodity_name,commodity_retail_price,version
+        FROM t_commodity WHERE category_first=#{categoryFirst}
+    </select>
+    <select id="getCommodityCenterTradin" resultType="com.neusoft.mall.entity.TradinInfo">
+        SELECT t_customer.customer_id,t_customer.customer_name,t_commodity.commodity_retail_price as commodity_price,
+        t_shop.shop_number as commodity_num,t_shop.gmt_create as gmt_create
+        FROM t_commodity JOIN t_shop ON t_commodity.commodity_id=t_shop.commodity_id
+        JOIN t_customer ON  t_shop.customer_id=t_customer.customer_id
+        WHERE t_commodity.commodity_id=#{commodityId}
+    </select>
+    <select id="getCommodityBuyNow" resultType="com.neusoft.mall.entity.TradinInfo">
+        SELECT t_commodity.commodity_id,t_commodity.commodity_code,t_commodity.picture_address,t_commodity.commodity_name,
+        t_commodity.commodity_retail_price as commodity_price,t_shop.shop_number as commodity_num
+        FROM t_commodity JOIN t_shop ON t_commodity.commodity_id=t_shop.commodity_id WHERE t_commodity.commodity_id=#{commodityId}
+    </select>
+    <insert id="commodityCollection" parameterType="com.neusoft.mall.entity.CollectInfo">
+     INSERT INTO t_collect
+     (collect_id,customer_id,commodity_id,created_by,gmt_create,last_modified_by,
+      gmt_modified,is_deleted,sort_no,version)
+      VALUES (#{collectId},#{customerId},#{commodityId},"ZQ",NOW(),"ZQ",NOW(),0,0,1)
+    </insert>
+    <select id="commodityCollectionForId" resultType="String">
+        SELECT collect_id FROM t_collect WHERE customer_id=#{customerId} AND commodity_id=#{commodityId}
+    </select>
+    <update id="commodityCollectionForDelete" parameterType="com.neusoft.mall.entity.CollectInfo">
+        UPDATE t_collect SET is_deleted=1 WHERE collect_id = #{collectId}
+    </update>
+    <insert id="addOrder" parameterType="com.neusoft.mall.entity.OrderInfo">
+        INSERT INTO t_order
+        (order_id,order_number,order_price,customer_id,order_state,
+         order_date,order_address,receive_tel,receive_contact,
+         order_remark,created_by,gmt_create,last_modified_by,
+         gmt_modified,is_deleted,sort_no,version)
+         VALUES(#{orderId},#{orderNumber},#{orderPrice},#{customerId},
+         0,NOW(),#{orderAddress},#{receiveTel},
+         #{receiveContact},#{orderRemark},"ZQ",NOW(),"ZQ",NOW(),0,0,1)
+    </insert>
+    <insert id="addOrderDetail" parameterType="com.neusoft.mall.entity.OrderDetail">
+        INSERT INTO t_order_detail
+        (order_detail_id,order_id,commodity_id,commodity_price,commodity_num,commondity_total_price,
+         created_by,gmt_create,last_modified_by,gmt_modified,is_deleted,sort_no,version)
+        VALUES (#{orderDetailId},#{orderId},#{commodityId},#{commodityPrice},#{commodityNum},#{commondityTotalPrice,"ZQ",NOW(),"ZQ",NOW(),0,0,1)
+    </insert>
+    <select id="addOrderDetailForPrice" resultType="String">
+        SELECT commodity_price FROM t_order_detail WHERE commodity_id=#{commodityId}
+    </select>
+    <select id="commodityCollectionList" resultType="com.neusoft.mall.entity.CollectList">
+        SELECT t_collect.customer_id,t_commodity.commodity_id,t_commodity.commodity_first_picture,
+        t_commodity.commodity_name,t_commodity.commodity_retail_price
+        FROM t_commodity JOIN t_collect ON t_commodity.commodity_id=t_collect.commodity_id
+        WHERE t_collect.customer_id=#{customerId} AND t_collect.is_deleted=0
+    </select>
+    <select id="commodityCollectionListForSearch" resultType="com.neusoft.mall.entity.CollectList">
+        SELECT t_collect.customer_id,t_commodity.commodity_id,t_commodity.commodity_first_picture,
+        t_commodity.commodity_name,t_commodity.commodity_retail_price
+        FROM t_commodity JOIN t_collect ON t_commodity.commodity_id=t_collect.commodity_id
+        WHERE t_commodity.commodity_name=#{commodityName}  AND t_collect.is_deleted=0
+    </select>
+    <select id="commodityCollectionListForSearch02" resultType="com.neusoft.mall.entity.CollectList">
+        SELECT t_collect.customer_id,t_commodity.commodity_id,t_commodity.commodity_first_picture,
+        t_commodity.commodity_name,t_commodity.commodity_retail_price
+        FROM t_commodity JOIN t_collect ON t_commodity.commodity_id=t_collect.commodity_id
+        WHERE  t_collect.is_deleted=0
+    </select>
+</mapper>
