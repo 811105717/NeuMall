@@ -21,6 +21,6 @@ public interface commodityCenterSerivice {
     AppResponse getCommodityCenterTradin(CommodityInfo commodityInfo);//交易记录
     AppResponse getCommodityBuyNow(CommodityInfo commodityInfo,TradinInfo tradinInfo,String tokenFront);//立即购买
     AppResponse commodityCollection(CollectInfo collectInfo, String collectFlag, String tokenFront);//添加收藏/取消收藏
-    AppResponse addOrder(OrderInfo orderInfo, List<OrderDetail> commodityList, String tokenFront);//提交订单
+    AppResponse addOrder(OrderInfo orderInfo, String tokenFront);//提交订单
     AppResponse commodityCollectionList(CommodityInfo commodityInfo, String tokenFront);
 }

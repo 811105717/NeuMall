@@ -10,10 +10,7 @@ import com.neusoft.mall.commodityCenter.service.commodityCenterSerivice;
 import com.neusoft.mall.entity.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -60,8 +57,8 @@ public class commodityCenterController {
        return  commodityCenterSerivice.commodityCollection(collectInfo,collectFlag,tokenFront);
     }
     @RequestMapping(value = "addOrder",method = RequestMethod.POST)
-    public AppResponse addOrder(OrderInfo orderInfo, List<OrderDetail> commodityList,String tokenFront){
-        return  commodityCenterSerivice.addOrder(orderInfo,commodityList,tokenFront);
+    public AppResponse addOrder( @RequestBody OrderInfo orderInfo, String tokenFront){
+        return  commodityCenterSerivice.addOrder(orderInfo,tokenFront);
     }
     @RequestMapping(value = "commodityCollectionList",method = RequestMethod.POST)
     public AppResponse commodityCollectionList(CommodityInfo commodityInfo,String tokenFront){

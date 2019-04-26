@@ -5,7 +5,6 @@
 <mapper namespace="com.neusoft.mall.commodityCenter.mapper.commodityCenterMapper">
     <select id="getCommodityList0" resultType="com.neusoft.mall.entity.CommodityInfo">
         SELECT * FROM t_commodity
-
     </select>
     <select id="getCommodityList1" resultType="com.neusoft.mall.entity.CommodityInfo">
          SELECT * FROM t_commodity WHERE category_first=#{categoryFirst}
@@ -41,7 +40,7 @@
         SELECT * FROM t_collect WHERE commodity_id=#{commodityId} AND customer_id=#{customerId}
     </select>
     <select id="getCommodityCenterSimilar" resultType="com.neusoft.mall.entity.CommodityInfo">
-        SELECT commodity_code,commodity_first_picture,commodity_name,commodity_retail_price,version
+        SELECT commodity_code,commodity_first_picture AS  picture_address,commodity_name,commodity_retail_price,version
         FROM t_commodity WHERE category_first=#{categoryFirst}
     </select>
     <select id="getCommodityCenterTradin" resultType="com.neusoft.mall.entity.TradinInfo">
@@ -78,14 +77,14 @@
          0,NOW(),#{orderAddress},#{receiveTel},
          #{receiveContact},#{orderRemark},"ZQ",NOW(),"ZQ",NOW(),0,0,1)
     </insert>
-    <insert id="addOrderDetail" parameterType="com.neusoft.mall.entity.OrderDetail">
+    <insert id="addOrderDetail" parameterType="com.neusoft.mall.entity.OrderDetailInfo">
         INSERT INTO t_order_detail
-        (order_detail_id,order_id,commodity_id,commodity_price,commodity_num,commondity_total_price,
+        (order_detail_id,order_id,commodity_id,commodity_price,commodity_num,commodity_total_price,
          created_by,gmt_create,last_modified_by,gmt_modified,is_deleted,sort_no,version)
-        VALUES (#{orderDetailId},#{orderId},#{commodityId},#{commodityPrice},#{commodityNum},#{commondityTotalPrice,"ZQ",NOW(),"ZQ",NOW(),0,0,1)
+        VALUES (#{orderDetailId},#{orderId},#{commodityId},#{commodityPrice},#{commodityNum},#{commodityTotalPrice},"ZQ",NOW(),"ZQ",NOW(),0,0,1)
     </insert>
     <select id="addOrderDetailForPrice" resultType="String">
-        SELECT commodity_price FROM t_order_detail WHERE commodity_id=#{commodityId}
+        SELECT commodity_retail_price AS commodity_price FROM t_commodity WHERE commodity_id=#{commodityId}
     </select>
     <select id="commodityCollectionList" resultType="com.neusoft.mall.entity.CollectList">
         SELECT t_collect.customer_id,t_commodity.commodity_id,t_commodity.commodity_first_picture,

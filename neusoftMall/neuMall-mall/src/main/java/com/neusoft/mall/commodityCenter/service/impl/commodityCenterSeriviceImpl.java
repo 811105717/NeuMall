@@ -13,9 +13,11 @@ import com.neusoft.mall.entity.*;
 
 
 import com.neusoft.mall.util.RedisUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.ArrayList;
@@ -207,14 +209,14 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
 //        if (redisUtil.getData(tokenFront)!=null){
             if (collectFlag.equals("1")){
                 String collectId=UUIDUtil.uuidStr();
-                boolean result=commodityCenterMapper.commodityCollection(collectId,collectInfo.getCustomerId(),collectInfo.getCommodityId());
+                boolean result=commodityCenterMapper.commodityCollection(collectId,"01",collectInfo.getCommodityId());
                 if (result){
                     return AppResponse.success("添加收藏成功");
                 }else {
                     return  AppResponse.notFound("添加收藏失败");
                 }
             }else{
-                String c=commodityCenterMapper.commodityCollectionForId(collectInfo.getCustomerId(),collectInfo.getCommodityId());
+                String c=commodityCenterMapper.commodityCollectionForId("01",collectInfo.getCommodityId());
                 boolean result=commodityCenterMapper.commodityCollectionForDelete(c);
                 if (result){
                     return AppResponse.success("取消收藏成功");
@@ -229,11 +231,12 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     }
     @Transactional
     @Override
-    public AppResponse addOrder(OrderInfo orderInfo, List<OrderDetail> commodityList,String tokenFront) {
-       RedisUtil redisUtil=new RedisUtil();
-        if (redisUtil.getData(tokenFront)!=null){
+    public AppResponse addOrder(OrderInfo orderInfo, String tokenFront) {
+//       RedisUtil redisUtil=new RedisUtil();
+//        if (redisUtil.getData(tokenFront)!=null){
+           List<OrderDetailInfo> commodityList=orderInfo.getCommodityList();
            String orderId=UUIDUtil.uuidStr();
-           Boolean result=commodityCenterMapper.addOrder(orderId,orderInfo.getOrderNumber(),orderInfo.getOrderPrice(),orderInfo.getCustomerId(),orderInfo.getOrderAddress(),orderInfo.getReceiveTel(),orderInfo.getReceiveContact(),orderInfo.getOrderRemark());
+           Boolean result=commodityCenterMapper.addOrder(orderId,orderInfo.getOrderNumber(),orderInfo.getOrderPrice(),"01",orderInfo.getOrderAddress(),orderInfo.getReceiveTel(),orderInfo.getReceiveContact(),orderInfo.getOrderRemark());
            String[] commodityPrice=new String[commodityList.size()];
            String[] commodityNum=new String[commodityList.size()];
            Boolean[] b=new Boolean[commodityList.size()];
@@ -254,15 +257,15 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
             List<Object> data=new ArrayList<Object>();
            data.add(orderPrice);
            data.add(orderNumber);
-           for(int i=0;i<commodityList.size();i++){
-               if(!result||!b[i]){
-                   return AppResponse.notFound("提交订单失败");
-               }
-           }
+//           for(int i=0;i<commodityList.size();i++){
+//               if(!result||!b[i]){
+//                   return AppResponse.notFound("提交订单失败");
+//               }
+//           }
            return AppResponse.success("提交订单成功",data);
-       }else{
-           return null;
-       }
+//       }else{
+//           return null;
+//       }
 
 
     }

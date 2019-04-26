@@ -84,6 +84,9 @@
         <if test="userName != null and userName != ''">
             and user_name like concat('%', #{userName}, '%')
         </if>
+        <if test="userAccount != null and userAccount != ''">
+            and user_account = #{userAccount}
+        </if>
         order by gmt_create desc
     </select>
     <!--删除用户-->
