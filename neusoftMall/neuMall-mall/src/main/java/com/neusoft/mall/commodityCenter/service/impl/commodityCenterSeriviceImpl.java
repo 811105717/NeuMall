@@ -214,7 +214,7 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
                     return  AppResponse.notFound("添加收藏失败");
                 }
             }else{
-                String c=commodityCenterMapper.commodityCollectionForId(collectInfo.getCustomerId(),"01");
+                String c=commodityCenterMapper.commodityCollectionForId(collectInfo.getCustomerId(),collectInfo.getCommodityId());
                 boolean result=commodityCenterMapper.commodityCollectionForDelete(c);
                 if (result){
                     return AppResponse.success("取消收藏成功");
