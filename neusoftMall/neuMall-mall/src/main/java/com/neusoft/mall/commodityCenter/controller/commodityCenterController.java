@@ -1,18 +1,12 @@
 package com.neusoft.mall.commodityCenter.controller;
 
-
 import com.neusoft.common.entity.BasePageVo;
-
-
-import com.neusoft.common.entity.CustomerInfo;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.mall.commodityCenter.service.commodityCenterSerivice;
 import com.neusoft.mall.entity.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @ClassName: commodityCenterController
@@ -28,41 +22,49 @@ public class commodityCenterController {
     @Autowired
     private commodityCenterSerivice commodityCenterSerivice;
 
-    @RequestMapping(value = "getCommodityList",method = RequestMethod.GET)
-    public AppResponse getCommodityList(CommodityInfo commodityInfo, BasePageVo basePageVo,String sortingTotalCount,String sortingRetailPrice){
-        return commodityCenterSerivice.getCommodityList(commodityInfo,basePageVo,sortingTotalCount,sortingRetailPrice);
+    @RequestMapping(value = "getCommodityList", method = RequestMethod.GET)
+    public AppResponse getCommodityList(CommodityInfo commodityInfo, BasePageVo basePageVo, String sortingTotalCount, String sortingRetailPrice) {
+        return commodityCenterSerivice.getCommodityList(commodityInfo, basePageVo, sortingTotalCount, sortingRetailPrice);
     }
-    @RequestMapping(value = "addShoppingCart",method = RequestMethod.POST)
-    public AppResponse addShoppingCart(CommodityInfo commodityInfo,ShopInfo shopInfo,String tokenFront){
-        return commodityCenterSerivice.addShoppingCart(commodityInfo,shopInfo,tokenFront);
+
+    @RequestMapping(value = "addShoppingCart", method = RequestMethod.POST)
+    public AppResponse addShoppingCart(CommodityInfo commodityInfo, ShopInfo shopInfo, String tokenFront) {
+        return commodityCenterSerivice.addShoppingCart(commodityInfo, shopInfo, tokenFront);
     }
-    @RequestMapping(value = "getCommodityCenterSimilar",method = RequestMethod.GET)
-    public AppResponse getCommodityCenterSimilar(CommodityInfo commodityInfo){
+
+    @RequestMapping(value = "getCommodityCenterSimilar", method = RequestMethod.GET)
+    public AppResponse getCommodityCenterSimilar(CommodityInfo commodityInfo) {
         return commodityCenterSerivice.getCommodityCenterSimilar(commodityInfo);
     }
-    @RequestMapping(value = "getCommodityCenterDeatil",method = RequestMethod.GET)
-    public AppResponse getCommodityCenterDeatil(CommodityInfo commodityInfo,String tokenFront){
-        return commodityCenterSerivice.getCommodityCenterDeatil(commodityInfo,tokenFront);
+
+    @RequestMapping(value = "getCommodityCenterDeatil", method = RequestMethod.GET)
+    public AppResponse getCommodityCenterDeatil(CommodityInfo commodityInfo, String tokenFront) {
+        return commodityCenterSerivice.getCommodityCenterDeatil(commodityInfo, tokenFront);
     }
-    @RequestMapping(value = "getCommodityCenterTrading",method = RequestMethod.GET)
-    public AppResponse getCommodityCenterTradin(CommodityInfo commodityInfo){
+
+    @RequestMapping(value = "getCommodityCenterTrading", method = RequestMethod.GET)
+    public AppResponse getCommodityCenterTradin(CommodityInfo commodityInfo) {
         return commodityCenterSerivice.getCommodityCenterTradin(commodityInfo);
     }
-    @RequestMapping(value = "getCommodityBuyNow",method = RequestMethod.POST)
-    public AppResponse getCommodityBuyNow(CommodityInfo commodityInfo,TradinInfo tradinInfo,String tokenFront){
-        return  commodityCenterSerivice.getCommodityBuyNow(commodityInfo,tradinInfo,tokenFront);
+
+    @RequestMapping(value = "getCommodityBuyNow", method = RequestMethod.POST)
+    public AppResponse getCommodityBuyNow(CommodityInfo commodityInfo, TradinInfo tradinInfo, String tokenFront) {
+        return commodityCenterSerivice.getCommodityBuyNow(commodityInfo, tradinInfo, tokenFront);
     }
-    @RequestMapping(value = "commodityCollection",method = RequestMethod.POST)
-    public AppResponse commodityCollection(CollectInfo collectInfo,String collectFlag,String tokenFront){
-       return  commodityCenterSerivice.commodityCollection(collectInfo,collectFlag,tokenFront);
+
+    @RequestMapping(value = "commodityCollection", method = RequestMethod.POST)
+    public AppResponse commodityCollection(CollectInfo collectInfo, String collectFlag, String tokenFront) {
+        return commodityCenterSerivice.commodityCollection(collectInfo, collectFlag, tokenFront);
     }
-    @RequestMapping(value = "addOrder",method = RequestMethod.POST)
-    public AppResponse addOrder( @RequestBody OrderInfo orderInfo, String tokenFront){
-        return  commodityCenterSerivice.addOrder(orderInfo,tokenFront);
+
+    @RequestMapping(value = "addOrder", method = RequestMethod.POST)
+    public AppResponse addOrder(@RequestBody OrderInfo orderInfo, String tokenFront) {
+        return commodityCenterSerivice.addOrder(orderInfo, tokenFront);
     }
-    @RequestMapping(value = "commodityCollectionList",method = RequestMethod.POST)
-    public AppResponse commodityCollectionList(CommodityInfo commodityInfo,String tokenFront){
-        return commodityCenterSerivice.commodityCollectionList(commodityInfo,tokenFront);
+
+    @RequestMapping(value = "commodityCollectionList", method = RequestMethod.POST)
+    public AppResponse commodityCollectionList(CommodityInfo commodityInfo, String tokenFront) {
+        return commodityCenterSerivice.commodityCollectionList(commodityInfo, tokenFront);
     }
 }
 

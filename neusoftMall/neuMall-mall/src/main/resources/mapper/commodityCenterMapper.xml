@@ -6,25 +6,61 @@
     <select id="getCommodityList0" resultType="com.neusoft.mall.entity.CommodityInfo">
         SELECT * FROM t_commodity
     </select>
+    <select id="getCommodityList0ForTotalCount1" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity ORDER BY commodity_totalCount ASC
+    </select>
+    <select id="getCommodityList0ForTotalCount2" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity ORDER BY commodity_totalCount DESC
+    </select>
+    <select id="getCommodityList0ForTetailPrice1" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity ORDER BY commodity_retail_price ASC
+    </select>
+    <select id="getCommodityList0ForTetailPrice2" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity ORDER BY commodity_retail_price DESC
+    </select>
     <select id="getCommodityList1" resultType="com.neusoft.mall.entity.CommodityInfo">
          SELECT * FROM t_commodity WHERE category_first=#{categoryFirst}
     </select>
-    <select id="getCommodityList" resultType="com.neusoft.mall.entity.CommodityInfo" >
+    <select id="getCommodityList1ForTotalCount1" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE category_first=#{categoryFirst}ORDER BY commodity_totalCount ASC
+    </select>
+    <select id="getCommodityList1ForTotalCount2" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE category_first=#{categoryFirst}ORDER BY commodity_totalCount DESC
+    </select>
+    <select id="getCommodityList1ForTetailPrice1" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} ORDER BY commodity_retail_price ASC
+    </select>
+    <select id="getCommodityList1ForTetailPrice2" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} ORDER BY commodity_retail_price DESC
+    </select>
+    <select id="getCommodityList2" resultType="com.neusoft.mall.entity.CommodityInfo">
         SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} AND category_second=#{categorySecond}
     </select>
-    <select id="getCommodityListForName" resultType="com.neusoft.mall.entity.CommodityInfo">
-        SELECT * FROM t_commodity WHERE commodity_name=#{commodityName} AND category_first=#{categoryFirst} AND category_second=#{categorySecond}
+    <select id="getCommodityList3" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE commodity_name LIKE '%{commodityName}%'
     </select>
-    <select id="getCommodityListForTotalCount1" resultType="com.neusoft.mall.entity.CommodityInfo">
+    <select id="getCommodityList3ForTotalCount1" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE commodity_name LIKE '%{commodityName}%'ORDER BY commodity_totalCount ASC
+    </select>
+    <select id="getCommodityList3ForTotalCount2" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE commodity_name LIKE '%{commodityName}%'ORDER BY commodity_totalCount DESC
+    </select>
+    <select id="getCommodityList3ForTetailPrice1" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE commodity_name LIKE '%{commodityName}%' ORDER BY commodity_retail_price ASC
+    </select>
+    <select id="getCommodityList3ForTetailPrice2" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE commodity_name LIKE '%{commodityName}%' ORDER BY commodity_retail_price DESC
+    </select>
+    <select id="getCommodityList2ForTotalCount1" resultType="com.neusoft.mall.entity.CommodityInfo">
         SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} AND category_second=#{categorySecond} ORDER BY commodity_totalCount ASC
     </select>
-    <select id="getCommodityListForTotalCount2" resultType="com.neusoft.mall.entity.CommodityInfo">
+    <select id="getCommodityList2ForTotalCount2" resultType="com.neusoft.mall.entity.CommodityInfo">
         SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} AND category_second=#{categorySecond} ORDER BY commodity_totalCount DESC
     </select>
-    <select id="getCommodityListForTetailPrice1" resultType="com.neusoft.mall.entity.CommodityInfo">
-        SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} AND category_second=#{categorySecond} ORDER BY commodity_retail_price
+    <select id="getCommodityList2ForTetailPrice1" resultType="com.neusoft.mall.entity.CommodityInfo">
+        SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} AND category_second=#{categorySecond} ORDER BY commodity_retail_price ASC
     </select>
-    <select id="getCommodityListForTetailPrice2" resultType="com.neusoft.mall.entity.CommodityInfo">
+    <select id="getCommodityList2ForTetailPrice2" resultType="com.neusoft.mall.entity.CommodityInfo">
         SELECT * FROM t_commodity WHERE category_first=#{categoryFirst} AND category_second=#{categorySecond} ORDER BY commodity_retail_price DESC
     </select>
     <insert id="addShoppingCart">
