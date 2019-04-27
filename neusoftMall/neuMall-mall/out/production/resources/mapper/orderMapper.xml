@@ -3,6 +3,7 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.mall.ordercenter.mapper.OrderMapper">
+
     <!--  获取订单列表 ，根据条件进行查询  -->
     <select id="getOrderList" parameterType="com.neusoft.mall.entity.OrderQueryVo"
             resultType="com.neusoft.mall.entity.OrderInfo">
@@ -30,6 +31,7 @@
             </if>
         </where>
     </select>
+
     <!-- 获取订单详细信息 -->
     <select id="getOrderDetail" parameterType="String" resultType="com.neusoft.mall.entity.OrderInfo">
         SELECT * FROM t_order JOIN t_customer
@@ -37,6 +39,7 @@
         WHERE order_id = #{orderId}
         AND t_order.is_deleted = 0
     </select>
+
     <!-- 获取订单全部的商品信息 -->
     <select id="getOrderCommodityDetail" parameterType="String" resultType="com.neusoft.mall.entity.OrderDetailInfo">
         SELECT * FROM t_order_detail JOIN t_commodity
@@ -44,6 +47,7 @@
         WHERE order_id = #{orderId}
         AND t_order_detail.is_deleted = 0
     </select>
+
     <!--  被谁修改这里写死了  -->
     <update id="updateOrderStatus" parameterType="java.util.List">
         UPDATE t_order SET

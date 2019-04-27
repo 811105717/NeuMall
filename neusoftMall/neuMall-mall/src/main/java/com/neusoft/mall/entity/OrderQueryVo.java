@@ -13,58 +13,33 @@ import lombok.Data;
  */
 @Data
 public class OrderQueryVo extends BasePageVo {
-    private String orderNumber; //订单信息
-    private String orderDateStart;//订单开始日期
-    private String orderDateEnd; //订单结束日期
-    private String orderState; //订单状态
-    private String customerId; //下单人ID
-    private String tokenFront;//token
-    private String tokenBackend;//token后
-    public String getOrderNumber() {
-        return orderNumber;
-    }
+    /**
+     * 订单信息
+     */
+    private String orderNumber;
+    /**
+     * 订单开始日期
+     */
+    private String orderDateStart;
+    /**
+     * 订单结束日期
+     */
+    private String orderDateEnd;
+    /**
+     * 订单状态
+     */
+    private String orderState;
+    /**
+     * 下单人ID
+     */
+    private String customerId;
+    /**
+     * token前台
+     */
+    private String tokenFront;
+    /**
+     * token后台
+     */
+    private String tokenBackend;
 
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public String getOrderDateStart() {
-        return orderDateStart;
-    }
-
-    public void setOrderDateStart(String orderDateStart) {
-        this.orderDateStart = orderDateStart;
-    }
-
-    public String getOrderDateEnd() {
-        return orderDateEnd;
-    }
-
-    public void setOrderDateEnd(String orderDateEnd) {
-        this.orderDateEnd = orderDateEnd;
-    }
-
-    public String getOrderState() {
-        return orderState;
-    }
-
-    public void setOrderState(String orderState) {
-        this.orderState = orderState;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getTokenFront() {
-        return tokenFront;
-    }
-
-    public void setTokenFront(String tokenFront) {
-        this.tokenFront = tokenFront;
-    }
 }

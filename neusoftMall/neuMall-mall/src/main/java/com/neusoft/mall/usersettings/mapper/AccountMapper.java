@@ -16,49 +16,39 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface AccountMapper {
+
     /**
-     * @Dept：大连东软信息学院
-     * @Description：检查用户是否存在
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：number 用户编号 （用户名）
-     * @Return：java.lang.Integer
+     * 查询用户账号是否存在
+     * @param number 用户账号
+     * @return 结果
      */
     Integer checkExistCustomer (@Param("number") String number);
+
     /**
-     * @Dept：大连东软信息学院
-     * @Description：用户注册
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：customer 被注册的用户
-     * @Return：java.lang.Integer
+     * 添加用户 （注册）
+     * @param customer 用户对象
+     * @return 添加结果
      */
     Integer addCustomer(CustomerInfo customer);
+
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 更新密码
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：customer 修改密码的用户
-     * @Return：java.lang.Integer
+     * 更新用户密码
+     * @param customer 用户对象
+     * @return 更新结果
      */
     Integer updatePassword(CustomerInfo customer);
+
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 用户登录
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：customer 登录用户
-     * @Return：com.neusoft.mall.entity.CustomerInfo
+     * 用户登陆
+     * @param customer 用户对象
+     * @return 结果
      */
     CustomerInfo userLogin(CustomerInfo customer);
+
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 根据Id 查询用户
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：id 用户id
-     * @Return：com.neusoft.mall.entity.CustomerInfo
+     * 根据用户ID获取用户对象
+     * @param id 用户id
+     * @return 用户对象
      */
     CustomerInfo getCustomerById(@Param("id") String id);
 }

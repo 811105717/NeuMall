@@ -30,8 +30,14 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
+    /**
+     * 订单数据服务对象
+     */
     @Autowired
     private OrderMapper orderMapper;
+    /**
+     * redis工具对象
+     */
     @Autowired
     private RedisUtil<CustomerInfo> redisUtil;
 
@@ -45,13 +51,15 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public AppResponse getOrderList(OrderQueryVo queryVo) {
-        if(null == queryVo.getTokenFront()){
-            return AppResponse.bizError("token失效");
-        }
         //根据token 获取customer对象，并且得到customerId 赋值给queryVo
         CustomerInfo currCustomer = redisUtil.getData(queryVo.getTokenFront());
+        if(null == currCustomer){
+            return AppResponse.bizError("token失效");
+        }
         queryVo.setCustomerId(currCustomer.getCustomerId());
+
         if(null != queryVo.getCustomerId() && !"".equals(queryVo.getCustomerId())){
+            //分页处理
             PageVo<OrderInfo>list = new PageVo<>();
             PageHelper.startPage(queryVo.getPageNum(),queryVo.getPageSize());
             List<OrderInfo> orderList = orderMapper.getOrderList(queryVo);
@@ -62,6 +70,7 @@ public class OrderServiceImpl implements OrderService {
             }
             list.setList(orderList);
             list.setTotalRecords((int)new PageInfo<>(orderList).getTotal());
+            //根据返回结果发送提示
             if(0<list.getTotalRecords()){
                 return AppResponse.success("订单列表获取成功！",list);
             }else {
@@ -119,7 +128,7 @@ public class OrderServiceImpl implements OrderService {
                 return AppResponse.notFound("未找到相关订单");
             }
         }else {
-            return AppResponse.bizError("未知数据错误！");
+            return AppResponse.bizError("未知参数错误！");
         }
     }
 }

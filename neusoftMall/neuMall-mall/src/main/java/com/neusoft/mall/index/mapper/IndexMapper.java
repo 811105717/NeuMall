@@ -23,41 +23,36 @@ import java.util.List;
 @Component
 public interface IndexMapper {
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取推荐列表
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：recommend 是否推荐 （写死到是了这里）
-     * @Return：java.util.List<com.neusoft.mall.entity.CommodityInfo>
+     * 首页获取推荐商品
+     * @param recommend 是否推荐
+     * @return 返回推荐商品
      */
     List<CommodityInfo> getCommodityList(@Param("recommend") String recommend);
+
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取一个用户的全部订单
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：customerId 用户id
-     * @Return：java.util.List<com.neusoft.mall.entity.OrderInfo>
+     * 获取用户所有的订单
+     * @param customerId 用户ID
+     * @return 订单列表
      */
     List<OrderInfo> getUserOrderList(@Param("customerId")String customerId);
+
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取订单明细中的商品明细
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：orderId 订单id
-     * @Return：com.neusoft.mall.entity.CommodityInfo
+     * 根据订单ID获取该订单中所有的商品
+     * @param orderId 订单ID
+     * @return 该订单中所有的商品
      */
     List<CommodityInfo> getCommodityByOrderId(@Param("orderId") String orderId);
+
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取二级分类
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：categoryParentId 父分类
-     * @Return：java.util.List<com.neusoft.mall.entity.CateGoryInfo>
+     * 根据父分类ID获取子分类列表 若父分类ID为 0 则返回一级分类
+     * @param categoryParentId 分类ID
+     * @return 子分类列表
      */
     List<CateGoryInfo> getCategoryByParent(@Param("categoryParentId") String categoryParentId);
 
+    /**
+     * 获取一级分类（父分类）
+     * @return 一级分类列表
+     */
     List<CateGoryInfo> getParentCategory();
 }

@@ -19,13 +19,16 @@ import org.springframework.web.bind.annotation.*;
  * @Version 1.0
  */
 @SuppressWarnings("ALL")
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/front/orderCenter")
 @Api("订单中心API")
-@CrossOrigin
 @Slf4j
 public class OrderController {
 
+    /**
+     * 订单服务层
+     */
     @Autowired
     private OrderService orderService;
 

@@ -12,14 +12,11 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
+@SuppressWarnings("ALL")
 public class IndexQueryVO extends BasePageVo {
-    private String commodityIsRecommend;//是否推荐
+    /**
+     * 是否推荐
+     */
+    private String commodityIsRecommend;
 
-    public String getCommodityIsRecommend() {
-        return commodityIsRecommend;
-    }
-
-    public void setCommodityIsRecommend(String commodityIsRecommend) {
-        this.commodityIsRecommend = commodityIsRecommend;
-    }
 }

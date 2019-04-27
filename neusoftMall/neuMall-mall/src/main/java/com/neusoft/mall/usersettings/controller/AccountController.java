@@ -18,12 +18,16 @@ import java.io.UnsupportedEncodingException;
  * @Version 1.0
  */
 @SuppressWarnings("All")
-@Slf4j
+@CrossOrigin
 @RestController
 @RequestMapping("/front/account")
 @Api("账户设置PAI")
-@CrossOrigin
+@Slf4j
 public class AccountController {
+
+    /**
+     * 账户服务对象
+     */
     @Autowired
     private AccountService accountService;
 
@@ -37,16 +41,16 @@ public class AccountController {
      */
     @ApiOperation("修改密码")
     @PutMapping(value = "updatePassWord")
-    public AppResponse updatePassWord(CustomerInfo customer) throws Exception{
+    public AppResponse updatePassWord(CustomerInfo customer){
         log.info("updatePassWord frontData :{}",customer);
         try {
             return accountService.updatePassword(customer);
         } catch (UnsupportedEncodingException e) {
             log.info("error update password {}",e);
-            throw new Exception("修改密码异常");
+            return AppResponse.bizError("修改密码异常 不支持的编码");
         }
     }
-//
+
     /**
      * @Dept：大连东软信息学院
      * @Description： 用户注册
@@ -57,13 +61,13 @@ public class AccountController {
      */
     @ApiOperation("用户注册")
     @PostMapping(value = "registered")
-    public AppResponse customerRegister(CustomerInfo customer) throws Exception{
+    public AppResponse customerRegister(CustomerInfo customer){
         log.info("registered frontData {}",customer);
         try {
             return accountService.customerRegister(customer);
         } catch (UnsupportedEncodingException e) {
             log.info("error register customer {}",e);
-            throw new Exception("用户注册异常");
+            return AppResponse.bizError("用户注册异常 不支持的编码");
         }
     }
 
@@ -77,13 +81,13 @@ public class AccountController {
      */
     @ApiOperation("用户登录")
     @PostMapping(value = "userLogin")
-    public AppResponse customerLogin(CustomerInfo customer) throws Exception{
+    public AppResponse customerLogin(CustomerInfo customer){
         log.info("userLogin frontData {}",customer);
         try {
             return accountService.customerLogin(customer);
         } catch (UnsupportedEncodingException e) {
             log.info("error register customer {}",e);
-            throw new Exception("用户登录异常");
+            return AppResponse.bizError("用户登录异常 不支持的编码");
         }
     }
 

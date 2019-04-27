@@ -1,5 +1,6 @@
 package com.neusoft.mall.entity;
 
+import com.neusoft.common.entity.BaseEntity;
 import lombok.Data;
 
 import java.util.List;
@@ -13,32 +14,14 @@ import java.util.List;
  * @Version 1.0
  */
 @Data
-public class StateUpdateVo {
-    private List<String> orderNumberList; //订单号列表
-    private String orderState; //订单状态
-    private String lastModifiedBy; //最后修改者
+public class StateUpdateVo extends BaseEntity {
+    /**
+     * 订单号列表
+     */
+    private List<String> orderNumberList;
+    /**
+     * 订单状态
+     */
+    private String orderState;
 
-    public List<String> getOrderNumberList() {
-        return orderNumberList;
-    }
-
-    public void setOrderNumberList(List<String> orderNumberList) {
-        this.orderNumberList = orderNumberList;
-    }
-
-    public String getOrderState() {
-        return orderState;
-    }
-
-    public void setOrderState(String orderState) {
-        this.orderState = orderState;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
 }
