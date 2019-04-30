@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author: xiaobai
@@ -18,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Version 1.0
  */
 @Slf4j
+@SuppressWarnings("ALL")
 public class AccessFilter extends ZuulFilter {
     /**
      * 不希望被拦截的路由
@@ -38,7 +38,8 @@ public class AccessFilter extends ZuulFilter {
      * 跨域探测请求
      */
     static final String PASS_METHOD = "OPTIONS";
-    //
+
+
     @Autowired
     private RedisUtil<Object> redisUtil;
 
@@ -83,18 +84,19 @@ public class AccessFilter extends ZuulFilter {
      */
     @Override
     public Object run() throws ZuulException {
-        boolean hasToken = false;
+        //是否满足条件，默认不满足
+        boolean permission = false;
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
-
-        //token验证
+        //token验证 取值步骤 1.前台 2.后台 3.header
         String key = request.getParameter("tokenFront");
-        if(null==key){
+        if(null == key){
             key = request.getParameter("tokenBackend");
         }
         if(null == key){
             key = (String) request.getHeader("token");
         }
+
         if(null!=key){
             log.info("得到token {}",key);
             Object data = redisUtil.getData(key);
@@ -103,12 +105,12 @@ public class AccessFilter extends ZuulFilter {
                 boolean res = redisUtil.updateActiveTime(key);
                 if(res){
                     log.info("比对token 成功，更新存活时间！{}",key);
-                    hasToken = true;
+                    permission = true;
                 }
             }
         }
-        if(!hasToken){
-            //如果验证失败
+        //如果验证失败
+        if(!permission){
             requestContext.setSendZuulResponse(false);
             requestContext.setResponseStatusCode(800);
             requestContext.getResponse().setContentType("application/json; charset=utf-8");

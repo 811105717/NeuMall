@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("ALL")
 @Component
 @Slf4j
-//@Deprecated
 public class RedisUtil<T> {
 
     @Autowired
@@ -31,14 +30,11 @@ public class RedisUtil<T> {
     private static final long ACTIVE_TIME = 30;
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 用于向redis中添加一条数据，返回结果表示是否添加成功
-     * @Author：xiaobai
-     * @Date: 2019/4/20
-     * @Param：key 键值
-     * @Return：boolean
+     * 添加一条数据
+     * @param key 键
+     * @param value 值
+     * @return 添加结果
      */
-
     public  boolean addData(String key,T value){
         if(null == key){
             return false;
@@ -50,13 +46,11 @@ public class RedisUtil<T> {
         valueOperations.set(key,value,RedisUtil.ACTIVE_TIME, TimeUnit.MINUTES);
         return true;
     }
+
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 从redis中根据key取出一条数据 返回类型为Object
-     * @Author：xiaobai
-     * @Date: 2019/4/20
-     * @Param：key 键值
-     * @Return：java.lang.Object
+     * 获取一条数据
+     * @param key 键
+     * @return 获取到的结果 没有返回null
      */
     public  T getData(String key){
         if(null == key){
@@ -66,12 +60,9 @@ public class RedisUtil<T> {
     }
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 更新数据时间
-     * @Author：xiaobai
-     * @Date: 2019/4/20
-     * @Param：key
-     * @Return：boolean
+     * 更新存活时间
+     * @param key 被更新的键
+     * @return  更新结果
      */
     public synchronized boolean updateActiveTime(String key){
         if(null == key){
@@ -84,12 +75,9 @@ public class RedisUtil<T> {
     }
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 删除数据5t4rf
-     * @Author：xiaobai
-     * @Date: 2019/4/20
-     * @Param：key
-     * @Return：boolean
+     * 删除一条数据
+     * @param key 被删除的键
+     * @return 删除结果
      */
     public  boolean deleteData(String key){
         if(null == key){
@@ -98,6 +86,10 @@ public class RedisUtil<T> {
         return redisTemplate.delete(key);
     }
 
+    /**
+     * 生成一个UUID键
+     * @return uuid
+     */
     public static String generateToken(){
         return UUIDUtil.uuidStr();
     }
