@@ -46,7 +46,12 @@ public class OrderDetailInfo extends BaseEntity {
      */
     private String commodityName;
     /**
+     * 商品首图 不维护
+     */
+    @Deprecated
+    private String pictureAddress;
+    /**
      * 商品首图
      */
-    private String pictureAddress;
+    private String commodityFirstPicture;
 }
