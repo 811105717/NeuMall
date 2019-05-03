@@ -31,7 +31,7 @@ public class AccessHandler implements HandlerInterceptor {
              "/front/commodityCenter/getCommodityCenterDeatil",
              "/front/commodityCenter/getCommodityCenterSimilar",
              "/front/commodityCenter/getCommodityCenterTrading",
-
+             "/backend/user/Login"
             };
 
     @Autowired
