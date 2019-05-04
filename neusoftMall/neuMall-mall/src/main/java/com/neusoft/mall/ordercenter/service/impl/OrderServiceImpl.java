@@ -24,7 +24,7 @@ import java.util.List;
  * @Date: 2019/4/8 19:06
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院 1
- * @Version 1.0
+ * @version 1.0
  */
 @SuppressWarnings("ALL")
 @Service
@@ -42,12 +42,12 @@ public class OrderServiceImpl implements OrderService {
     private RedisUtil<CustomerInfo> redisUtil;
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取订单列表
-     * @Author：xiaobai
-     * @Date: 2019/4/11
-     * @Param：queryVo 包装类 页码 页大小 用户
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description  获取订单列表
+     * @Author xiaobai
+     * @Date 2019/4/11
+     * @param queryVo 包装类 页码 页大小 用户
+     * @return com.neusoft.common.response.AppResponse
      */
     @Override
     public AppResponse getOrderList(OrderQueryVo queryVo) {
@@ -82,12 +82,12 @@ public class OrderServiceImpl implements OrderService {
         }
     }
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取订单详细信息
-     * @Author：xiaobai
-     * @Date: 2019/4/11
-     * @Param：orderId 订单id
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description 获取订单详细信息
+     * @Author xiaobai
+     * @Date  2019/4/11
+     * @param orderId 订单id
+     * @return com.neusoft.common.response.AppResponse
      */
     @Override
     public AppResponse getOrderDetail(String orderId) {
@@ -109,13 +109,13 @@ public class OrderServiceImpl implements OrderService {
         }
     }
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 更新订单状态
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：orderList 订单号列表
-        status 订单状态码
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description 更新订单状态
+     * @Author xiaobai
+     * @Date 2019/4/13
+     * @param orderList 订单号列表
+     * @param status 订单状态码
+     * @return com.neusoft.common.response.AppResponse
      */
     @Transactional(rollbackFor = Exception.class)
     @Override

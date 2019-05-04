@@ -17,10 +17,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @Author: shengtt
  * @Date: 2019/3/22
  */
+@SuppressWarnings("ALL")
 @Configuration
 @EnableSwagger2
 public class Swagger2 {
-    //swagger2的配置文件，这里可以配置swagger2的一些基本的内容，比如扫描的包等等
+    /**
+     * swagger2的配置文件，这里可以配置swagger2的一些基本的内容，比如扫描的包等等
+     * @return
+     */
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -32,7 +36,10 @@ public class Swagger2 {
                 .paths(PathSelectors.any())
                 .build();
     }
-    //构建 api文档的详细信息函数,注意这里的注解引用的是哪个
+
+    /**
+     * 构建 api文档的详细信息函数,注意这里的注解引用的是哪个
+     */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 //页面标题

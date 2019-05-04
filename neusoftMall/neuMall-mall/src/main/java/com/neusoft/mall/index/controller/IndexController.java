@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @Author: xiaobai
- * @Date: 2019/4/8 17:36
+ * @author uthor: xiaobai
+ * @date : 2019/4/8 17:36
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
- * @Version 1.0
+ * @version  1.0
+ *
  */
 @SuppressWarnings("ALL")
 @CrossOrigin
@@ -33,12 +34,12 @@ public class IndexController {
     private IndexService indexService;
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取热门推荐商品
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：queryVO 分页 和是否推荐
-     * @Return：com.neusoft.common.response.AppResponse 结果
+     * @Dept 大连东软信息学院
+     * @Description 获取热门推荐商品
+     * @author xiaobai
+     * @date 2019/4/13
+     * @param queryVO 分页 和是否推荐
+     * @return com.neusoft.common.response.AppResponse 结果
      */
     @ApiOperation("获取用户推荐列表")
     @GetMapping(value = "getRecommondCommodityList")
@@ -48,12 +49,12 @@ public class IndexController {
     }
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取用户买过的商品
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：customerId 用户ID
-     * @Return：com.neusoft.common.response.AppResponse 结果
+     * @Dept 大连东软信息学院
+     * @Description 获取用户买过的商品
+     * @author xiaobai
+     * @date 2019/4/13
+     * @param customerId 用户ID
+     * @return com.neusoft.common.response.AppResponse 结果
      */
     @ApiOperation("获取用户买过的订单列表")
     @GetMapping(value = "getBuyCommodityList")
@@ -63,12 +64,12 @@ public class IndexController {
     }
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 根据父级分类ID获取二级分类，若父分类ID为 0 查询一级
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：categoryParentId 父分类
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description 根据父级分类ID获取二级分类，若父分类ID为 0 查询一级
+     * @author xiaobai
+     * @date 2019/4/13
+     * @param categoryParentId 父分类
+     * @return com.neusoft.common.response.AppResponse
      */
     @ApiOperation("根据一级分类查询二级分类列表")
     @GetMapping(value = "getClassifyList")

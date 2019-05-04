@@ -24,9 +24,9 @@ import java.lang.reflect.Method;
  * @Author: shengtt
  * @Date: 2019/4/17
  */
+@SuppressWarnings("ALL")
 @Configuration
 @EnableCaching
-//@Deprecated
 public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
@@ -67,7 +67,6 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.setValueSerializer(jsonRedisSerializer);
 
         template.setHashKeySerializer(new StringRedisSerializer());
-        // template.setHashValueSerializer(new JdkSerializationRedisSerializer());
         template.setHashValueSerializer(jsonRedisSerializer);
 
         template.afterPropertiesSet();

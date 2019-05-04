@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * @Descripton 封装对redis的操作
  * @Author: xiaobai
  * @Date: 2019/4/20 19:03
  * @email: baijinfeng1202@gmail.com

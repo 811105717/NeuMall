@@ -32,12 +32,12 @@ public class AccountController {
     private AccountService accountService;
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 修改密码
-     * @Author：xiaobai
-     * @Date: 2019/4/10
-     * @Param：customer 客户实体对象
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description 修改密码
+     * @author xiaobai
+     * @date 2019/4/10
+     * @param customer 客户实体对象
+     * @return com.neusoft.common.response.AppResponse
      */
     @ApiOperation("修改密码")
     @PutMapping(value = "updatePassWord")
@@ -52,12 +52,12 @@ public class AccountController {
     }
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 用户注册
-     * @Author：xiaobai
-     * @Date: 2019/4/10
-     * @Param：customer 用户实体对象
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description  用户注册
+     * @author xiaobai
+     * @date 2019/4/10
+     * @param customer 用户实体对象
+     * @return com.neusoft.common.response.AppResponse
      */
     @ApiOperation("用户注册")
     @PostMapping(value = "registered")
@@ -74,10 +74,10 @@ public class AccountController {
     /**
      * @Dept：大连东软信息学院
      * @Description： 用户登录
-     * @Author：xiaobai
-     * @Date: 2019/4/10
-     * @Param：customer 用户实体
-     * @Return：com.neusoft.common.response.AppResponse
+     * @author xiaobai
+     * @date 2019/4/10
+     * @param customer 用户实体
+     * @return com.neusoft.common.response.AppResponse
      */
     @ApiOperation("用户登录")
     @PostMapping(value = "userLogin")

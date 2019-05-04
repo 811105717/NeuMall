@@ -10,9 +10,9 @@ import java.io.PrintWriter;
 
 /**
  * @ClassName: AccessHandler
- * @Description:登录检查
- * @Author: shengtt
- * @Date: 2019/3/26
+ * @Description 登录拦截器   不再使用 新的拦截器已经移动至网关
+ * @author xiaobai
+ * @date  2019/3/26
  */
 @SuppressWarnings("ALL")
 @Slf4j

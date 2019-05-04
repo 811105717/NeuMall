@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * @Author: xiaobai
+ * @uthor: xiaobai
  * @Date: 2019/4/8 17:49
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
- * @Version 1.0
+ * @ersion 1.0
  */
 @SuppressWarnings("ALL")
 @CrossOrigin
@@ -33,12 +33,12 @@ public class OrderController {
     private OrderService orderService;
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取订单列表
-     * @Author：xiaobai
-     * @Date: 2019/4/11
-     * @Param：queryVo 包装对象 页数 大小 用户id
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description 获取订单列表
+     * @author xiaobai
+     * @date 2019/4/11
+     * @param queryVo 包装对象 页数 大小 用户id
+     * @return com.neusoft.common.response.AppResponse
      */
     @ApiOperation("获取用户所有订单")
     @GetMapping(value="getOrderList")
@@ -47,12 +47,12 @@ public class OrderController {
         return orderService.getOrderList(queryVo);
     }
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取订单细节（包括商品）
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：orderId 订单号
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description  获取订单细节（包括商品）
+     * @author xiaobai
+     * @date 2019/4/13
+     * @param orderId 订单号
+     * @return com.neusoft.common.response.AppResponse
      */
     @ApiOperation("获取订单详细信息")
     @GetMapping(value = "getOrderDetail")
@@ -61,12 +61,12 @@ public class OrderController {
         return orderService.getOrderDetail(orderId);
     }
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 更新订单状态
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：stateUpdateVo 包装类  订单号列表 状态码
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description 更新订单状态
+     * @author xiaobai
+     * @date 2019/4/13
+     * @param stateUpdateVo 包装类  订单号列表 状态码
+     * @eturn com.neusoft.common.response.AppResponse
      */
     @ApiOperation("更新订单状态 已签收 撤销")
     @PutMapping(value = "updateOrderStatus")

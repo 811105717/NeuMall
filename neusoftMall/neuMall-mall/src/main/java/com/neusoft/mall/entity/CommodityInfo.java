@@ -8,7 +8,7 @@ import lombok.Data;
  * @Date: 2019/4/9 17:00
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
- * @Description 实体类 对应商品表
+ * @Description 实体类 对应商品表 t_commidity
  * @Version 1.0
  */
 @Data
