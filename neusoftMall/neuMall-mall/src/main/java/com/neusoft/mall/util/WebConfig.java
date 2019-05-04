@@ -7,20 +7,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @ClassName: WebConfig
- * @Description: 注册拦截器
- * @Author: shengtt
+ * @Description: 拦截器配置 已经不再使用
+ * @Author: xiaobai
  * @Date: 2019/3/26
  */
 //@Configuration
 @Deprecated
 public class WebConfig implements WebMvcConfigurer {
     /**
-     * @Dept：大连东软信息学院
-     * @Description：
-     * @Author：xiaobai
+     * @Dept 大连东软信息学院
+     * @Description
+     * @Author xiaobai
      * @Date: 2019/4/20
      * @Param：
-     * @Return：com.neusoft.mall.util.AccessHandler
+     * @Return com.neusoft.mall.util.AccessHandler
      */
     @Bean
     public AccessHandler AccessHandler(){

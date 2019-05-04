@@ -19,11 +19,12 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.lang.reflect.Method;
 
 /**
- * @ClassName: RedisConfig
- * @Description:
- * @Author: shengtt
- * @Date: 2019/4/17
+ * @ClassName  RedisConfig
+ * @Description redis的相关配置 保证对象能够正常被存取
+ * @author: shengtt
+ * @ate: 2019/4/17
  */
+@SuppressWarnings("ALL")
 @Configuration
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
@@ -66,7 +67,6 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.setValueSerializer(jsonRedisSerializer);
 
         template.setHashKeySerializer(new StringRedisSerializer());
-        // template.setHashValueSerializer(new JdkSerializationRedisSerializer());
         template.setHashValueSerializer(jsonRedisSerializer);
 
         template.afterPropertiesSet();

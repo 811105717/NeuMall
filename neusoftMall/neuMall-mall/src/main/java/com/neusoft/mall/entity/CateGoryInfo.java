@@ -8,7 +8,7 @@ import lombok.Data;
  * @date: 2019/4/11 18:38
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
- * @Description 实体类 对应分类表
+ * @Description 实体类 对应数据库表中的 t_cateGory
  * @Version 1.0
  */
 @Data
@@ -33,6 +33,7 @@ public class CateGoryInfo extends BaseEntity {
     /**
      * 树状查询码
      */
+    @Deprecated
     private String categoryTreeCode;
     /**
      * 备注

@@ -41,12 +41,12 @@ public class AccountServiceImpl implements AccountService {
 
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 修改密码逻辑处理
-     * @Author：xiaobai
-     * @Date: 2019/4/10
-     * @Param：customer 当前用户
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description  修改密码逻辑处理
+     * @author xiaobai
+     * @date 2019/4/10
+     * @param customer 当前用户
+     * @return com.neusoft.common.response.AppResponse
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -83,12 +83,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 用户注册逻辑处理
-     * @Author：xiaobai
-     * @Date: 2019/4/10
-     * @Param：customer 被注册用户
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description 用户注册逻辑处理
+     * @author xiaobai
+     * @date 2019/4/10
+     * @param customer 被注册用户
+     * @return com.neusoft.common.response.AppResponse
      */
 
     @Transactional(rollbackFor = Exception.class)
@@ -118,12 +118,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 用户登录逻辑处理
-     * @Author：xiaobai
-     * @Date: 2019/4/10
-     * @Param：customer 登录用户
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description 用户登录逻辑处理
+     * @author xiaobai
+     * @date 2019/4/10
+     * @param customer 登录用户
+     * @return com.neusoft.common.response.AppResponse
      */
 
     @Override

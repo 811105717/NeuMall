@@ -8,7 +8,7 @@ import lombok.Data;
  * @Date: 2019/4/11 21:49
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
- * @description ：实体类 对应商品明细与订单表链接
+ * @description ：实体类 对应商品明细与订单表链接 t_category join t_order_detail
  * @Version 1.0
  */
 @Data
@@ -42,16 +42,18 @@ public class OrderDetailInfo extends BaseEntity {
      */
     private String commodityCode;
     /**
+     * 商品首图
+     */
+    private String commodityFirstPicture;
+    /**
      * 商品名称
      */
     private String commodityName;
     /**
-     * 商品首图 不维护
+     * 商品首图 不维护 新的属性是商品首图
+     *  commodityFirstPicture
      */
     @Deprecated
     private String pictureAddress;
-    /**
-     * 商品首图
-     */
-    private String commodityFirstPicture;
+
 }

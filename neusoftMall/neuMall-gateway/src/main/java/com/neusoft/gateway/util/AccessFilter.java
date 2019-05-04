@@ -39,7 +39,9 @@ public class AccessFilter extends ZuulFilter {
      */
     static final String PASS_METHOD = "OPTIONS";
 
-
+    /**
+     * redis工具
+     */
     @Autowired
     private RedisUtil<Object> redisUtil;
 

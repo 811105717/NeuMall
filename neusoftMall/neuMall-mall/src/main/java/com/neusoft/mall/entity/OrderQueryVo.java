@@ -11,6 +11,7 @@ import lombok.Data;
  * @Description: 用于辅助查询订单的类 （分页）
  * @Version 1.0
  */
+@SuppressWarnings("ALL")
 @Data
 public class OrderQueryVo extends BasePageVo {
     /**

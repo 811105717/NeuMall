@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.mall.goods.mapper.GoodsMapper" >
+
+  <resultMap id="getGoodsDetail" type="com.neusoft.mall.goods.entity.returnParam.GoodsReturn">
+    <id column="commodity_id" property="commodityId" />
+    <result column="commodity_name" property="commodityName" jdbcType="VARCHAR" />
+    <result column="category_first" property="categoryFirst" jdbcType="VARCHAR" />
+    <result column="category_first_name" property="categoryFirstName" jdbcType="VARCHAR"/>
+    <result column="category_second" property="categorySecond" jdbcType="VARCHAR" />
+    <result column="category_second_name" property="categorySecondName" jdbcType="VARCHAR"/>
+    <result column="commodity_retail_price" property="commodityRetailPrice" jdbcType="DECIMAL" />
+    <result column="commodity_original_price" property="commodityOriginalPrice" jdbcType="DECIMAL" />
+    <result column="commodity_is_sold" property="commodityIsSold" jdbcType="INTEGER" />
+    <result column="commodity_inventory" property="commodityInventory" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <collection property="pictureList" javaType="java.util.List" ofType="com.neusoft.mall.goods.entity.returnParam.PictureList">
+      <result column="picture_address" property="pictureAddress" jdbcType="VARCHAR"/>
+      <result column="picture_is_first_picture" property="pictureIsFirstPicture" jdbcType="INTEGER"/>
+    </collection>
+  </resultMap>
+  <resultMap id="getGoodsListPage" type="com.neusoft.mall.goods.entity.returnParam.GoodsReturn">
+    <id column="commodity_id" property="commodityId" />
+    <result column="commodity_name" property="commodityName" jdbcType="VARCHAR" />
+    <result column="category_first" property="categoryFirst" jdbcType="VARCHAR" />
+    <result column="category_first_name" property="categoryFirstName" jdbcType="VARCHAR"/>
+    <result column="category_second" property="categorySecond" jdbcType="VARCHAR" />
+    <result column="category_second_name" property="categorySecondName" jdbcType="VARCHAR"/>
+    <result column="commodity_retail_price" property="commodityRetailPrice" jdbcType="DECIMAL" />
+    <result column="commodity_original_price" property="commodityOriginalPrice" jdbcType="DECIMAL" />
+    <result column="commodity_is_sold" property="commodityIsSold" jdbcType="INTEGER" />
+    <result column="commodity_inventory" property="commodityInventory" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="commodity_totalCount" property="commodityTotalCount" jdbcType="VARCHAR" />
+    <result column="commodity_is_recommend" property="commodityIsRecommend" jdbcType="VARCHAR" />
+    <result column="commodity_unit_id" property="commodityUnitId" jdbcType="VARCHAR" />
+    <result column="commodity_color" property="commodityColor" jdbcType="VARCHAR" />
+    <result column="commodity_desc" property="commodityDesc"  />
+    <!--<association property="categoryFirst" column="category_first" select="getCategoryFirstName"-->
+                 <!--javaType="com.neusoft.mall.category.entity.Category">-->
+      <!--<id column="category_id" jdbcType="VARCHAR" property="categoryId" />-->
+      <!--<result column="category_name" jdbcType="VARCHAR" property="categoryName" />-->
+    <!--</association>-->
+    <collection property="pictureList" column="commodity_id" javaType="java.util.List"
+                ofType="com.neusoft.mall.goods.entity.returnParam.PictureList" select="getPicAddr">
+      <result column="picture_address" property="pictureAddress" jdbcType="VARCHAR"/>
+      <result column="picture_is_first_picture" property="pictureIsFirstPicture" jdbcType="INTEGER"/>
+    </collection>
+  </resultMap>
+
+<!--
+  <select id="getCategoryFirstName" resultType="com.neusoft.mall.category.entity.Category">
+     SELECT category_id, category_name category_first_name
+     FROM  t_category
+      WHERE category_id=#{category_first}
+  </select>
+  -->
+  <select id="getPicAddr" resultType="com.neusoft.mall.goods.entity.returnParam.PictureList">
+    SELECT  pic.picture_address picture_address, pic.picture_is_fist_pictuer picture_is_first_picture
+    FROM t_commodity_pic pic
+    WHERE pic.commodity_id=#{commodity_id} AND is_deleted = 0
+  </select>
+
+  <select id="getGoodsPage" resultMap="getGoodsListPage"
+          parameterType="com.neusoft.mall.goods.entity.param.getGoodsPageParam">
+    SELECT
+    commodity_id,
+    commodity_name,
+    commodity_original_price,
+    commodity_retail_price,
+    commodity_is_sold,
+    version,
+    commodity_totalCount,
+    commodity_is_recommend,
+    commodity_unit_id,
+    commodity_color,
+    commodity_desc,
+
+    commodity_inventory,
+    category_first,
+    (
+    SELECT category_name FROM t_category JOIN t_commodity on t_category.category_id = t_commodity.category_first WHERE t_commodity.commodity_id=co.commodity_id
+    )as category_first_name,
+    category_second,
+    (
+    SELECT category_name FROM t_category JOIN t_commodity on t_category.category_id=t_commodity.category_second WHERE t_commodity.commodity_id=co.commodity_id
+    ) AS category_second_name
+    FROM
+    t_commodity co
+    where 1=1 AND is_deleted = 0
+      <if test="commodityName != null" >
+        AND commodity_name LIKE concat(concat('%',#{commodityName,jdbcType=VARCHAR}),'%')
+      </if>
+      <if test="categoryFirst != null" >
+        AND category_first = #{categoryFirst,jdbcType=VARCHAR}
+      </if>
+      <if test="categorySecond != null" >
+        AND category_second = #{categorySecond,jdbcType=VARCHAR}
+      </if>
+      <if test="commodityCode != null" >
+        AND commodity_code = #{commodityCode,jdbcType=VARCHAR}
+      </if>
+      <if test="commodityIsSold != null" >
+      AND commodity_is_sold = #{commodityIsSold,jdbcType=INTEGER}
+      </if>
+  </select>
+
+  <select id="selectGoodsById" parameterType="java.lang.String" resultMap="getGoodsDetail">
+    SELECT
+    co.commodity_id,
+    commodity_name,
+    commodity_original_price,
+    commodity_retail_price,
+    commodity_is_sold,
+    commodity_inventory,
+    co.version,
+    category_first,
+    (
+    SELECT category_name FROM t_category JOIN t_commodity on t_category.category_id = t_commodity.category_first WHERE t_commodity.commodity_id=co.commodity_id
+    )as category_first_name,
+    category_second,
+    (
+    SELECT category_name FROM t_category JOIN t_commodity on t_category.category_id=t_commodity.category_second WHERE t_commodity.commodity_id=co.commodity_id
+    ) AS category_second_name,
+    pic.picture_address picture_address,
+    pic.picture_is_fist_pictuer picture_is_first_picture
+    FROM
+    t_commodity  co LEFT JOIN t_commodity_pic pic on co.commodity_id=pic.commodity_id
+    where
+    co.commodity_id=#{commodityId,jdbcType=VARCHAR} AND co.is_deleted = 0
+  </select>
+
+  <select id="selectByPrimaryKey"  parameterType="java.lang.String" resultType="com.neusoft.mall.goods.entity.Goods" >
+    select
+    commodity_id, commodity_code, commodity_name, commodity_color, commodity_first_picture,
+    commodity_original_price, commodity_retail_price, commodity_unit_id, commodity_is_sold,
+    commodity_inventory, commodity_totalCount, commodity_is_recommend,
+    category_first, category_second,  sort_no, version,commodity_desc
+    from t_commodity
+    where commodity_id = #{commodityId,jdbcType=VARCHAR} AND is_deleted = 0
+  </select>
+
+  <insert id="insertSelective" parameterType="com.neusoft.mall.goods.entity.Goods" >
+    insert into t_commodity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commodityId != null" >
+        commodity_id,
+      </if>
+      <if test="commodityCode != null" >
+        commodity_code,
+      </if>
+      <if test="commodityName != null" >
+        commodity_name,
+      </if>
+      <if test="commodityColor != null" >
+        commodity_color,
+      </if>
+      <if test="commodityFirstPicture != null" >
+        commodity_first_picture,
+      </if>
+      <if test="commodityOriginalPrice != null" >
+        commodity_original_price,
+      </if>
+      <if test="commodityRetailPrice != null" >
+        commodity_retail_price,
+      </if>
+      <if test="commodityUnitId != null" >
+        commodity_unit_id,
+      </if>
+      <if test="commodityIsSold != null" >
+        commodity_is_sold,
+      </if>
+      <if test="commodityInventory != null" >
+        commodity_inventory,
+      </if>
+      <if test="commodityIsLack != null" >
+        commodity_is_lack,
+      </if>
+      <if test="commodityTotalcount != null" >
+        commodity_totalCount,
+      </if>
+      <if test="commodityIsRecommend != null" >
+        commodity_is_recommend,
+      </if>
+      <if test="categoryFirst != null" >
+        category_first,
+      </if>
+      <if test="categorySecond != null" >
+        category_second,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="lastModifiedBy != null" >
+        last_modified_by,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="sortNo != null" >
+        sort_no,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="commodityDesc != null" >
+        commodity_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commodityId != null" >
+        #{commodityId,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityCode != null" >
+        #{commodityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityName != null" >
+        #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityColor != null" >
+        #{commodityColor,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityFirstPicture != null" >
+        #{commodityFirstPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityOriginalPrice != null" >
+        #{commodityOriginalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="commodityRetailPrice != null" >
+        #{commodityRetailPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="commodityUnitId != null" >
+        #{commodityUnitId,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityIsSold != null" >
+        #{commodityIsSold,jdbcType=INTEGER},
+      </if>
+      <if test="commodityInventory != null" >
+        #{commodityInventory,jdbcType=INTEGER},
+      </if>
+      <if test="commodityIsLack != null" >
+        #{commodityIsLack,jdbcType=INTEGER},
+      </if>
+      <if test="commodityTotalcount != null" >
+        #{commodityTotalcount,jdbcType=INTEGER},
+      </if>
+      <if test="commodityIsRecommend != null" >
+        #{commodityIsRecommend,jdbcType=INTEGER},
+      </if>
+      <if test="categoryFirst != null" >
+        #{categoryFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="categorySecond != null" >
+        #{categorySecond,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedBy != null" >
+        #{lastModifiedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="sortNo != null" >
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="commodityDesc != null" >
+        #{commodityDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.mall.goods.entity.Goods" >
+    update t_commodity
+    <set >
+      <if test="commodityCode != null" >
+        commodity_code = #{commodityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityName != null" >
+        commodity_name = #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityColor != null" >
+        commodity_color = #{commodityColor,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityFirstPicture != null" >
+        commodity_first_picture = #{commodityFirstPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityOriginalPrice != null" >
+        commodity_original_price = #{commodityOriginalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="commodityRetailPrice != null" >
+        commodity_retail_price = #{commodityRetailPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="commodityUnitId != null" >
+        commodity_unit_id = #{commodityUnitId,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityIsSold != null" >
+        commodity_is_sold = #{commodityIsSold,jdbcType=INTEGER},
+      </if>
+      <if test="commodityInventory != null" >
+        commodity_inventory = #{commodityInventory,jdbcType=INTEGER},
+      </if>
+      <if test="commodityIsLack != null" >
+        commodity_is_lack = #{commodityIsLack,jdbcType=INTEGER},
+      </if>
+      <if test="commodityTotalcount != null" >
+        commodity_totalCount = #{commodityTotalcount,jdbcType=INTEGER},
+      </if>
+      <if test="commodityIsRecommend != null" >
+        commodity_is_recommend = #{commodityIsRecommend,jdbcType=INTEGER},
+      </if>
+      <if test="categoryFirst != null" >
+        category_first = #{categoryFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="categorySecond != null" >
+        category_second = #{categorySecond,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedBy != null" >
+        last_modified_by = #{lastModifiedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="sortNo != null" >
+        sort_no = #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="commodityDesc != null" >
+        commodity_desc = #{commodityDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where commodity_id = #{commodityId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="deleteGoods" parameterType="java.lang.String">
+    UPDATE t_commodity SET is_deleted =1 WHERE commodity_id =#{commodityId}
+  </update>
+</mapper>

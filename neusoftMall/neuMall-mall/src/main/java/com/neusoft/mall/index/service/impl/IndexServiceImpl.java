@@ -20,11 +20,11 @@ import java.util.List;
 
 
 /**
- * @Author: xiaobai
+ * @author: xiaobai
  * @Date: 2019/4/8 17:46
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
- * @Version 1.0
+ * @version 1.0
  */
 @SuppressWarnings("ALL")
 @Service
@@ -44,12 +44,12 @@ public class IndexServiceImpl implements IndexService {
 
 
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取首页推荐信息
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：queryVO 页码和是否推荐
-     * @Return：com.neusoft.common.response.AppResponse 结果
+     * @Dept 大连东软信息学院
+     * @Description 获取首页推荐信息
+     * @author xiaobai
+     * @date 2019/4/13
+     * @param queryVO 页码和是否推荐
+     * @return com.neusoft.common.response.AppResponse 结果
      */
     @Override
     public AppResponse getRecommondCommodityList(IndexQueryVO queryVO) {
@@ -72,12 +72,12 @@ public class IndexServiceImpl implements IndexService {
 
     }
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取我买过的商品列表
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：customerId 用户id
-     * @Return：com.neusoft.common.response.AppResponse 结果
+     * @Dept 大连东软信息学院
+     * @Description 获取我买过的商品列表
+     * @author xiaobai
+     * @date 2019/4/13
+     * @param customerId 用户id
+     * @return com.neusoft.common.response.AppResponse 结果
      */
     @Override
     public AppResponse getBuyCommodityList(String token) {
@@ -112,12 +112,12 @@ public class IndexServiceImpl implements IndexService {
         }
     }
     /**
-     * @Dept：大连东软信息学院
-     * @Description： 获取分类列表
-     * @Author：xiaobai
-     * @Date: 2019/4/13
-     * @Param：categoryParentId 父分类ID
-     * @Return：com.neusoft.common.response.AppResponse
+     * @Dept 大连东软信息学院
+     * @Description 获取分类列表
+     * @author xiaobai
+     * @date  2019/4/13
+     * @param categoryParentId 父分类ID
+     * @return com.neusoft.common.response.AppResponse
      */
     @Override
     public AppResponse getClassifyList(String categoryParentId) {

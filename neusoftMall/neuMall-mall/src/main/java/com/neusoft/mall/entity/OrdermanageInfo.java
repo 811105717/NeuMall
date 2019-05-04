@@ -13,6 +13,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Data
+@SuppressWarnings("ALL")
 public class OrdermanageInfo extends BaseEntity {
     /**
      * 订单ID

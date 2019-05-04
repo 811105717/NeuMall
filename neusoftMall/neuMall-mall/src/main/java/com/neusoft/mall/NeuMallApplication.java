@@ -5,12 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
- * @Author: mall
+ * @Author: xiaoabai
  * @Date: 2019/4/8 16:27
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
  * @Version 1.0
  */
+@SuppressWarnings("ALL")
 @SpringBootApplication
 @EnableEurekaServer
 public class NeuMallApplication  {
