@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 
 @RestController
 @Slf4j
+@CrossOrigin
 @RequestMapping(value = "backend/category")
 public class CategoryController {
 
