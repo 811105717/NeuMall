@@ -18,12 +18,11 @@ import java.io.UnsupportedEncodingException;
  */
 @Slf4j
 @RestController
-@RequestMapping("/backend")
+@RequestMapping("/admin/backend")
 @CrossOrigin
 public class UserController {
     @Autowired
     UserService userService;
-
     @RequestMapping(value = "/login/userLogin",method = RequestMethod.POST)
     public AppResponse userLogin(@RequestBody UserInfo userInfo, HttpServletRequest request) throws Exception{
         log.info("userLogin Backend {}",userInfo);
