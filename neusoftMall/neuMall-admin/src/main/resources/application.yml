@@ -24,7 +24,7 @@ server:
   port: 8081
 mybatis:
   #指定全局配置文件的位置
-  mapper-locations: classpath:mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/*mapper.xml
   #开启驼峰命名转换
   configuration:
     map-underscore-to-camel-case: true
