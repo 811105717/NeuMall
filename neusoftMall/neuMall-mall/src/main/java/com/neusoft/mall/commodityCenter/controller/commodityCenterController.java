@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @ClassName: commodityCenterController
  * @Description:F小组
@@ -53,8 +55,8 @@ public class commodityCenterController {
     }
 
     @RequestMapping(value = "commodityCollection", method = RequestMethod.POST)
-    public AppResponse commodityCollection(CollectInfo collectInfo, String collectFlag, String tokenFront) {
-        return commodityCenterSerivice.commodityCollection(collectInfo, collectFlag, tokenFront);
+    public AppResponse commodityCollection(@RequestBody CollectInfoVO collectInfoVO) {
+        return commodityCenterSerivice.commodityCollection(collectInfoVO);
     }
 
     @RequestMapping(value = "addOrder", method = RequestMethod.POST)

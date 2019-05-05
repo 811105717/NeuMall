@@ -66,9 +66,9 @@ public interface commodityCenterMapper {
 
     TradinInfo getCommodityBuyNow(@Param("commodityId") String commodityId);//立即购买
 
-    Boolean commodityCollection(@Param("collectId") String collectId, @Param("customerId") String customerId, @Param("commodityId") String commodityId);//添加收藏/取消收藏
+    Boolean commodityCollection(CollectInfo collectInfo);//添加收藏/取消收藏
 
-    String commodityCollectionForId(@Param("customerId") String customerId, @Param("commodityId") String commodityId);
+    String commodityCollectionForId(CollectInfo collectInfo);
 
     Boolean commodityCollectionForDelete(@Param("collectId") String collectId);//添加收藏/取消收藏
 

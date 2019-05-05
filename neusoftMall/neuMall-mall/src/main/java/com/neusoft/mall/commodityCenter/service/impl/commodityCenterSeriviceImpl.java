@@ -12,6 +12,7 @@ import com.neusoft.mall.commodityCenter.mapper.commodityCenterMapper;
 import com.neusoft.mall.commodityCenter.service.commodityCenterSerivice;
 import com.neusoft.mall.entity.*;
 import com.neusoft.mall.util.RedisUtil;
+import org.hibernate.validator.internal.util.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -304,29 +305,33 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
 
     @Transactional
     @Override
-    public AppResponse commodityCollection(CollectInfo collectInfo, String collectFlag, String token) {
+    public AppResponse commodityCollection(CollectInfoVO collectInfoVO) {
         
-        CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(token);
+        CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(collectInfoVO.getTokenFront());
 
-        if (collectFlag.equals("1")) {
-            String collectId = UUIDUtil.uuidStr();
-            boolean result = commodityCenterMapper.commodityCollection(collectId, customerInfo.getCustomerId(), collectInfo.getCommodityId());
-            if (result) {
-                return AppResponse.success("添加收藏成功");
+        for (int i=0;i<collectInfoVO.getCollectionList().size();i++){
+            CollectInfo collectInfo = collectInfoVO.getCollectionList().get(i);
+            collectInfo.setCustomerId(customerInfo.getCustomerId());
+            if (collectInfo.getCollectFlag().equals("1")) {
+                String collectId = UUIDUtil.uuidStr();
+                collectInfo.setCollectId(collectId);
+                boolean result = commodityCenterMapper.commodityCollection(collectInfo);
+                if (result) {
+                    return AppResponse.success("添加收藏成功");
+                } else {
+                    return AppResponse.notFound("添加收藏失败");
+                }
             } else {
-                return AppResponse.notFound("添加收藏失败");
-            }
-        } else {
-            String c = commodityCenterMapper.commodityCollectionForId(customerInfo.getCustomerId(), collectInfo.getCommodityId());
-            boolean result = commodityCenterMapper.commodityCollectionForDelete(c);
-            if (result) {
-                return AppResponse.success("取消收藏成功");
-            } else {
-                return AppResponse.notFound("取消收藏失败");
+                String c = commodityCenterMapper.commodityCollectionForId(collectInfo);
+                boolean result = commodityCenterMapper.commodityCollectionForDelete(c);
+                if (result) {
+                    return AppResponse.success("取消收藏成功");
+                } else {
+                    return AppResponse.notFound("取消收藏失败");
+                }
             }
         }
-
-
+        return AppResponse.success("操作成功");
     }
 
     @Transactional
@@ -369,25 +374,19 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
        
         CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(token);
         
-        if (commodityInfo.getCommodityName() != null) {
-            List<CollectList> data = commodityCenterMapper.commodityCollectionListForSearch(commodityInfo.getCommodityName());
-        
-            if (data != null) {
-                return AppResponse.success("获取收藏列表成功", data);
-            } else {
-                return AppResponse.notFound("获取收藏列表失败");
-            }
-        } else if (commodityInfo.getCommodityName() == null && token == null) {
-            List<CollectList> data = commodityCenterMapper.commodityCollectionListForSearch02();
-         
-            if (data != null) {
-                return AppResponse.success("获取收藏列表成功", data);
-            } else {
-                return AppResponse.notFound("获取收藏列表失败");
-            }
-        } else {
+        if (commodityInfo.getCommodityName() == null||"".equals(commodityInfo.getCommodityName())) {
             List<CollectList> data = commodityCenterMapper.commodityCollectionList(customerInfo.getCustomerId());
-       
+
+            if (data != null) {
+                return AppResponse.success("获取收藏列表成功", data);
+            } else {
+                return AppResponse.notFound("获取收藏列表失败");
+            }
+
+        } else {
+
+            List<CollectList> data = commodityCenterMapper.commodityCollectionListForSearch(commodityInfo.getCommodityName());
+
             if (data != null) {
                 return AppResponse.success("获取收藏列表成功", data);
             } else {

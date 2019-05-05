@@ -14,6 +14,7 @@ public class CollectInfo extends BaseEntity {
     private String collectId;
     private String customerId;
     private String commodityId;
+    private String collectFlag;
 
     public String getCollectId() {
         return collectId;
@@ -37,6 +38,14 @@ public class CollectInfo extends BaseEntity {
 
     public void setCommodityId(String commodityId) {
         this.commodityId = commodityId;
+    }
+
+    public String getCollectFlag() {
+        return collectFlag;
+    }
+
+    public void setCollectFlag(String collectFlag) {
+        this.collectFlag = collectFlag;
     }
 }
 
