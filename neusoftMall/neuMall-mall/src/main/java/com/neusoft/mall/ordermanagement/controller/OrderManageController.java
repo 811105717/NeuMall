@@ -86,7 +86,11 @@ public class OrderManageController {
             return AppResponse.bizError("token失效");
         }
         System.out.print(queryVo.getPageNum());
-        return orderManageService.getOrders(queryVo);
+        if(orderManageService.getOrders(queryVo)==null){
+            return null;
+        }
+        else{
+            return orderManageService.getOrders(queryVo);
+        }
     }
-
 }
