@@ -2,7 +2,6 @@ package com.neusoft.mall.measure.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.neusoft.common.entity.BasePageVo;
 import com.neusoft.common.entity.CustomerInfo;
 import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
@@ -12,7 +11,6 @@ import com.neusoft.mall.measure.entity.param.*;
 import com.neusoft.mall.measure.mapper.MeasureMapper;
 import com.neusoft.mall.measure.service.MeasureService;
 import com.neusoft.mall.util.RedisUtil;
-import jdk.management.resource.internal.ApproverGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

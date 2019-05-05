@@ -29,8 +29,9 @@ import java.util.List;
 @Service
 public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     @Autowired
-    commodityCenterMapper commodityCenterMapper;
-
+    private commodityCenterMapper commodityCenterMapper;
+    @Autowired
+    private RedisUtil<CustomerInfo> redisUtil;
     @Transactional
     @Override
     public AppResponse getCommodityList(CommodityInfo commodityInfo, BasePageVo basePageVo, String sortingTotalCount, String sortingRetailPrice) {
@@ -242,9 +243,9 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
 
     @Transactional
     @Override
-    public AppResponse addShoppingCart(CommodityInfo commodityInfo, ShopInfo shopInfo, String tokenFront) {
-        RedisUtil redisUtil = new RedisUtil();
-        CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(tokenFront);
+    public AppResponse addShoppingCart(CommodityInfo commodityInfo, ShopInfo shopInfo, String token) {
+    
+        CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(token);
         String shopId = UUIDUtil.uuidStr();
         Boolean result = commodityCenterMapper.addShoppingCart(shopId, commodityInfo.getCommodityId(), shopInfo.getShopNumber(), customerInfo.getCustomerId());
         if (result) {
@@ -257,7 +258,7 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
 
     @Transactional
     @Override
-    public AppResponse getCommodityCenterDeatil(CommodityInfo commodityInfo, String tokenFront) {
+    public AppResponse getCommodityCenterDeatil(CommodityInfo commodityInfo, String token) {
         Deatilinfo data = commodityCenterMapper.getCommodityCenterDeatil(commodityInfo.getCommodityId());
         if (data != null) {
             return AppResponse.success("获取商品详情成功", data);
@@ -292,7 +293,7 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
 
     @Transactional
     @Override
-    public AppResponse getCommodityBuyNow(CommodityInfo commodityInfo, TradinInfo tradinInfo, String tokenFront) {
+    public AppResponse getCommodityBuyNow(CommodityInfo commodityInfo, TradinInfo tradinInfo, String token) {
         TradinInfo data = commodityCenterMapper.getCommodityBuyNow(commodityInfo.getCommodityId());
         if (data != null) {
             return AppResponse.success("立即购买成功", data);
@@ -303,9 +304,9 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
 
     @Transactional
     @Override
-    public AppResponse commodityCollection(CollectInfo collectInfo, String collectFlag, String tokenFront) {
-        RedisUtil redisUtil = new RedisUtil();
-        CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(tokenFront);
+    public AppResponse commodityCollection(CollectInfo collectInfo, String collectFlag, String token) {
+        
+        CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(token);
 
         if (collectFlag.equals("1")) {
             String collectId = UUIDUtil.uuidStr();
@@ -330,9 +331,9 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
 
     @Transactional
     @Override
-    public AppResponse addOrder(OrderInfo orderInfo, String tokenFront) {
-        RedisUtil redisUtil = new RedisUtil();
-        CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(tokenFront);
+    public AppResponse addOrder(OrderInfo orderInfo, String token) {
+       
+        CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(token);
 
         List<OrderDetailInfo> commodityList = orderInfo.getCommodityList();
         String orderId = UUIDUtil.uuidStr();
@@ -364,32 +365,29 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
 
     @Transactional
     @Override
-    public AppResponse commodityCollectionList(CommodityInfo commodityInfo, String tokenFront) {
-        RedisUtil redisUtil = new RedisUtil();
-        CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(tokenFront);
-
+    public AppResponse commodityCollectionList(CommodityInfo commodityInfo, String token) {
+       
+        CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(token);
+        
         if (commodityInfo.getCommodityName() != null) {
-            List<CollectList> collectLists = commodityCenterMapper.commodityCollectionListForSearch(commodityInfo.getCommodityName());
-            List<Object> data = new ArrayList<Object>();
-            data.add(collectLists);
+            List<CollectList> data = commodityCenterMapper.commodityCollectionListForSearch(commodityInfo.getCommodityName());
+        
             if (data != null) {
                 return AppResponse.success("获取收藏列表成功", data);
             } else {
                 return AppResponse.notFound("获取收藏列表失败");
             }
-        } else if (commodityInfo.getCommodityName() == null && tokenFront == null) {
-            List<CollectList> collectLists = commodityCenterMapper.commodityCollectionListForSearch02();
-            List<Object> data = new ArrayList<Object>();
-            data.add(collectLists);
+        } else if (commodityInfo.getCommodityName() == null && token == null) {
+            List<CollectList> data = commodityCenterMapper.commodityCollectionListForSearch02();
+         
             if (data != null) {
                 return AppResponse.success("获取收藏列表成功", data);
             } else {
                 return AppResponse.notFound("获取收藏列表失败");
             }
         } else {
-            List<CollectList> collectLists = commodityCenterMapper.commodityCollectionList(customerInfo.getCustomerId());
-            List<Object> data = new ArrayList<Object>();
-            data.add(collectLists);
+            List<CollectList> data = commodityCenterMapper.commodityCollectionList(customerInfo.getCustomerId());
+       
             if (data != null) {
                 return AppResponse.success("获取收藏列表成功", data);
             } else {

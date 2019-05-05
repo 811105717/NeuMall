@@ -38,3 +38,7 @@ pagehelper:
   params: count=countSql
   returnPageInfo: check
 
+fdfs:
+  racker_server: http://192.168.179.128/
+
+rootId: 0
