@@ -22,7 +22,7 @@
         version=version+1,
         last_modified_by=#{lastModifiedBy},
         gmt_modified=now()
-        where order_id=#{orderNumber}
+        where order_number=#{orderNumber}
     </update>
 
     <!--订单查询 -->

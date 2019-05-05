@@ -2,6 +2,7 @@ package com.neusoft.mall.backenuserlogin.controller;
 
 import com.neusoft.common.entity.UserInfo;
 import com.neusoft.common.response.AppResponse;
+import com.neusoft.common.util.CreateMD5;
 import com.neusoft.mall.backenuserlogin.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +18,15 @@ import java.io.UnsupportedEncodingException;
  */
 @Slf4j
 @RestController
-@RequestMapping("/backend")
+@RequestMapping("/admin/backend")
 @CrossOrigin
 public class UserController {
     @Autowired
     UserService userService;
-
     @RequestMapping(value = "/login/userLogin",method = RequestMethod.POST)
     public AppResponse userLogin(@RequestBody UserInfo userInfo, HttpServletRequest request) throws Exception{
         log.info("userLogin Backend {}",userInfo);
+        userInfo.setUserPwd(CreateMD5.getMd5(userInfo.getUserPwd()));
         try {
             return userService.userLongin(userInfo,request);
         } catch (UnsupportedEncodingException e){
@@ -33,5 +34,4 @@ public class UserController {
             throw new Exception("用户登录异常");
         }
     }
-
 }
