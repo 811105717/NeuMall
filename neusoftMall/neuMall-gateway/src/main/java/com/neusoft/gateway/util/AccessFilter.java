@@ -32,7 +32,7 @@ public class AccessFilter extends ZuulFilter {
                 "/mall/front/commodityCenter/getCommodityCenterDeatil",
                 "/mall/front/commodityCenter/getCommodityCenterSimilar",
                 "/mall/front/commodityCenter/getCommodityCenterTrading",
-                "/mall/backend/user/Login"
+                "/mall/backend/login/userLogin"
             };
     /**
      * 跨域探测请求

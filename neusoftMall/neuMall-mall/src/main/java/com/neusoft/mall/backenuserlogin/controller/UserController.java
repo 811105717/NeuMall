@@ -17,13 +17,13 @@ import java.io.UnsupportedEncodingException;
  */
 @Slf4j
 @RestController
-@RequestMapping("backend")
+@RequestMapping("/backend")
 @CrossOrigin
 public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "user/Login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login/userLogin",method = RequestMethod.POST)
     public AppResponse userLogin(@RequestBody UserInfo userInfo, HttpServletRequest request) throws Exception{
         log.info("userLogin Backend {}",userInfo);
         try {
@@ -31,7 +31,7 @@ public class UserController {
         } catch (UnsupportedEncodingException e){
             log.info("error register customer {}",e);
             throw new Exception("用户登录异常");
-    }
+        }
     }
 
 }
