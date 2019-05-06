@@ -7,5 +7,5 @@ import lombok.Data;
 public class DeleteCategory {
     private String categoryId;
     private String tokenBackend;
-    private CustomerInfo customer;
+    // private CustomerInfo customer;
 }
