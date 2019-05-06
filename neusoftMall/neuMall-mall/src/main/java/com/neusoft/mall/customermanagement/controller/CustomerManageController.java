@@ -10,8 +10,6 @@ import com.neusoft.mall.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-
 /**
  * @Author: linmeng
  * @Description:
@@ -66,11 +64,9 @@ public class CustomerManageController {
         }
         UserInfo user = (UserInfo) redisUtil.getData(customerInfo.getTokenBackend());
         customerInfo.setLastModifiedBy(user.getUserName());
-        System.out.print(user.getUserName());
         customerInfo.setCustomerId(StringUtil.getUUID());
         customerInfo.setLastModifiedBy(user.getUserName());
         customerInfo.setCreatedBy(user.getUserName());
-        System.out.print("用户新增"+customerInfo);
         try {
             AppResponse appResponse = customerManageService.addCustomer(customerInfo);
             return appResponse;
@@ -92,13 +88,11 @@ public class CustomerManageController {
         }
         UserInfo user = (UserInfo) redisUtil.getData(customerInfo.getTokenBackend());
         customerInfo.setLastModifiedBy(user.getUserName());
-        System.out.print(user.getUserName());
         if(customerInfo.getCustomerIsUsed().equals("1")){
             customerInfo.setCustomerIsUsed("0");
         }else{
             customerInfo.setCustomerIsUsed("1");
         }
-        System.out.print(customerInfo);
         try {
             AppResponse appResponse = customerManageService.updateAccountByStatus(customerInfo);
             return appResponse;
@@ -120,7 +114,6 @@ public class CustomerManageController {
         }
         UserInfo user = (UserInfo) redisUtil.getData(customerInfo.getTokenBackend());
         customerInfo.setLastModifiedBy(user.getUserName());
-        System.out.print(customerInfo);
         try {
             AppResponse appResponse = customerManageService.updateAccount(customerInfo);
             return appResponse;
@@ -136,14 +129,12 @@ public class CustomerManageController {
      * @Date: 2019/4/15
      */
     @GetMapping(value = "customer/getCustomerList")
-    public AppResponse getCustomerList(CustomerInfoVo customerInfoVo) throws Exception {
+    public AppResponse getCustomerList(CustomerInfoVo customerInfoVo) throws Exception{
         if(null == customerInfoVo.getTokenBackend()){
             return AppResponse.bizError("token失效");
         }
         UserInfo user = (UserInfo) redisUtil.getData(customerInfoVo.getTokenBackend());
-        System.out.print(user);
             AppResponse appResponse = customerManageService.getCustomerList(customerInfoVo);
             return appResponse;
     }
-
 }
