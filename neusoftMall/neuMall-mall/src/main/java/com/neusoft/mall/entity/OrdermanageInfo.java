@@ -62,5 +62,6 @@ public class OrdermanageInfo extends BaseEntity {
     /**
      * 商品列表
      */
+    private String customerName;
     private List<CommodityListInfo> commodityList;
 }

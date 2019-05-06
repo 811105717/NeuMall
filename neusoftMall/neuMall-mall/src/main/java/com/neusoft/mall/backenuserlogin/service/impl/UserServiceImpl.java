@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService {
         if(null != userInfo.getUserPwd()&& !"".equals(userInfo.getUserPwd()) ){
 //            userInfo.setUserPwd(CreateMD5.getMd5(userInfo.getUserPwd()));
             UserInfo logInUser = userMapper.userLogin(userInfo);
-            System.out.print("UserInfo........."+logInUser);
             if (null == logInUser){
                 //如果登陆失败  可能用户不存在  也可能密码错误
                 return AppResponse.bizError("用户登录失败，用户名或密码错误！");

@@ -17,6 +17,7 @@ public class CommodityListInfo extends BaseEntity {
     private String commodityPrice;
     private String commodityNum;
     private String commodityTotalPrice;
+    private String customerName;
 
     public String getPictureAddress() {
         return pictureAddress;

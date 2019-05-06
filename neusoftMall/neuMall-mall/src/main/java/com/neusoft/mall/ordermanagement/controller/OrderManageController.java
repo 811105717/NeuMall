@@ -2,14 +2,16 @@ package com.neusoft.mall.ordermanagement.controller;
 
 import com.neusoft.common.entity.UserInfo;
 import com.neusoft.common.response.AppResponse;
-import com.neusoft.mall.entity.*;
+import com.neusoft.mall.entity.CommodityListInfo;
+import com.neusoft.mall.entity.OrderNumberListInfo;
+import com.neusoft.mall.entity.OrderQueryVo;
+import com.neusoft.mall.entity.OrdermanageInfo;
 import com.neusoft.mall.ordermanagement.service.OrderManageService;
 import com.neusoft.mall.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 /**
@@ -34,7 +36,6 @@ public class OrderManageController {
      */
     @RequestMapping(value = "/order/getOrderDetail",method = RequestMethod.GET)
     public AppResponse getCustomerDetail(OrdermanageInfo ordermanageInfo) throws Exception{
-        System.out.print(ordermanageInfo.getTokenBackend());
         if(null == ordermanageInfo.getTokenBackend()){
             return AppResponse.bizError("token失效");
         }
@@ -60,7 +61,6 @@ public class OrderManageController {
      */
     @PutMapping(value = "/order/updateOrderStatus")
     public AppResponse updateAccount(@RequestBody OrderNumberListInfo orderNumberListInfo) throws Exception {
-        System.out.print(orderNumberListInfo);
         if(null == orderNumberListInfo.getTokenBackend()){
             return AppResponse.bizError("token失效");
         }
@@ -85,7 +85,6 @@ public class OrderManageController {
         if(null == queryVo.getTokenBackend()){
             return AppResponse.bizError("token失效");
         }
-        System.out.print(queryVo.getPageNum());
         if(orderManageService.getOrders(queryVo)==null){
             return null;
         }

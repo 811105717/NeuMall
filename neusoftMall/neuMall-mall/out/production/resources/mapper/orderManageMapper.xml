@@ -5,7 +5,7 @@
 <mapper namespace="com.neusoft.mall.ordermanagement.mapper.OrderManageMapper">
     <!--订单查询 -->
     <select id="getOrderDetail" resultType="com.neusoft.mall.entity.OrdermanageInfo" parameterType="String">
-        select * from t_order where order_id=#{orderId}
+        select * from t_order a join t_customer b on a.customer_id=b.customer_id where order_id=#{orderId}
     </select>
     <!--商品列表查询 -->
     <select id="getCommodityListInfo"  resultType="com.neusoft.mall.entity.CommodityListInfo" parameterType="String">
@@ -27,24 +27,24 @@
 
     <!--订单查询 -->
     <select id="getOrders" resultType="com.neusoft.mall.entity.OrdermanageInfo" parameterType="com.neusoft.mall.entity.OrderQueryVo">
-        SELECT * FROM `t_order`
+        SELECT * FROM `t_order` a join t_customer b on a.customer_id=b.customer_id
         <where>
             <if test="null!=orderNumber and ''!=orderNumber">
-                AND order_number = #{orderNumber}
+                AND a.order_number = #{orderNumber}
             </if>
 
             <if test="null!=orderDateStart and ''!=orderDateStart">
-                AND order_date >= #{orderDateStart}
+                AND a.order_date >= #{orderDateStart}
             </if>
             <!--<![CDATA[<]]> 处理小于号字符冲突 -->
             <if test="null!=orderDateEnd and ''!=orderDateEnd">
-                AND order_date <![CDATA[<]]>= #{orderDateEnd}
+                AND a.order_date <![CDATA[<]]>= #{orderDateEnd}
             </if>
             <if test="null!=orderState and ''!=orderState">
-                AND order_state = #{orderState}
+                AND a.order_state = #{orderState}
             </if>
         </where>
-        order by sort_no
+        order by a.sort_no
     </select>
 
 </mapper>
