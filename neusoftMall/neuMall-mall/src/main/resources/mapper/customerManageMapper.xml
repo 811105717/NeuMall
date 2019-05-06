@@ -21,7 +21,7 @@
               AND customer_name= #{customerName}
           </if>
       </where>
-      order by sort_no
+        order by gmt_create DESC
     </select>
 
     <insert id="addCustomer" parameterType="com.neusoft.common.entity.CustomerInfo">
