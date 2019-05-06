@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 public class UpdateUnit {
-    String unitName;
-    String unitId;
-    int version;
+    private String unitName;
+    private String unitId;
+    private int version;
     private String tokenBackend;
-    private CustomerInfo customer;
+    // private CustomerInfo customer;
 }

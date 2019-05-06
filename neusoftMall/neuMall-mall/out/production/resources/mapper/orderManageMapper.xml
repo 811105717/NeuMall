@@ -9,7 +9,7 @@
     </select>
     <!--商品列表查询 -->
     <select id="getCommodityListInfo"  resultType="com.neusoft.mall.entity.CommodityListInfo" parameterType="String">
-        SELECT picture_address,commodity_name,commodity_code,commodity_first_picture,commodity_price,commodity_num,commodity_total_price FROM  t_order_detail a join t_commodity
+        SELECT * FROM  t_order_detail a join t_commodity
         b on a.commodity_id=b.commodity_id join  t_commodity_pic
         c on b.commodity_id=c.commodity_id
          where a.order_id=#{orderId} order by b.sort_no

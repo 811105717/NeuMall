@@ -2,7 +2,7 @@ package com.neusoft.mall.measure.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.neusoft.common.entity.CustomerInfo;
+import com.neusoft.common.entity.UserInfo;
 import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.common.util.UUIDUtil;
@@ -23,7 +23,7 @@ public class MeasureServiceImpl implements MeasureService {
     @Resource
     private MeasureMapper measureMapper;
     @Autowired
-    private RedisUtil<CustomerInfo> redisUtil;
+    private RedisUtil<UserInfo> redisUtil;
 
 
     /**
@@ -35,12 +35,15 @@ public class MeasureServiceImpl implements MeasureService {
      */
     @Override
     public AppResponse addCommodityUnit(AddUnit params) {
+        UserInfo currCustomer = redisUtil.getData(params.getTokenBackend());
+        if(null == currCustomer){
+            return AppResponse.bizError("token 失效");
+        }
+        String user=currCustomer.getUserName();
         Measure name=measureMapper.getMeasureByName(params.getUnitName());
         if (name!=null){
             return AppResponse.bizError("添加商品单位失败，单位名称重复");
         }
-        CustomerInfo currCustomer = redisUtil.getData(params.getCustomer().getTokenFront());
-        String user=currCustomer.getCustomerId();
         Measure measure=new Measure();
         measure.setUnitId(UUIDUtil.uuidStr());
         measure.setUnitName(params.getUnitName());
@@ -65,8 +68,11 @@ public class MeasureServiceImpl implements MeasureService {
      */
     @Override
     public AppResponse updateCommodityUnit(UpdateUnit record) {
-        CustomerInfo currCustomer = redisUtil.getData(record.getCustomer().getTokenFront());
-        String user=currCustomer.getCustomerId();
+        UserInfo currCustomer = redisUtil.getData(record.getTokenBackend());
+        if(null == currCustomer){
+            return AppResponse.bizError("token 失效");
+        }
+        String user=currCustomer.getUserName();
         Measure measure=new Measure();
         measure.setUnitName(record.getUnitName());
         measure.setUnitId(record.getUnitId());
@@ -88,8 +94,11 @@ public class MeasureServiceImpl implements MeasureService {
      */
     @Override
     public AppResponse deleteCommodityUnit(DeleteUnit params) {
-         CustomerInfo currCustomer = redisUtil.getData(params.getCustomer().getTokenFront());
-         String user=currCustomer.getCustomerId();
+        UserInfo currCustomer = redisUtil.getData(params.getTokenBackend());
+        if(null == currCustomer){
+            return AppResponse.bizError("token 失效");
+        }
+        String user=currCustomer.getUserName();
          Measure measure=new Measure();
          measure.setUnitId(params.getUnitId());
          measure.setLastModifiedBy(user);
@@ -108,6 +117,11 @@ public class MeasureServiceImpl implements MeasureService {
      */
     @Override
     public Measure getUnitDetail(GetUnit params) {
+        UserInfo currCustomer = redisUtil.getData(params.getTokenBackend());
+        if(null == currCustomer){
+            throw new IllegalArgumentException("token 失效");
+        }
+        String user=currCustomer.getUserName();
         Measure ret=measureMapper.selectByPrimaryKey(params.getUnitId());
         if (ret!=null){
             return ret;

@@ -11,5 +11,5 @@ public class UpdateCategory {
     private String categoryRemark;
     private int sortNo;
     private int version;
-    private CustomerInfo customer;
+    // private CustomerInfo customer;
 }

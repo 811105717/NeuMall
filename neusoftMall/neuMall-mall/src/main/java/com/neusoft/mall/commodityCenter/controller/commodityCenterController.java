@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -25,8 +26,8 @@ public class commodityCenterController {
     private commodityCenterSerivice commodityCenterSerivice;
 
     @RequestMapping(value = "getCommodityList", method = RequestMethod.GET)
-    public AppResponse getCommodityList(CommodityInfo commodityInfo, BasePageVo basePageVo, String sortingTotalCount, String sortingRetailPrice) {
-        return commodityCenterSerivice.getCommodityList(commodityInfo, basePageVo, sortingTotalCount, sortingRetailPrice);
+    public AppResponse getCommodityList(CommodityInfo commodityInfo, BasePageVo basePageVo) {
+        return commodityCenterSerivice.getCommodityList(commodityInfo, basePageVo);
     }
 
     @RequestMapping(value = "addShoppingCart", method = RequestMethod.POST)
@@ -50,8 +51,9 @@ public class commodityCenterController {
     }
 
     @RequestMapping(value = "getCommodityBuyNow", method = RequestMethod.POST)
-    public AppResponse getCommodityBuyNow(CommodityInfo commodityInfo, TradinInfo tradinInfo, String tokenFront) {
-        return commodityCenterSerivice.getCommodityBuyNow(commodityInfo, tradinInfo, tokenFront);
+    public AppResponse getCommodityBuyNow(@RequestBody GetCommodityVo getCommodityVo ) {
+        System.out.println(getCommodityVo);
+        return commodityCenterSerivice.getCommodityBuyNow(getCommodityVo.getCommodityList(), getCommodityVo.getTokenFront());
     }
 
     @RequestMapping(value = "commodityCollection", method = RequestMethod.POST)
@@ -65,8 +67,8 @@ public class commodityCenterController {
     }
 
     @RequestMapping(value = "commodityCollectionList", method = RequestMethod.POST)
-    public AppResponse commodityCollectionList(CommodityInfo commodityInfo, String tokenFront) {
-        return commodityCenterSerivice.commodityCollectionList(commodityInfo, tokenFront);
+    public AppResponse commodityCollectionList(CollectList collectList, String tokenFront) {
+        return commodityCenterSerivice.commodityCollectionList(collectList, tokenFront);
     }
 }
 

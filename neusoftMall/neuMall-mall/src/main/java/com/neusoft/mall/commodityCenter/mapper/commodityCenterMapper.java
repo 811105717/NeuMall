@@ -16,45 +16,7 @@ import java.util.List;
 @Mapper
 @Component
 public interface commodityCenterMapper {
-    List<CommodityInfo> getCommodityList0();
-
-    List<CommodityInfo> getCommodityList0ForTotalCount1();//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList0ForTotalCount2();//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList0ForTetailPrice1();//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList0ForTetailPrice2();//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList1(@Param("categoryFirst") String categoryFirst);
-
-    List<CommodityInfo> getCommodityList1ForTotalCount1(@Param("categoryFirst") String categoryFirst);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList1ForTotalCount2(@Param("categoryFirst") String categoryFirst);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList1ForTetailPrice1(@Param("categoryFirst") String categoryFirst);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList1ForTetailPrice2(@Param("categoryFirst") String categoryFirst);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList2(@Param("categoryFirst") String categoryFirst, @Param("categorySecond") String categorySecond);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList3(@Param("commodityName") String commodityName);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList3ForTotalCount1(@Param("commodityName") String commodityName);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList3ForTotalCount2(@Param("commodityName") String commodityName);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList3ForTetailPrice1(@Param("commodityName") String commodityName);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList3ForTetailPrice2(@Param("commodityName") String commodityName);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList2ForTotalCount1(@Param("categoryFirst") String categoryFirst, @Param("categorySecond") String categorySecond);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList2ForTotalCount2(@Param("categoryFirst") String categoryFirst, @Param("categorySecond") String categorySecond);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList2ForTetailPrice1(@Param("categoryFirst") String categoryFirst, @Param("categorySecond") String categorySecond);//商品中心主界面查询
-
-    List<CommodityInfo> getCommodityList2ForTetailPrice2(@Param("categoryFirst") String categoryFirst, @Param("categorySecond") String categorySecond);//商品中心主界面查询
+    List<CommodityInfo> getCommodityList(CommodityInfo commodityInfo);
 
     Boolean addShoppingCart(@Param("shopId") String shopId, @Param("commodityId") String commodityId, @Param("shopNumber") String shopNumber, @Param("customerId") String customerId);//加入购物车
 
@@ -68,9 +30,9 @@ public interface commodityCenterMapper {
 
     Boolean commodityCollection(CollectInfo collectInfo);//添加收藏/取消收藏
 
-    String commodityCollectionForId(CollectInfo collectInfo);
+    CollectInfo commodityCollectionForId(CollectInfo collectInfo);
 
-    Boolean commodityCollectionForDelete(@Param("collectId") String collectId);//添加收藏/取消收藏
+    Boolean commodityCollectionForDelete(CollectInfo collectInfo);//添加收藏/取消收藏
 
     Boolean addOrder(@Param("orderId") String orderId, @Param("orderNumber") String orderNumber, @Param("orderPrice") String orderPrice, @Param("customerId") String customerId, @Param("orderAddress") String orderAddress, @Param("receiveTel") String receiveTel, @Param("receiveContact") String receiveContact, @Param("orderRemark") String orderRemark);//提交订单
 
@@ -80,7 +42,14 @@ public interface commodityCenterMapper {
 
     List<CollectList> commodityCollectionList(@Param("customerId") String customerId);//收藏列表
 
-    List<CollectList> commodityCollectionListForSearch(@Param("commodityName") String commodityName);
+    List<CollectList> commodityCollectionListForSearch(CollectList collectList);
 
-    List<CollectList> commodityCollectionListForSearch02();
+    /**
+     * 查询是否搜藏
+     * @param customerId 用户id
+     * @param commodityId 商品id
+     * @return
+     */
+    CollectInfo getCommodityCollectionByCustomerId(@Param("customerId")String customerId,@Param("commodityId")String commodityId);
+
 }

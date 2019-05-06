@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class DeleteUnit {
-    String unitId;
+    private String unitId;
     private String tokenBackend;
-    private CustomerInfo customer;
+    // private CustomerInfo customer;
 }

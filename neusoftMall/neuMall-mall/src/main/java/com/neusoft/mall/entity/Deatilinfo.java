@@ -21,5 +21,6 @@ public class Deatilinfo extends BaseEntity{
     private String commodityUnitId; //购买单位
     private String commodityTotalCount; //销量
     private String pictureIsFistPicture;
+    private String isCollect; //是否收藏
 }
 

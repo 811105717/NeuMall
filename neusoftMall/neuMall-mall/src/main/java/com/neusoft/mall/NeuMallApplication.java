@@ -3,6 +3,7 @@ package com.neusoft.mall;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @Author: xiaoabai
@@ -14,6 +15,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 @SuppressWarnings("ALL")
 @SpringBootApplication
 @EnableEurekaServer
+@EnableSwagger2
 public class NeuMallApplication  {
     public static void main(String[] args) {
         SpringApplication.run(NeuMallApplication.class,args);
