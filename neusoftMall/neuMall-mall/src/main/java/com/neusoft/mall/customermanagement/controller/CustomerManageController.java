@@ -33,7 +33,7 @@ public class CustomerManageController {
      * @Date: 2019/4/15
      */
     @RequestMapping(value = "customer/getCustomerDetail",method = RequestMethod.GET)
-    public AppResponse getCustomerDetail(@RequestBody CustomerInfo customerInfo) throws Exception{
+    public AppResponse getCustomerDetail(CustomerInfo customerInfo) throws Exception{
         if(null == customerInfo.getTokenBackend()){
             return AppResponse.bizError("token失效");
         }

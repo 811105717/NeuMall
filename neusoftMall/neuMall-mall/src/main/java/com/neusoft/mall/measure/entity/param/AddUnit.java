@@ -7,5 +7,5 @@ import lombok.Data;
 public class AddUnit {
     private String unitName;
     private String tokenBackend;
-    private CustomerInfo customer;
+    // private CustomerInfo customer;
 }
