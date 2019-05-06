@@ -13,7 +13,7 @@ import lombok.Data;
 public class CollectList extends BaseEntity {
     private String customerId;
     private String commodityId;
-    private String commodityFirstPicture;
+    private String PictureAddress;
     private String commodityName;
     private String commodityRetailPrice;
 
@@ -33,12 +33,12 @@ public class CollectList extends BaseEntity {
         this.commodityId = commodityId;
     }
 
-    public String getCommodityFirstPicture() {
-        return commodityFirstPicture;
+    public String getPictureAddress() {
+        return PictureAddress;
     }
 
-    public void setCommodityFirstPicture(String commodityFirstPicture) {
-        this.commodityFirstPicture = commodityFirstPicture;
+    public void setPictureAddress(String pictureAddress) {
+        PictureAddress = pictureAddress;
     }
 
     public String getCommodityName() {

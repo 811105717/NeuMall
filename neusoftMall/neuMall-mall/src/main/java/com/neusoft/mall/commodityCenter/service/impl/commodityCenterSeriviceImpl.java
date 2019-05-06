@@ -35,11 +35,11 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     private RedisUtil<CustomerInfo> redisUtil;
     @Transactional
     @Override
-    public AppResponse getCommodityList(CommodityInfo commodityInfo, BasePageVo basePageVo, String sortingTotalCount, String sortingRetailPrice) {
+    public AppResponse getCommodityList(CommodityInfo commodityInfo, BasePageVo basePageVo) {
         PageVo pageVo = new PageVo();
         if (basePageVo.getPageSize() != null && basePageVo.getPageNum() != null) {
             PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList0();
+            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList(commodityInfo);
             pageVo.setList(commodityList);
             pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
             if (pageVo != null) {
@@ -47,200 +47,11 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
             } else {
                 return AppResponse.notFound("获取商品表失败");
             }
-        } else if (basePageVo.getPageSize() != null && basePageVo.getPageNum() != null && sortingTotalCount.equals("1")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList0ForTotalCount1();
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (basePageVo.getPageSize() != null && basePageVo.getPageNum() != null && sortingTotalCount.equals("2")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList0ForTotalCount2();
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (basePageVo.getPageSize() != null && basePageVo.getPageNum() != null && sortingRetailPrice.equals("1")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList0ForTetailPrice1();
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (basePageVo.getPageSize() != null && basePageVo.getPageNum() != null && sortingRetailPrice.equals("2")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList0ForTetailPrice2();
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCategoryFirst() != null) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList1(commodityInfo.getCategoryFirst());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCategoryFirst() != null && sortingTotalCount.equals("1")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList1ForTotalCount1(commodityInfo.getCategoryFirst());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCategoryFirst() != null && sortingTotalCount.equals("2")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList1ForTotalCount2(commodityInfo.getCategoryFirst());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCategoryFirst() != null && sortingRetailPrice.equals("1")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList1ForTetailPrice1(commodityInfo.getCategoryFirst());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCategoryFirst() != null && sortingRetailPrice.equals("2")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList1ForTetailPrice2(commodityInfo.getCategoryFirst());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCategoryFirst() != null && commodityInfo.getCategorySecond() != null) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList2(commodityInfo.getCategoryFirst(), commodityInfo.getCategorySecond());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCategoryFirst() != null && commodityInfo.getCategorySecond() != null && sortingTotalCount.equals("1")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList2ForTotalCount1(commodityInfo.getCategoryFirst(), commodityInfo.getCategorySecond());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCategoryFirst() != null && commodityInfo.getCategorySecond() != null && sortingTotalCount.equals("2")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList2ForTotalCount2(commodityInfo.getCategoryFirst(), commodityInfo.getCategorySecond());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCategoryFirst() != null && commodityInfo.getCategorySecond() != null && sortingRetailPrice.equals("1")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList2ForTetailPrice1(commodityInfo.getCategoryFirst(), commodityInfo.getCategorySecond());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCategoryFirst() != null && commodityInfo.getCategorySecond() != null && sortingRetailPrice.equals("2")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList2ForTetailPrice2(commodityInfo.getCategoryFirst(), commodityInfo.getCategorySecond());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCommodityName() != null) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList3(commodityInfo.getCommodityName());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCommodityName() != null && sortingTotalCount.equals("1")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList3ForTotalCount1(commodityInfo.getCommodityName());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCommodityName() != null && sortingTotalCount.equals("2")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList3ForTotalCount2(commodityInfo.getCommodityName());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCommodityName() != null && sortingRetailPrice.equals("1")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList3ForTetailPrice1(commodityInfo.getCommodityName());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else if (commodityInfo.getCommodityName() != null && sortingRetailPrice.equals("2")) {
-            PageHelper.startPage(basePageVo.getPageNum(), basePageVo.getPageSize());
-            List<CommodityInfo> commodityList = commodityCenterMapper.getCommodityList3ForTetailPrice2(commodityInfo.getCommodityName());
-            pageVo.setList(commodityList);
-            pageVo.setTotalRecords((int) new PageInfo(commodityList).getTotal());
-            if (pageVo != null) {
-                return AppResponse.success("获取商品表成功", pageVo);
-            } else {
-                return AppResponse.notFound("获取商品表失败");
-            }
-        } else {
-            return null;
         }
+     else {
+        return null;
     }
+}
 
     @Transactional
     @Override
@@ -308,24 +119,24 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     public AppResponse commodityCollection(CollectInfoVO collectInfoVO) {
         
         CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(collectInfoVO.getTokenFront());
-
+        System.out.println(collectInfoVO);
         for (int i=0;i<collectInfoVO.getCollectionList().size();i++){
             CollectInfo collectInfo = collectInfoVO.getCollectionList().get(i);
             collectInfo.setCustomerId(customerInfo.getCustomerId());
-            if (collectInfo.getCollectFlag().equals("1")) {
+            if ("1".equals(collectInfo.getCollectFlag())) {
                 String collectId = UUIDUtil.uuidStr();
                 collectInfo.setCollectId(collectId);
                 boolean result = commodityCenterMapper.commodityCollection(collectInfo);
                 if (result) {
-                    return AppResponse.success("添加收藏成功");
+
                 } else {
                     return AppResponse.notFound("添加收藏失败");
                 }
             } else {
-                String c = commodityCenterMapper.commodityCollectionForId(collectInfo);
+                CollectInfo c = commodityCenterMapper.commodityCollectionForId(collectInfo);
                 boolean result = commodityCenterMapper.commodityCollectionForDelete(c);
                 if (result) {
-                    return AppResponse.success("取消收藏成功");
+
                 } else {
                     return AppResponse.notFound("取消收藏失败");
                 }
@@ -370,11 +181,11 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
 
     @Transactional
     @Override
-    public AppResponse commodityCollectionList(CommodityInfo commodityInfo, String token) {
+    public AppResponse commodityCollectionList(CollectList collectList, String token) {
        
         CustomerInfo customerInfo = (CustomerInfo) redisUtil.getData(token);
         
-        if (commodityInfo.getCommodityName() == null||"".equals(commodityInfo.getCommodityName())) {
+        if (collectList.getCommodityName() == null||"".equals(collectList.getCommodityName())) {
             List<CollectList> data = commodityCenterMapper.commodityCollectionList(customerInfo.getCustomerId());
 
             if (data != null) {
@@ -385,7 +196,7 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
 
         } else {
 
-            List<CollectList> data = commodityCenterMapper.commodityCollectionListForSearch(commodityInfo.getCommodityName());
+            List<CollectList> data = commodityCenterMapper.commodityCollectionListForSearch(collectList);
 
             if (data != null) {
                 return AppResponse.success("获取收藏列表成功", data);

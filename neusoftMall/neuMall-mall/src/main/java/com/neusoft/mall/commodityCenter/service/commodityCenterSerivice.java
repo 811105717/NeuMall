@@ -14,7 +14,7 @@ import java.util.List;
  * @Date: 2019/4/9
  */
 public interface commodityCenterSerivice {
-    AppResponse getCommodityList(CommodityInfo commodityInfo, BasePageVo basePageVo, String sortingTotalCount, String sortingRetailPrice);//商品中心主界面查询
+    AppResponse getCommodityList(CommodityInfo commodityInfo, BasePageVo basePageVo);//商品中心主界面查询
 
     AppResponse addShoppingCart(CommodityInfo commodityInfo, ShopInfo shopInfo, String tokenFront);//加入购物车
 
@@ -30,5 +30,5 @@ public interface commodityCenterSerivice {
 
     AppResponse addOrder(OrderInfo orderInfo, String tokenFront);//提交订单
 
-    AppResponse commodityCollectionList(CommodityInfo commodityInfo, String tokenFront);
+    AppResponse commodityCollectionList(CollectList collectList, String tokenFront);
 }

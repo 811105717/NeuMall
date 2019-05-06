@@ -25,8 +25,8 @@ public class commodityCenterController {
     private commodityCenterSerivice commodityCenterSerivice;
 
     @RequestMapping(value = "getCommodityList", method = RequestMethod.GET)
-    public AppResponse getCommodityList(CommodityInfo commodityInfo, BasePageVo basePageVo, String sortingTotalCount, String sortingRetailPrice) {
-        return commodityCenterSerivice.getCommodityList(commodityInfo, basePageVo, sortingTotalCount, sortingRetailPrice);
+    public AppResponse getCommodityList(CommodityInfo commodityInfo, BasePageVo basePageVo) {
+        return commodityCenterSerivice.getCommodityList(commodityInfo, basePageVo);
     }
 
     @RequestMapping(value = "addShoppingCart", method = RequestMethod.POST)
@@ -65,8 +65,8 @@ public class commodityCenterController {
     }
 
     @RequestMapping(value = "commodityCollectionList", method = RequestMethod.POST)
-    public AppResponse commodityCollectionList(CommodityInfo commodityInfo, String tokenFront) {
-        return commodityCenterSerivice.commodityCollectionList(commodityInfo, tokenFront);
+    public AppResponse commodityCollectionList(CollectList collectList, String tokenFront) {
+        return commodityCenterSerivice.commodityCollectionList(collectList, tokenFront);
     }
 }
 
