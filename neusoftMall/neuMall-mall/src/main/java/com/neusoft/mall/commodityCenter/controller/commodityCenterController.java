@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -50,8 +51,9 @@ public class commodityCenterController {
     }
 
     @RequestMapping(value = "getCommodityBuyNow", method = RequestMethod.POST)
-    public AppResponse getCommodityBuyNow(CommodityInfo commodityInfo, TradinInfo tradinInfo, String tokenFront) {
-        return commodityCenterSerivice.getCommodityBuyNow(commodityInfo, tradinInfo, tokenFront);
+    public AppResponse getCommodityBuyNow(@RequestBody GetCommodityVo getCommodityVo ) {
+        System.out.println(getCommodityVo);
+        return commodityCenterSerivice.getCommodityBuyNow(getCommodityVo.getCommodityList(), getCommodityVo.getTokenFront());
     }
 
     @RequestMapping(value = "commodityCollection", method = RequestMethod.POST)

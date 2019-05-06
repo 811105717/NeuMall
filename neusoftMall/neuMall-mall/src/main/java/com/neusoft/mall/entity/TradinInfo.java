@@ -19,5 +19,5 @@ public class TradinInfo extends BaseEntity {
     private String pictureAddress;
     private String commodityName;
     private String commodityId;
-
+    private String commodityTotalPrice;
 }

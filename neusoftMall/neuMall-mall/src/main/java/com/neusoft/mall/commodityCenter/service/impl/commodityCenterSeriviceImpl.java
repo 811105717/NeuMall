@@ -111,15 +111,27 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
 
     @Transactional
     @Override
-    public AppResponse getCommodityBuyNow(CommodityInfo commodityInfo, TradinInfo tradinInfo, String token) {
-        TradinInfo data = commodityCenterMapper.getCommodityBuyNow(commodityInfo.getCommodityId());
-        if (data != null) {
-            return AppResponse.success("立即购买成功", data);
-        } else {
-            return AppResponse.notFound("立即购买失败");
-        }
-    }
+    public AppResponse getCommodityBuyNow( List<TradinInfo> commodityL, String token) {
+        List<TradinInfo> commodityList=new ArrayList<TradinInfo>();
+        int tp=0;
+        for (int i=0;i<commodityL.size();i++){
+            TradinInfo  t= commodityCenterMapper.getCommodityBuyNow(commodityL.get(i).getCommodityId());
+            if (t != null) {
+                commodityList.add(t);
+                int ctp=Integer.parseInt(t.getCommodityPrice())*Integer.parseInt(t.getCommodityNum());
+                t.setCommodityTotalPrice(String.valueOf(ctp));
+                tp+=Integer.parseInt(t.getCommodityTotalPrice());
+            } else {
 
+            }
+        }
+        String totalPrice=String.valueOf(tp);
+        List<Object> data=new ArrayList<Object>();
+        data.add(totalPrice);
+        data.add(commodityList);
+        return AppResponse.success("操作成功",data);
+
+    }
     @Transactional
     @Override
     public AppResponse commodityCollection(CollectInfoVO collectInfoVO) {
