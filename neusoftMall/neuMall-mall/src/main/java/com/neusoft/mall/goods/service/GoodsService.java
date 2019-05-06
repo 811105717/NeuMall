@@ -28,7 +28,7 @@ public interface GoodsService {
      * @param commodityId 商品id
      * @return 更新条数
      */
-    AppResponse deleteGoods(String commodityId);
+    AppResponse deleteGoods(DeleteGoods deleteGoods);
 
     /**
      * 更新商品上架与下架
@@ -42,7 +42,7 @@ public interface GoodsService {
      * @param commodityId 商品id
      * @return 单个商品信息
      */
-    GoodsReturn getGoodsDetail(String commodityId);
+    GoodsReturn getGoodsDetail(GetGoodsDetail goodsDetail);
 
     /**
      * 分页获取商品列表

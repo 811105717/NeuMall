@@ -16,6 +16,6 @@ public class AddGoods {
     private Integer commodityIsSold;
     private Integer commodityInventory;
     List<PictureParam> pictureList;
-    private CustomerInfo customer;
+    // private CustomerInfo customer;
     private String tokenBackend;
 }

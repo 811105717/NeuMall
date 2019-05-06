@@ -8,6 +8,6 @@ public class UpdateIsSell {
     private String commodityId;
     private int commodityIsSold;
     private int version;
-    private CustomerInfo customer;
+    // private CustomerInfo customer;
     private String tokenBackend;
 }

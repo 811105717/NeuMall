@@ -9,13 +9,13 @@ import java.util.List;
 public class AlterGoods {
     private String commodityId;
     private String commodityName;
-    private Integer categoryFirst;
-    private Integer categorySecond;
+    private String categoryFirst;
+    private String categorySecond;
     private Long commodityRetailPrice;
     private Long commodityOriginalPrice;
     private Integer commodityIsSold;
     private Integer commodityInventory;
     List<PictureParam> pictureList;
-    private CustomerInfo customer;
+    // private CustomerInfo customer;
     private String tokenBackend;
 }

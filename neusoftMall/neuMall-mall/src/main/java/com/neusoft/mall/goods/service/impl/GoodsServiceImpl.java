@@ -2,7 +2,7 @@ package com.neusoft.mall.goods.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.neusoft.common.entity.CustomerInfo;
+import com.neusoft.common.entity.UserInfo;
 import com.neusoft.common.entity.PageVo;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.common.util.StringUtil;
@@ -35,7 +35,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Resource
     private GoodsPicMapper goodsPicMapper;
     @Autowired
-    private RedisUtil<CustomerInfo> redisUtil;
+    private RedisUtil<UserInfo> redisUtil;
     @Value("${fdfs.racker_server}")
     private String serverFdfs;
 
@@ -49,8 +49,11 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public AppResponse addGoods(AddGoods addGoods) {
-        CustomerInfo currCustomer = redisUtil.getData(addGoods.getCustomer().getTokenFront());
-        String user=currCustomer.getCustomerId();
+        UserInfo currCustomer = redisUtil.getData(addGoods.getTokenBackend());
+        if(null == currCustomer){
+            return AppResponse.bizError("token 失效");
+        }
+        String user=currCustomer.getUserName();
         int retGoodPics = 0,retGoods;
         Goods goods=changeAddGoodsProperty(addGoods,user);
         if(addGoods.getPictureList()!=null){
@@ -76,8 +79,11 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public AppResponse AlterGoods(AlterGoods alterGoods) {
-        CustomerInfo currCustomer = redisUtil.getData(alterGoods.getCustomer().getTokenFront());
-        String user=currCustomer.getCustomerId();
+         UserInfo currCustomer = redisUtil.getData(alterGoods.getTokenBackend());
+        if(null == currCustomer){
+            return AppResponse.bizError("token 失效");
+        }
+        String user=currCustomer.getUserName();
         int retGoods,retGoodPics = 0;
         Goods temGoods=goodsMapper.selectByPrimaryKey(alterGoods.getCommodityId());
         if (temGoods == null) {
@@ -112,8 +118,12 @@ public class GoodsServiceImpl implements GoodsService {
      * @return 更新条数
      */
     @Override
-    public AppResponse deleteGoods(String commodityId) {
-        int ret=goodsMapper.deleteGoods(commodityId);
+    public AppResponse deleteGoods(DeleteGoods deleteGoods) {
+        UserInfo currCustomer = redisUtil.getData(deleteGoods.getTokenBackend());
+        if(null == currCustomer){
+            return AppResponse.bizError("token 失效");
+        }
+        int ret=goodsMapper.deleteGoods(deleteGoods.getCommodityId());
         if (ret!=0){
             return AppResponse.success("删除商品成功！",ret);
         }
@@ -127,8 +137,11 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public AppResponse updateGoodsIsSell(UpdateIsSell params) {
-        CustomerInfo currCustomer = redisUtil.getData(params.getCustomer().getTokenFront());
-        String user=currCustomer.getCustomerId();
+        UserInfo currCustomer = redisUtil.getData(params.getTokenBackend());
+        if(null == currCustomer){
+            return AppResponse.bizError("token 失效");
+        }
+        String user=currCustomer.getUserName();
         Goods goods=new Goods();
         goods.setCommodityId(params.getCommodityId());
         goods.setCommodityIsSold(params.getCommodityIsSold());
@@ -148,8 +161,12 @@ public class GoodsServiceImpl implements GoodsService {
      * @return 单个商品信息
      */
     @Override
-    public GoodsReturn getGoodsDetail(String commodityId) {
-        GoodsReturn ret=goodsMapper.selectGoodsById(commodityId);
+    public GoodsReturn getGoodsDetail(GetGoodsDetail goodsDetail) {
+        UserInfo currCustomer = redisUtil.getData(goodsDetail.getTokenBackend());
+        if(null == currCustomer){
+            throw new IllegalArgumentException("token 失效");
+        }
+        GoodsReturn ret=goodsMapper.selectGoodsById(goodsDetail.getCommodityId());
         return ret;
     }
 
@@ -160,6 +177,10 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public PageVo<Goods> getGoodsPage(getGoodsPageParam pageParam) {
+        UserInfo currCustomer = redisUtil.getData(pageParam.getTokenBackend());
+        if(null == currCustomer){
+            throw new IllegalArgumentException("token 失效");
+        }
         PageVo<Goods> goodsPageVo=new PageVo<>();
         PageHelper.offsetPage((pageParam.getPageNum()-1) * pageParam.getPageSize(),pageParam.getPageSize());
         List<Goods> goodsList=goodsMapper.getGoodsPage(pageParam);

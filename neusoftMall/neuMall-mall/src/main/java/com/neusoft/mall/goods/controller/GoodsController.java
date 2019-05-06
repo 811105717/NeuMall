@@ -91,7 +91,7 @@ public class GoodsController {
      */
     @ApiOperation(value = "商品上架/下架")
     @PutMapping(value = "updateGoodsIsSell")
-    public AppResponse updateGoodsIsSell(@RequestParam UpdateIsSell params) throws Exception {
+    public AppResponse updateGoodsIsSell(@RequestBody UpdateIsSell params) throws Exception {
         try {
             return goodsService.updateGoodsIsSell(params);
         }catch (Exception e){
@@ -108,9 +108,9 @@ public class GoodsController {
      */
     @ApiOperation("查询商品详情")
     @GetMapping(value = "getGoodsDetail")
-    public AppResponse getGoodsDetail(String commodityId) throws Exception {
+    public AppResponse getGoodsDetail(@RequestBody GetGoodsDetail goodsDetail) throws Exception {
         try{
-            GoodsReturn goodsReturn=goodsService.getGoodsDetail(commodityId);
+            GoodsReturn goodsReturn=goodsService.getGoodsDetail(goodsDetail);
             if (goodsReturn!=null){
                 return AppResponse.success("查询成功",goodsReturn);
             }
