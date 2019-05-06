@@ -48,7 +48,7 @@ public class commodityCenterController {
     @RequestMapping(value = "getCommodityCenterTrading", method = RequestMethod.GET)
     public AppResponse getCommodityCenterTradin(CommodityInfo commodityInfo) {
         return commodityCenterSerivice.getCommodityCenterTradin(commodityInfo);
-    }
+    };
 
     @RequestMapping(value = "getCommodityBuyNow", method = RequestMethod.POST)
     public AppResponse getCommodityBuyNow(@RequestBody GetCommodityVo getCommodityVo ) {

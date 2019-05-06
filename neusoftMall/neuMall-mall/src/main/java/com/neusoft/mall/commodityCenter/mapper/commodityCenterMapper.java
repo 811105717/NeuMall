@@ -26,7 +26,7 @@ public interface commodityCenterMapper {
 
     List<TradinInfo> getCommodityCenterTradin(@Param("commodityId") String commodityId);//交易记录
 
-    TradinInfo getCommodityBuyNow(@Param("commodityId") String commodityId);//立即购买
+    TradinInfo getCommodityBuyNow(@Param("commodityId") String commodityId,@Param("customerId")String customerId);//立即购买
 
     Boolean commodityCollection(CollectInfo collectInfo);//添加收藏/取消收藏
 
