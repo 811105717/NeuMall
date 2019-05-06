@@ -77,4 +77,13 @@ public class CommodityInfo extends BaseEntity {
      */
     @Deprecated
     private String pictureAddress;
+   /**
+    *数量排序
+    */
+    private String sortingTotalCount;
+    /**
+     *价格排序
+     */
+    private String sortingRetailPrice;
+
 }

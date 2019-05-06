@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.mall.receive.Mapper.ReceiveMapper">
+
+    <!--    查询收获地址列表        -->
+    <resultMap id="getReceiveListMap" type="com.neusoft.mall.entity.Receive">
+        <id property="receiveId" column="receive_id"></id>
+        <result property="regionProvince" column="region_province"></result>
+        <result property="regionCity" column="region_city"></result>
+        <result property="regionCounty" column="region_county"></result>
+        <result property="receiveDetailedAddress" column="receive_detailed_address"></result>
+        <result property="receiveContact" column="receive_contact"></result>
+        <result property="receiveTel" column="receive_tel"></result>
+        <result property="receiveIsDefault" column="receive_is_default"></result>
+        <result property="receiveAllAddress" column="receiveAllAddress"></result>
+    </resultMap>
+    <select id="getReceiveList" parameterType="com.neusoft.common.entity.CustomerInfo" resultType="com.neusoft.mall.entity.Receive">
+       		SELECT
+                receive_id,
+                region_city,
+                region_county,
+                receive_detailed_address,
+                receive_contact,
+                receive_tel,
+                receive_is_default,
+                r.created_by,
+                r.gmt_create,
+                r.last_modified_by,
+                r.gmt_modified,
+                r.is_deleted,
+                r.sort_no,
+                r.version,
+                region_province,
+                p.region_name province,
+                s.region_name shi,
+                q.region_name qu,
+                CONCAT(p.region_name,s.region_name,q.region_name,receive_detailed_address) receiveAllAddress
+            FROM t_receive r
+			JOIN t_region p on r.region_province = p.region_id
+			JOIN t_region s on r.region_city = s.region_id
+			JOIN t_region q on r.region_county = q.region_id
+
+			WHERE
+                r.is_deleted = 0
+            AND
+                r.created_by = #{customerId}
+			ORDER BY
+                r.gmt_create
+            DESC
+    </select>
+    <!--    添加收获地址      -->
+    <insert id="addReceive" parameterType="com.neusoft.mall.entity.Receive">
+        INSERT INTO
+        t_receive(
+            receive_id,
+            region_province,
+            region_city,
+            region_county,
+            receive_detailed_address,
+            receive_contact,
+            receive_tel,
+            receive_is_default,
+            created_by,
+            gmt_create,
+            last_modified_by,
+            gmt_modified,
+            is_deleted,
+            sort_no,
+            version
+            )
+        VALUES(
+            #{receiveId},
+            #{regionProvince},
+            #{regionCity},
+            #{regionCounty},
+            #{receiveDetailedAddress},
+            #{receiveContact},
+            #{receiveTel},
+            0,
+            #{createdBy},
+            now(),
+            #{createdBy},
+            now(),
+            0,
+            0,
+            0
+        )
+    </insert>
+    <!--    把所有地址改为不是默认的  -->
+    <update id="updateReceiveAllNoDefault" parameterType="String">
+        UPDATE
+            t_receive
+        set
+            receive_is_default = 0
+        WHERE
+            created_by = #{customerId}
+        and
+            is_deleted = 0
+    </update>
+    <!--    修改收货地址信息        -->
+    <update id="updateReceive" parameterType="com.neusoft.mall.entity.Receive">
+        UPDATE
+            t_receive
+        SET
+            receive_contact = #{receiveContact},
+            receive_detailed_address = #{receiveDetailedAddress},
+            region_province = #{regionProvince},
+            region_city = #{regionCity},
+            region_county = #{regionCounty},
+            receive_tel = #{receiveTel},
+            gmt_modified = NOW(),
+            version = version + 1
+        WHERE
+            is_deleted = 0
+        AND
+            version = #{version}
+        AND
+            receive_id = #{receiveId}
+    </update>
+    <!--    删除收货地址      -->
+    <update id="deleteReceive" parameterType="com.neusoft.mall.entity.Receive">
+        UPDATE
+            t_receive
+        SET
+            is_deleted = 1 ,
+            gmt_modified = NOW(),
+            version = version + 1
+        WHERE
+            is_deleted = 0
+        AND
+            receive_id = #{receiveId}
+    </update>
+    <!--    设置默认地址      -->
+    <update id="updateReceiveByDefault" parameterType="com.neusoft.mall.entity.Receive" >
+        UPDATE
+            t_receive
+        SET
+            receive_is_default = 1,
+            version = version + 1
+        WHERE
+            receive_id = #{receiveId}
+        AND
+            version = #{version}
+        AND
+            is_deleted = 0
+    </update>
+    <!--    查询省市区信息     -->
+    <resultMap id="getRegionMap" type="com.neusoft.mall.entity.Region">
+        <id property="parentRegionID" column="parent_region_id"></id>
+        <result property="regionId" column="region_id"></result>
+        <result property="regionType" column="region_type"></result>
+        <result property="regionName" column="region_name"></result>
+    </resultMap>
+    <select id="getRegion" parameterType="com.neusoft.mall.entity.Region" resultMap="getRegionMap">
+        SELECT
+            parent_region_id,
+            region_id,
+            region_type,
+            region_name,
+            created_by,
+            gmt_create,
+            last_modified_by,
+            gmt_modified,
+            is_deleted,
+            sort_no,
+            version
+        FROM
+            t_region
+        WHERE
+            parent_region_id = #{parentRegionID}
+        and
+            is_deleted = 0
+    </select>
+
+    <!--    查询收货地址详情-->
+    <resultMap id="getReceiveDetailMap" type="com.neusoft.mall.entity.Receive">
+        <id property="receiveId" column="receive_id"></id>
+        <result property="regionProvince" column="region_province"></result>
+        <result property="regionCity" column="region_city"></result>
+        <result property="regionCounty" column="region_county"></result>
+        <result property="receiveDetailedAddress" column="receive_detailed_address"></result>
+        <result property="receiveContact" column="receive_contact"></result>
+        <result property="receiveTel" column="receive_tel"></result>
+        <result property="receiveIsDefault" column="receive_is_default"></result>
+        <result property="receiveAllAddress" column="receiveAllAddress"></result>
+    </resultMap>
+    <select id="getReceiveDetail"  parameterType="com.neusoft.mall.entity.Receive" resultMap="getReceiveDetailMap">
+        select
+            receive_id,
+            region_city,
+            region_county,
+            receive_detailed_address,
+            receive_contact,
+            receive_tel,
+            receive_is_default,
+            r.created_by,
+            r.gmt_create,
+            r.last_modified_by,
+            r.gmt_modified,
+            r.is_deleted,
+            r.sort_no,
+            r.version,
+            region_province,
+            p.region_name province,
+            s.region_name shi,
+            q.region_name qu,
+            CONCAT(p.region_name,s.region_name,q.region_name,receive_detailed_address) receiveAllAddress
+        from
+            t_receive r
+        LEFT JOIN t_region p on r.region_province = p.region_id
+        LEFT JOIN t_region s on r.region_city = s.region_id
+        LEFT JOIN t_region q on r.region_county = q.region_id
+
+        where
+             r.is_deleted = 0
+        and
+            r.receive_id = #{receiveId}
+    </select>
+</mapper>
