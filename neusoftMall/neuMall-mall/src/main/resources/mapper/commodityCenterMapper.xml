@@ -38,7 +38,6 @@
     </insert>
     <select id="getCommodityCenterDeatil" resultType="com.neusoft.mall.entity.Deatilinfo">
         SELECT * FROM t_commodity  JOIN t_commodity_pic ON  t_commodity.commodity_id=t_commodity_pic.commodity_id
-        join t_collect on t_collect.commodity_id=t_commodity.commodity_id
         WHERE t_commodity.commodity_id=#{commodityId}
     </select>
     <select id="getCommodityCenterDeatilForIsCollect" resultType="com.neusoft.mall.entity.CollectInfo">
@@ -103,4 +102,10 @@
         FROM t_commodity JOIN t_collect ON t_commodity.commodity_id=t_collect.commodity_id
         WHERE t_commodity.commodity_name LIKE '%{commodityName}%' AND t_collect.is_deleted=0
     </select>
+
+    <select id="getCommodityCollectionByCustomerId" resultType="com.neusoft.mall.entity.CollectInfo">
+        SELECT * FROM t_collect
+        WHERE customer_id = #{customerId} AND commodity_id = #{commodityId}
+    </select>
+
 </mapper>

@@ -71,8 +71,14 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
     @Transactional
     @Override
     public AppResponse getCommodityCenterDeatil(CommodityInfo commodityInfo, String token) {
+        CustomerInfo customerInfo = redisUtil.getData(token);
         Deatilinfo data = commodityCenterMapper.getCommodityCenterDeatil(commodityInfo.getCommodityId());
         if (data != null) {
+            if(null != commodityCenterMapper.getCommodityCollectionByCustomerId(customerInfo.getCustomerId(),commodityInfo.getCommodityId())){
+                data.setIsCollect("1");
+            }else{
+                data.setIsCollect("0");
+            }
             return AppResponse.success("获取商品详情成功", data);
         } else {
             return AppResponse.notFound("获取商品详情失败");
@@ -126,6 +132,9 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
             if ("1".equals(collectInfo.getCollectFlag())) {
                 String collectId = UUIDUtil.uuidStr();
                 collectInfo.setCollectId(collectId);
+                if(null != commodityCenterMapper.getCommodityCollectionByCustomerId(customerInfo.getCustomerId(),collectInfo.getCommodityId())){
+                    return AppResponse.notFound("您已收藏该商品");
+                }
                 boolean result = commodityCenterMapper.commodityCollection(collectInfo);
                 if (result) {
 

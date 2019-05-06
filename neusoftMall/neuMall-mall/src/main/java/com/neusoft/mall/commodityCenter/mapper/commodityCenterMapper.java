@@ -44,4 +44,12 @@ public interface commodityCenterMapper {
 
     List<CollectList> commodityCollectionListForSearch(CollectList collectList);
 
+    /**
+     * 查询是否搜藏
+     * @param customerId 用户id
+     * @param commodityId 商品id
+     * @return
+     */
+    CollectInfo getCommodityCollectionByCustomerId(@Param("customerId")String customerId,@Param("commodityId")String commodityId);
+
 }
