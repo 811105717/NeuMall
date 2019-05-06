@@ -10,5 +10,6 @@ public class AddCategory {
     private String categoryParentId;
     private String categoryRemark;
     private int sortNo;
-    private CustomerInfo customer;
+    private int version;
+    // private CustomerInfo customer;
 }

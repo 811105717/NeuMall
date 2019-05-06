@@ -1,6 +1,6 @@
 package com.neusoft.mall.category.service.impl;
 
-import com.neusoft.common.entity.CustomerInfo;
+import com.neusoft.common.entity.UserInfo;
 import com.neusoft.common.response.AppResponse;
 import com.neusoft.common.util.UUIDUtil;
 import com.neusoft.mall.category.entity.Category;
@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Resource
     private CategoryMapper categoryMapper;
     @Autowired
-    private RedisUtil<CustomerInfo> redisUtil;
+    private RedisUtil<UserInfo> redisUtil;
     @Value("${rootId}")
     private String rootId;
 
@@ -40,8 +40,11 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public AppResponse addCategory(AddCategory  record) {
-        CustomerInfo currCustomer = (CustomerInfo) redisUtil.getData(record.getCustomer().getTokenFront());
-        String username=currCustomer.getCustomerId();
+         UserInfo currCustomer = redisUtil.getData(record.getTokenBackend());
+        if(null == currCustomer){
+            return AppResponse.bizError("token 失效");
+        }
+        String username=currCustomer.getUserName();
         Category category=new Category();
         category.setCategoryId(UUIDUtil.uuidStr());
         category.setCategoryName(record.getCategoryName());
@@ -54,14 +57,16 @@ public class CategoryServiceImpl implements CategoryService {
         category.setCategoryRemark(record.getCategoryRemark());
         category.setIsDeleted(0);
         category.setSortNo(record.getSortNo());
-        category.setVersion(1);
+        category.setVersion(record.getVersion());
         List<Category> name=categoryMapper.getCategoryName(category.getCategoryName());
         if (!(name.isEmpty())){
             return AppResponse.versionError("插入失败,分类名称重复");
         }
-        Category parent=categoryMapper.getCategoryParent(category.getCategoryParentId());
-        if (parent==null){
-            return AppResponse.versionError("插入失败,没有对应父类");
+        if (!(category.getCategoryParentId().equals("0"))){
+            Category parent=categoryMapper.getCategoryParent(category.getCategoryParentId());
+            if (parent==null){
+                return AppResponse.versionError("插入失败,没有对应父类");
+            }
         }
         int res=categoryMapper.insertSelective(category);
         return AppResponse.success("插入成功",res);
@@ -75,14 +80,17 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public AppResponse updateCategory(UpdateCategory record) {
+        UserInfo currCustomer = redisUtil.getData(record.getTokenBackend());
+        if(null == currCustomer){
+            return AppResponse.bizError("token 失效");
+        }
+        String user=currCustomer.getUserName();//session获取
         Category category=new Category();
         category.setVersion(record.getVersion());
         category.setCategoryName(record.getCategoryName());
         category.setCategoryId(record.getCategoryId());
         category.setCategoryRemark(record.getCategoryRemark());
         category.setSortNo(record.getSortNo());
-        CustomerInfo currCustomer = redisUtil.getData(record.getCustomer().getTokenFront());
-        String user=currCustomer.getCustomerId();//session获取
         category.setLastModifiedBy(user);
         category.setGmtModified(new Date());
         int ret=categoryMapper.updateByPrimaryKeySelective(category);
@@ -99,8 +107,11 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public AppResponse deleteCategory(DeleteCategory record) {
-        CustomerInfo currCustomer = redisUtil.getData(record.getCustomer().getTokenFront());
-        String user=currCustomer.getCustomerId();//session获取
+        UserInfo currCustomer = redisUtil.getData(record.getTokenBackend());
+        if(null == currCustomer){
+            return AppResponse.bizError("token 失效");
+        }
+        String user=currCustomer.getUserName();//session获取
         Category category=new Category();
         category.setLastModifiedBy(user);
         category.setGmtModified(new Date());
