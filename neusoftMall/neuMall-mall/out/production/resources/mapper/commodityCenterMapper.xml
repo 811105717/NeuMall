@@ -132,7 +132,7 @@
         SELECT t_collect.customer_id,t_commodity.commodity_id,t_commodity.commodity_first_picture,
         t_commodity.commodity_name,t_commodity.commodity_retail_price
         FROM t_commodity JOIN t_collect ON t_commodity.commodity_id=t_collect.commodity_id
-        WHERE t_commodity.commodity_name=#{commodityName}  AND t_collect.is_deleted=0
+        WHERE t_commodity.commodity_name LIKE '%{commodityName}%' AND t_collect.is_deleted=0
     </select>
     <select id="commodityCollectionListForSearch02" resultType="com.neusoft.mall.entity.CollectList">
         SELECT t_collect.customer_id,t_commodity.commodity_id,t_commodity.commodity_first_picture,
