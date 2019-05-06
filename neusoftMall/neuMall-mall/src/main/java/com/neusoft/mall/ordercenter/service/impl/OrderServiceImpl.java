@@ -105,7 +105,7 @@ public class OrderServiceImpl implements OrderService {
                 }
             }
         }else {
-            return AppResponse.bizError("未知数据错误！");
+            return AppResponse.bizError("未知参数错误！");
         }
     }
     /**

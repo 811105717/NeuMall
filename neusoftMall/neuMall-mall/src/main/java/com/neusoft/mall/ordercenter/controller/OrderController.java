@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * @uthor: xiaobai
+ * @author: xiaobai
  * @Date: 2019/4/8 17:49
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
