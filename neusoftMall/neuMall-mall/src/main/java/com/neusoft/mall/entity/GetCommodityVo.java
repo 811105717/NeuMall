@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- *
+ * @author zhangqiang
  */
 @Data
 public class GetCommodityVo {

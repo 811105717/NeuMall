@@ -54,7 +54,6 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Bean
     @Primary
     public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory factory) {
-        // StringRedisTemplate template = new StringRedisTemplate(factory);
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         template.setConnectionFactory(factory);
 
@@ -65,7 +64,6 @@ public class RedisConfig extends CachingConfigurerSupport {
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         jsonRedisSerializer.setObjectMapper(om);
         template.setValueSerializer(jsonRedisSerializer);
-
         template.setHashKeySerializer(new StringRedisSerializer());
         template.setHashValueSerializer(jsonRedisSerializer);
 

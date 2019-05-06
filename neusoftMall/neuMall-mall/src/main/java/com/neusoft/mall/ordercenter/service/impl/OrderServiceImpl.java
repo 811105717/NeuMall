@@ -23,7 +23,7 @@ import java.util.List;
  * @Author: xiaobai
  * @Date: 2019/4/8 19:06
  * @email: baijinfeng1202@gmail.com
- * @address: 大连东软信息学院 1
+ * @address: 大连东软信息学院
  * @version 1.0
  */
 @SuppressWarnings("ALL")

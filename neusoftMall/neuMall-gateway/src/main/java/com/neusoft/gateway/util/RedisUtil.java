@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2019/4/20 19:03
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
+ * @descripton 对redis操作进行封装 方便使用
  * @Version 1.0
  */
 @SuppressWarnings("ALL")

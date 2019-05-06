@@ -42,11 +42,11 @@ public class AccountController {
     @ApiOperation("修改密码")
     @PutMapping(value = "updatePassWord")
     public AppResponse updatePassWord(CustomerInfo customer){
-        log.info("updatePassWord frontData :{}",customer);
+        log.info("updatePassWord frontData = {}",customer);
         try {
             return accountService.updatePassword(customer);
         } catch (UnsupportedEncodingException e) {
-            log.info("error update password {}",e);
+            log.info("Exception update password {}",e);
             return AppResponse.bizError("修改密码异常 不支持的编码");
         }
     }
@@ -62,11 +62,11 @@ public class AccountController {
     @ApiOperation("用户注册")
     @PostMapping(value = "registered")
     public AppResponse customerRegister(CustomerInfo customer){
-        log.info("registered frontData {}",customer);
+        log.info("registered frontData = {}",customer);
         try {
             return accountService.customerRegister(customer);
         } catch (UnsupportedEncodingException e) {
-            log.info("error register customer {}",e);
+            log.info("Exception register customer {}",e);
             return AppResponse.bizError("用户注册异常 不支持的编码");
         }
     }
@@ -82,11 +82,11 @@ public class AccountController {
     @ApiOperation("用户登录")
     @PostMapping(value = "userLogin")
     public AppResponse customerLogin(CustomerInfo customer){
-        log.info("userLogin frontData {}",customer);
+        log.info("userLogin frontData = {}",customer);
         try {
             return accountService.customerLogin(customer);
         } catch (UnsupportedEncodingException e) {
-            log.info("error register customer {}",e);
+            log.info("Exception register customer {}",e);
             return AppResponse.bizError("用户登录异常 不支持的编码");
         }
     }

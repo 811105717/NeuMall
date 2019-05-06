@@ -8,10 +8,10 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 /**
  * @ClassName: NeuMallGatewayApplication
  * @Description: 启动类
- * @Author: xiaobai
+ * @author: xiaobai
  * @Date: 2019/4/8
  */
-
+@SuppressWarnings("ALL")
 @SpringBootApplication
 @EnableEurekaClient
 @EnableZuulProxy

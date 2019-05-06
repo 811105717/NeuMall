@@ -57,7 +57,8 @@
     <select id="getCommodityBuyNow" resultType="com.neusoft.mall.entity.TradinInfo">
         SELECT t_commodity.commodity_id,t_commodity.commodity_code,t_commodity.picture_address,t_commodity.commodity_name,
         t_commodity.commodity_retail_price as commodity_price,t_shop.shop_number as commodity_num
-        FROM t_commodity JOIN t_shop ON t_commodity.commodity_id=t_shop.commodity_id WHERE t_commodity.commodity_id=#{commodityId}
+        FROM t_commodity JOIN t_shop ON t_commodity.commodity_id=t_shop.commodity_id
+        WHERE t_commodity.commodity_id=#{commodityId} and t_shop.customer_id=#{customerId}
     </select>
     <insert id="commodityCollection" parameterType="com.neusoft.mall.entity.CollectInfo">
      INSERT INTO t_collect

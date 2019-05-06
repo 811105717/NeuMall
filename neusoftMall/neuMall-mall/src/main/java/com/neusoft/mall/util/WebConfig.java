@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Author: xiaobai
  * @Date: 2019/3/26
  */
+@SuppressWarnings("ALL")
 //@Configuration
 @Deprecated
 public class WebConfig implements WebMvcConfigurer {
@@ -23,11 +24,11 @@ public class WebConfig implements WebMvcConfigurer {
      * @Return com.neusoft.mall.util.AccessHandler
      */
     @Bean
-    public AccessHandler AccessHandler(){
+    public AccessHandler accessHandler(){
         return new AccessHandler();
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(AccessHandler()).addPathPatterns("/**");
+        registry.addInterceptor(accessHandler()).addPathPatterns("/**");
     }
 }

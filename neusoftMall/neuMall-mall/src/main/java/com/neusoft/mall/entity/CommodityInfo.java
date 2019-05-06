@@ -72,10 +72,7 @@ public class CommodityInfo extends BaseEntity {
     private String categorySecond;
     /**
      * 图片地址
-     * 不再维护  替代属性是商品首图
-     * commodityFirstPicture
      */
-    @Deprecated
     private String pictureAddress;
    /**
     *数量排序

@@ -17,7 +17,7 @@ public class StringUtil {
         return prefix + suffix;
     }
 
-    /*
+    /**
      * @param count :需要产生随机数的个数
      */
     public static String radmonkey(int count){

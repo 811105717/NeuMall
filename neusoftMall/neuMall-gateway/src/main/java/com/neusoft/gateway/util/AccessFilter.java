@@ -35,7 +35,7 @@ public class AccessFilter extends ZuulFilter {
                 "/mall/admin/backend/login/userLogin"
             };
     /**
-     * 跨域探测请求
+     * 跨域探测请求方法
      */
     static final String PASS_METHOD = "OPTIONS";
 
@@ -68,16 +68,17 @@ public class AccessFilter extends ZuulFilter {
         HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
         //跨域请求不拦截
         if(request.getMethod().equals(AccessFilter.PASS_METHOD)){
+            log.info("跨域探测请求不拦截");
             return false;
         }
         //不拦截的路由
         for(String pass:AccessFilter.PASS_PATH){
             if(request.getServletPath().equals(pass)){
-                log.info("不拦截路由 {}",request.getServletPath());
+                log.info("不拦截路由 ：{}",request.getServletPath());
                 return false;
             }
         }
-        log.info("拦截路由 {} 执行拦截方法",request.getServletPath());
+        log.info("拦截路由 ：{} ",request.getServletPath());
         return true;
     }
 
@@ -86,7 +87,7 @@ public class AccessFilter extends ZuulFilter {
      */
     @Override
     public Object run() throws ZuulException {
-        //是否满足条件，默认不满足
+        //是否进行拦截
         boolean permission = false;
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
@@ -100,13 +101,12 @@ public class AccessFilter extends ZuulFilter {
         }
 
         if(null!=key){
-            log.info("得到token {}",key);
             Object data = redisUtil.getData(key);
             if(null!=data){
                 //延长token时间
                 boolean res = redisUtil.updateActiveTime(key);
                 if(res){
-                    log.info("比对token 成功，更新存活时间！{}",key);
+                    log.info("比对token {} 成功，更新token存活时间！",key);
                     permission = true;
                 }
             }

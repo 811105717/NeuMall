@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author uthor: xiaobai
+ * @author  xiaobai
  * @date : 2019/4/8 17:36
  * @email: baijinfeng1202@gmail.com
  * @address: 大连东软信息学院
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class IndexController {
     /**
-     * 首页信息服务层
+     * 首页信息逻辑
      */
     @Autowired
     private IndexService indexService;
@@ -44,7 +44,7 @@ public class IndexController {
     @ApiOperation("获取用户推荐列表")
     @GetMapping(value = "getRecommondCommodityList")
     public AppResponse getRecommondCommodityList(IndexQueryVO queryVO){
-        log.info("getRecommondCommodityList frontData {}",queryVO);
+        log.info("getRecommondCommodityList frontData = {}",queryVO);
         return indexService.getRecommondCommodityList(queryVO);
     }
 
@@ -59,7 +59,7 @@ public class IndexController {
     @ApiOperation("获取用户买过的订单列表")
     @GetMapping(value = "getBuyCommodityList")
     public AppResponse getBuyCommodityList(String tokenFront){
-        log.info("getBuyCommodityList frontData {}",tokenFront);
+        log.info("getBuyCommodityList frontData = {}",tokenFront);
         return indexService.getBuyCommodityList(tokenFront);
     }
 
@@ -74,7 +74,7 @@ public class IndexController {
     @ApiOperation("根据一级分类查询二级分类列表")
     @GetMapping(value = "getClassifyList")
     public AppResponse getClassifyList(String categoryParentId){
-        log.info("getClassifyList frontData {}",categoryParentId);
+        log.info("getClassifyList frontData = {}",categoryParentId);
         return indexService.getClassifyList(categoryParentId);
     }
 }
