@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mall.ordercenter.mapper.OrderMapper">
+
+    <!--  获取订单列表 ，根据条件进行查询  -->
+    <select id="getOrderList" parameterType="com.neusoft.mall.entity.OrderQueryVo"
+            resultType="com.neusoft.mall.entity.OrderInfo">
+        SELECT * FROM t_order JOIN t_customer
+        ON t_order.customer_id = t_customer.customer_id
+        <where>
+            <if test="null!=customerId and ''!=customerId">
+                t_order.customer_id = #{customerId}
+                AND t_order.is_deleted = 0
+            </if>
+
+            <if test="null!=orderNumber and ''!=orderNumber">
+                AND order_number LIKE CONCAT(CONCAT('%', #{orderNumber}), '%')
+            </if>
+
+            <if test="null!=orderDateStart and ''!=orderDateStart">
+                AND date_format(order_date,'%Y-%m-%d') >= #{orderDateStart}
+            </if>
+            <!--<![CDATA[<]]> 处理小于号字符冲突 -->
+            <if test="null!=orderDateEnd and ''!=orderDateEnd">
+                AND date_format(order_date,'%Y-%m-%d') <![CDATA[<]]>= #{orderDateEnd}
+            </if>
+            <if test="null!=orderState and ''!=orderState">
+                AND order_state = #{orderState}
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取订单详细信息 -->
+    <select id="getOrderDetail" parameterType="String" resultType="com.neusoft.mall.entity.OrderInfo">
+        SELECT * FROM t_order JOIN t_customer
+        ON t_customer.customer_id = t_order.customer_id
+        WHERE order_id = #{orderId}
+        AND t_order.is_deleted = 0
+    </select>
+
+    <!-- 获取订单全部的商品信息 -->
+    <select id="getOrderCommodityDetail" parameterType="String" resultType="com.neusoft.mall.entity.OrderDetailInfo">
+        SELECT * FROM t_order_detail JOIN t_commodity
+        ON t_order_detail.commodity_id = t_commodity.commodity_id
+        WHERE order_id = #{orderId}
+        AND t_order_detail.is_deleted = 0
+    </select>
+
+    <!--  被谁修改这里写死了  -->
+    <update id="updateOrderStatus" parameterType="java.util.List">
+        UPDATE t_order SET
+        order_state = #{status},
+        last_modified_by = "xiaobai",
+        gmt_modified = NOW(),version = version + 1
+        WHERE order_number IN
+        <foreach item="item" collection="orderList" separator="," open="(" close=")" index="">
+            #{item}
+        </foreach>
+    </update>
+
+</mapper>

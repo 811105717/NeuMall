@@ -172,7 +172,7 @@ public class commodityCenterSeriviceImpl implements commodityCenterSerivice {
 
         List<OrderDetailInfo> commodityList = orderInfo.getCommodityList();
         String orderId = UUIDUtil.uuidStr();
-        Boolean result = commodityCenterMapper.addOrder(orderId, orderInfo.getOrderNumber(), orderInfo.getOrderPrice(), customerInfo.getCustomerId(), orderInfo.getOrderAddress(), orderInfo.getReceiveTel(), orderInfo.getReceiveContact(), orderInfo.getOrderRemark());
+        Boolean result = commodityCenterMapper.addOrder(orderId, orderInfo.getOrderNumber(), orderInfo.getOrderPrice(), "01", orderInfo.getOrderAddress(), orderInfo.getReceiveTel(), orderInfo.getReceiveContact(), orderInfo.getOrderRemark());
         String[] commodityPrice = new String[commodityList.size()];
         String[] commodityNum = new String[commodityList.size()];
         Boolean[] b = new Boolean[commodityList.size()];

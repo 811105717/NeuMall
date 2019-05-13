@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.mall.measure.mapper.MeasureMapper" >
+  <select id="getAllUnit" resultType="com.neusoft.mall.measure.entity.Measure">
+    SELECT
+        unit_id,
+        unit_name,
+        version
+    FROM
+        t_commodity_unit
+    where
+		is_deleted=0
+  </select>
+  <select id="getAllUnitPage" resultType="com.neusoft.mall.measure.entity.Measure" >
+    SELECT
+    unit_id,
+    unit_name,
+    version
+    FROM
+    t_commodity_unit
+    where
+		is_deleted=0 AND unit_name LIKE concat(concat('%',#{unitName,jdbcType=VARCHAR}),'%')
+
+  </select>
+
+  <select id="getMeasureByName" parameterType="String" resultType="com.neusoft.mall.measure.entity.Measure">
+    SELECT unit_name ,unit_id from t_commodity_unit where unit_name=#{name}
+  </select>
+  <select id="selectByPrimaryKey"  parameterType="java.lang.String" resultType="com.neusoft.mall.measure.entity.Measure" >
+    select
+    unit_id, unit_name,version
+    from t_commodity_unit
+    where unit_id = #{unitId,jdbcType=VARCHAR}
+  </select>
+  <insert id="insertSelective" parameterType="com.neusoft.mall.measure.entity.Measure" >
+    insert into t_commodity_unit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="unitId != null" >
+        unit_id,
+      </if>
+      <if test="unitName != null" >
+        unit_name,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="lastModifiedBy != null" >
+        last_modified_by,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="sortNo != null" >
+        sort_no,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="unitId != null" >
+        #{unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedBy != null" >
+        #{lastModifiedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="sortNo != null" >
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.mall.measure.entity.Measure" >
+    update t_commodity_unit
+    <set >
+      <if test="unitName != null" >
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedBy != null" >
+        last_modified_by = #{lastModifiedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="sortNo != null" >
+        sort_no = #{sortNo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=VARCHAR} and version = #{version,jdbcType=INTEGER}
+  </update>
+  <update id="updateDelete" parameterType="com.neusoft.mall.measure.entity.Measure">
+    UPDATE t_commodity_unit
+    set is_deleted=1 ,<if test="lastModifiedBy != null" >
+                      last_modified_by = #{lastModifiedBy,jdbcType=VARCHAR},
+                      </if>
+                      <if test="gmtModified != null" >
+                        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+                      </if>
+    where unit_id=#{unitId}
+  </update>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mall.usersettings.mapper.AccountMapper">
+
+<!--  根据ID获取用户对象  -->
+    <select id="getCustomerById" parameterType="String" resultType="com.neusoft.common.entity.CustomerInfo">
+        SELECT * FROM t_customer
+        WHERE  customer_id= #{id}
+        AND is_deleted = 0
+    </select>
+
+<!--  检查用户是否存在  -->
+    <select id="checkExistCustomer" parameterType="String" resultType="Integer">
+        SELECT COUNT(customer_number) FROM t_customer
+        WHERE customer_number = #{number}
+        AND is_deleted = 0
+    </select>
+
+<!--  用户登陆  -->
+    <select id="userLogin" parameterType="String" resultType="com.neusoft.common.entity.CustomerInfo">
+        SELECT * FROM t_customer
+        WHERE customer_number = #{customerNumber} AND customer_password = #{customerPassword}
+        AND is_deleted = 0
+    </select>
+
+<!--  用户注册  -->
+    <insert id="addCustomer" parameterType="com.neusoft.common.entity.CustomerInfo">
+        INSERT INTO t_customer
+        (customer_id,customer_number,
+        customer_password,customer_name,customer_is_used,
+        created_by,gmt_create,last_modified_by,gmt_modified,
+        is_deleted,sort_no,version)
+        VALUES (#{customerId},#{customerNumber},#{customerPassword},#{customerName},
+        1,"xiaobai",NOW(),#{lastModifiedBy},NOW(),0,0,1)
+    </insert>
+
+<!--  更新密码  -->
+    <update id="updatePassword" parameterType="com.neusoft.common.entity.CustomerInfo">
+        UPDATE t_customer SET
+        customer_password = #{customerPassword},
+        last_modified_by = #{lastModifiedBy},
+        gmt_modified = NOW(),version = version + 1
+        WHERE customer_id = #{customerId}
+        AND is_deleted = 0
+    </update>
+
+</mapper>

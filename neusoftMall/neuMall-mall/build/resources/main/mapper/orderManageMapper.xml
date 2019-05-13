@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mall.ordermanagement.mapper.OrderManageMapper">
+    <!--订单查询 -->
+    <select id="getOrderDetail" resultType="com.neusoft.mall.entity.OrdermanageInfo" parameterType="String">
+        select * from t_order a join t_customer b on a.customer_id=b.customer_id where order_id=#{orderId}
+    </select>
+    <!--商品列表查询 -->
+    <select id="getCommodityListInfo"  resultType="com.neusoft.mall.entity.CommodityListInfo" parameterType="String">
+        SELECT * FROM  t_order_detail a join t_commodity
+        b on a.commodity_id=b.commodity_id join  t_commodity_pic
+        c on b.commodity_id=c.commodity_id
+         where a.order_id=#{orderId} order by b.sort_no
+    </select>
+
+    <!--订单发货(修改订单状态) -->
+    <update id="updateOrderStatus" parameterType="com.neusoft.mall.entity.OrdermanageInfo">
+        update t_order set
+        order_state=#{orderState},
+        version=version+1,
+        last_modified_by=#{lastModifiedBy},
+        gmt_modified=now()
+        where order_number=#{orderNumber}
+    </update>
+
+    <!--订单查询 -->
+    <select id="getOrders" resultType="com.neusoft.mall.entity.OrdermanageInfo" parameterType="com.neusoft.mall.entity.OrderQueryVo">
+        SELECT * FROM `t_order` a join t_customer b on a.customer_id=b.customer_id
+        <where>
+            <if test="null!=orderNumber and ''!=orderNumber">
+                AND a.order_number = #{orderNumber}
+            </if>
+
+            <if test="null!=orderDateStart and ''!=orderDateStart">
+                AND a.order_date >= #{orderDateStart}
+            </if>
+            <!--<![CDATA[<]]> 处理小于号字符冲突 -->
+            <if test="null!=orderDateEnd and ''!=orderDateEnd">
+                AND a.order_date <![CDATA[<]]>= #{orderDateEnd}
+            </if>
+            <if test="null!=orderState and ''!=orderState">
+                AND a.order_state = #{orderState}
+            </if>
+        </where>
+        order by a.sort_no
+    </select>
+
+</mapper>

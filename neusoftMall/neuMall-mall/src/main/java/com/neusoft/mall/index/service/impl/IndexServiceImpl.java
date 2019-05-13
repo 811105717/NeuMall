@@ -122,9 +122,9 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public AppResponse getClassifyList(String categoryParentId) {
         List<CateGoryInfo> cateGoryInfoList = new ArrayList<>(16);
-        if(null != categoryParentId && !"".equals(categoryParentId)){
             //若父分类传 0 则获取一级分类 使用new Integer(0).toString 是为了避免魔法值
-            if(new Integer(0).toString().equals(categoryParentId)){
+            if(new Integer(0).toString().equals(categoryParentId)||
+                    null == categoryParentId || "".equals(categoryParentId)){
                 cateGoryInfoList = indexMapper.getParentCategory();
             }else {
                 cateGoryInfoList = indexMapper.getCategoryByParent(categoryParentId);
@@ -135,8 +135,5 @@ public class IndexServiceImpl implements IndexService {
             }else {
                 return  AppResponse.success("分类获取成功",cateGoryInfoList);
             }
-        }else {
-            return  AppResponse.bizError("未知参数错误！");
-        }
     }
 }
